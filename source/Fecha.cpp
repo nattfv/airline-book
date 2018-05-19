@@ -26,9 +26,12 @@ Fecha::~Fecha()
 
 Fecha& Fecha::operator=(const Fecha & _f) //Supongo que _f ya debe de venir verificada
 {
-	dia = _f.dia;
-	mes = _f.mes;
-	anio = _f.anio;
+	if (this != &_f)
+	{
+		dia = _f.dia;
+		mes = _f.mes;
+		anio = _f.anio;
+	}
 	return *this;
 }
 

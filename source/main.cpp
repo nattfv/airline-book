@@ -3,6 +3,7 @@
 #include"Destino.h"
 #include"Piloto.h"
 #include"Vendedor.h"
+#include"MatrizAsiento.h"
 using namespace std;
 
 int main()
@@ -44,7 +45,13 @@ int main()
 	Vendedor* vendedor1 = new Vendedor("Paulo", "Barrantes", "Aguilar", "V-001");
 	cout << vendedor1->mostrarVendedor() << endl;
 	//-------------------------------------------------------------------------------------------------
+	//Prueba de MatrizAsiento
+	MatrizAsiento* MAP = new MatrizAsiento(12, 4);
+	cout << MAP->toString();
+	//-------------------------------------------------------------------------------------------------
 	//Eliminacion
+	delete MAP;
+	delete vendedor1;
 	delete piloto1;
 	delete destino3;
 	delete destino2;

@@ -1,6 +1,8 @@
 #include<iostream>
 #include"Fecha.h"
 #include"Destino.h"
+#include"Piloto.h"
+#include"Vendedor.h"
 using namespace std;
 
 int main()
@@ -35,9 +37,15 @@ int main()
 	*destino1 = *destino3;
 	cout << destino1->mostrarDestino();
 	cout << destino3->mostrarDestino();
-
+	//-------------------------------------------------------------------------------------------------
+	//Prueba de Piloto
+	Piloto* piloto1 = new Piloto("Andres", "Jimenez", "Elizondo", "P-001");
+	cout << piloto1->mostrarPiloto() << endl;
+	Vendedor* vendedor1 = new Vendedor("Paulo", "Barrantes", "Aguilar", "V-001");
+	cout << vendedor1->mostrarVendedor() << endl;
 	//-------------------------------------------------------------------------------------------------
 	//Eliminacion
+	delete piloto1;
 	delete destino3;
 	delete destino2;
 	delete destino1;

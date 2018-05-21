@@ -47,6 +47,7 @@ int main()
 	//-------------------------------------------------------------------------------------------------
 	//Prueba de MatrizAsiento
 	MatrizAsiento* MAP = new MatrizAsiento(12, 4);
+	MAP->darFormatoTodosAsientos();
 	cout << MAP->toString();
 	//-------------------------------------------------------------------------------------------------
 	//Eliminacion

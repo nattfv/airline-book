@@ -44,3 +44,11 @@ string MatrizAsiento::toString()
 			s << matriz[i][j]->toString() << endl;
 	return s.str();
 }
+
+void MatrizAsiento::darFormatoTodosAsientos()
+{
+	ControlAsiento control(columna);
+	for (int i = 0; i < fila; i++)
+		for (int j = 0; j < columna; j++)
+			control.darFormatoAsiento(*matriz[i][j], j, i);
+}

@@ -1,5 +1,6 @@
 #pragma once
 #include"Asiento.h"
+#include"ControlAsiento.h"
 
 class MatrizAsiento {
 private:
@@ -13,4 +14,5 @@ public:
 	int getColumna();
 	Asiento* getAsiento(int _fila, int _columna);
 	string toString();
+	void darFormatoTodosAsientos();
 };

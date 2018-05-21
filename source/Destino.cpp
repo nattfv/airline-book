@@ -24,8 +24,8 @@ Destino::Destino(const Destino & _d)
 {
 	origen = _d.origen;
 	destino = _d.destino;
-	*partida = *new Fecha(*_d.partida);
-	*regreso = *new Fecha(*_d.regreso);
+	partida = new Fecha(*_d.partida);
+	regreso = new Fecha(*_d.regreso);
 }
 
 Destino::~Destino()
@@ -42,12 +42,18 @@ Destino & Destino::operator=(const Destino & _d)
 		delete regreso;
 		origen = _d.origen;
 		destino = _d.destino;
-		*partida = *new Fecha(*_d.partida);
-		*regreso = *new Fecha(*_d.regreso);
+		partida = new Fecha(*_d.partida);
+		regreso = new Fecha(*_d.regreso);
 	}
+	return *this;
 }
 
 string Destino::mostrarDestino()
 {
-	return string();
+	stringstream s;
+	s << "Origen: " << origen << "\n"
+		<< "Destino: " << destino << "\n"
+		<< "Fecha de partida: " << partida->mostrarFormatoFecha() << "\n"
+		<< "Fecha de regreso: " << regreso->mostrarFormatoFecha() << "\n";
+	return s.str();
 }

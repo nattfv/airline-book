@@ -1,5 +1,6 @@
 #include<iostream>
 #include"Fecha.h"
+#include"Destino.h"
 using namespace std;
 
 int main()
@@ -24,9 +25,24 @@ int main()
 		cout << "Error tipo: " <<x << endl;
 	}
 	//-------------------------------------------------------------------------------------------------
+	//Prueba de Destino
+	Destino* destino1 = new Destino("Alajuela, Costa Rica", "New Jersey, Estados Unidos", fecha1, fecha2);
+	cout << destino1->mostrarDestino();
+	Destino* destino2 = new Destino(*destino1);
+	cout << destino2->mostrarDestino();
+	Destino* destino3 = new Destino("Alajuela, Costa Rica", "Berlin, Alemania", new Fecha(*fecha1), new Fecha(*fecha2));
+	cout << destino3->mostrarDestino();
+	*destino1 = *destino3;
+	cout << destino1->mostrarDestino();
+	cout << destino3->mostrarDestino();
+
+	//-------------------------------------------------------------------------------------------------
 	//Eliminacion
-	delete fecha1;
-	delete fecha2;
+	delete destino3;
+	delete destino2;
+	delete destino1;
+	//delete fecha1;
+	//delete fecha2;
 	delete fecha3;
 	system("pause");
 	return 0;

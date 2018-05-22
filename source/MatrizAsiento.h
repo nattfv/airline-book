@@ -10,6 +10,8 @@ private:
 public:
 	MatrizAsiento(int _fila, int _columna);
 	~MatrizAsiento();
+	MatrizAsiento(const MatrizAsiento& _ma);
+	MatrizAsiento& operator=(const MatrizAsiento& _ma);
 	int getFila();
 	int getColumna();
 	Asiento* getAsiento(int _fila, int _columna);

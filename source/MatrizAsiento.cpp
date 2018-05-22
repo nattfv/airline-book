@@ -21,6 +21,24 @@ MatrizAsiento::~MatrizAsiento()
 	delete[] matriz;
 }
 
+MatrizAsiento::MatrizAsiento(const MatrizAsiento & _ma)
+{
+	fila = _ma.fila;
+	columna = _ma.columna;
+
+	matriz = new Asiento**[fila];
+	for (int i = 0; i < fila; i++)
+		matriz[i] = new Asiento*[columna];
+	for (int i = 0; i < fila; i++)
+		for (int j = 0; j < columna; j++)
+			matriz[i][j] = new Asiento(*_ma.matriz[i][j]);
+}
+
+MatrizAsiento & MatrizAsiento::operator=(const MatrizAsiento & _ma)
+{
+	return *this;
+}
+
 int MatrizAsiento::getFila()
 {
 	return fila;

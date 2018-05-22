@@ -4,6 +4,7 @@
 #include"Piloto.h"
 #include"Vendedor.h"
 #include"MatrizAsiento.h"
+#include"Avion.h"
 using namespace std;
 
 int main()
@@ -46,12 +47,26 @@ int main()
 	cout << vendedor1->mostrarVendedor() << endl;
 	//-------------------------------------------------------------------------------------------------
 	//Prueba de MatrizAsiento
-	MatrizAsiento* MAP = new MatrizAsiento(12, 4);
-	MAP->darFormatoTodosAsientos();
-	cout << MAP->toString();
+	MatrizAsiento* MAP1 = new MatrizAsiento(12, 4);
+	MAP1->darFormatoTodosAsientos();
+	cout << MAP1->toString();
+	MatrizAsiento* MAP2 = new MatrizAsiento(12, 7);
+	MAP2->darFormatoTodosAsientos();
+	cout << MAP2->toString();
+	//-------------------------------------------------------------------------------------------------
+	//Prueba de Avion
+	Avion* avion1 = new Avion("AP-001", "pasajero", "pequenio");
+	cout << avion1->mostrarAvion();
+	avion1->crearAsientos();
+	cout << avion1->obtenerPasajeros()->toString();
+	Avion* avion2 = new Avion("AC-001", "carga", "grande", 90000);
+	cout << avion2->mostrarAvion();
 	//-------------------------------------------------------------------------------------------------
 	//Eliminacion
-	delete MAP;
+	delete avion2;
+	delete avion1;
+	delete MAP2;
+	delete MAP1;
 	delete vendedor1;
 	delete piloto1;
 	delete destino3;

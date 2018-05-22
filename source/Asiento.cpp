@@ -3,13 +3,30 @@
 Asiento::Asiento() {
 	numero = 0;
 	letra = ' ';
-	ocupado = false;
+	disponible = true;
 }
-Asiento::Asiento(int _numero, char _letra, bool _ocupado) : 
-	numero(_numero), letra(_letra), ocupado(_ocupado)
+Asiento::Asiento(int _numero, char _letra, bool _disponible) :
+	numero(_numero), letra(_letra), disponible(_disponible)
 {
 }
+Asiento::Asiento(const Asiento & _a)
+{
+	numero = _a.numero;
+	letra = _a.letra;
+	disponible = _a.disponible;
+}
 Asiento::~Asiento() {}
+
+Asiento & Asiento::operator=(const Asiento & _a)
+{
+	if (this != &_a)
+	{
+		numero = _a.numero;
+		letra = _a.letra;
+		disponible = _a.disponible;
+	}
+	return *this;
+}
 
 int Asiento::getNumero() {
 	return numero;
@@ -17,8 +34,8 @@ int Asiento::getNumero() {
 char Asiento::getLetra() {
 	return letra;
 }
-bool Asiento::getOcupado() {
-	return ocupado;
+bool Asiento::getDisponible() {
+	return disponible;
 }
 void Asiento::setNumero(int _numero) {
 	numero = _numero;
@@ -26,8 +43,8 @@ void Asiento::setNumero(int _numero) {
 void Asiento::setLetra(char _letra) {
 	letra = _letra;
 }
-void Asiento::setOcupado(bool _ocupado) {
-	ocupado = _ocupado;
+void Asiento::setDisponible(bool _disponible) {
+	disponible = _disponible;
 }
 
 string Asiento::toString() {

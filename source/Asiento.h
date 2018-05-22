@@ -6,16 +6,18 @@ class Asiento {
 private:
 	int numero; //fila
 	char letra; //columna
-	bool ocupado;
+	bool disponible;
 public:
 	Asiento();
-	Asiento(int _numero, char _letra, bool _ocupado = false);
+	Asiento(int _numero, char _letra, bool _disponible = true);
+	Asiento(const Asiento& _a);
 	~Asiento();
+	Asiento& operator=(const Asiento& _a);
 	int getNumero();
 	char getLetra();
-	bool getOcupado();
+	bool getDisponible();
 	void setNumero(int _numero);
 	void setLetra(char _letra);
-	void setOcupado(bool _ocupado);
+	void setDisponible(bool _disponible);
 	string toString();
 };

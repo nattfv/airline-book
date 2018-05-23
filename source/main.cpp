@@ -7,6 +7,7 @@
 #include"Avion.h"
 #include"Vuelo.h"
 #include"Reservacion.h"
+#include"Lista.h"
 using namespace std;
 
 int main()
@@ -111,7 +112,15 @@ int main()
 	cout << reserva1->mostrarReservacion();
 	cout << reserva2->mostrarReservacion();
 	//-------------------------------------------------------------------------------------------------
+	//Prueba de Plantillas
+	Lista<Destino>* listaDestinos = new Lista<Destino>();
+	listaDestinos->agregarElemento(destino1);
+	listaDestinos->agregarElemento(destino2);
+	listaDestinos->agregarElemento(destino3);
+	cout << listaDestinos->toString();
+	//-------------------------------------------------------------------------------------------------
 	//Eliminacion
+	delete listaDestinos;
 	delete cliente1;
 	delete reserva2;
 	delete reserva1;
@@ -123,12 +132,12 @@ int main()
 	delete MAP1;
 	delete vendedor1;
 	delete piloto1;
-	delete destino3;
-	delete destino2;
-	delete destino1;
+	//delete destino3;
+	//delete destino2;
+	//delete destino1;
 	//delete fecha1;
 	//delete fecha2;
-	delete fecha3;
+	//delete fecha3;
 	system("pause");
 	return 0;
 }

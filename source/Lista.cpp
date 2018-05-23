@@ -31,7 +31,7 @@ Lista<T> Lista<T>::operator=(const Lista<T>& l)
 {
 	if (this != &l)
 	{
-		elimnarTodos();
+		eliminarTodos();
 		Nodo<T>* corre = l.ppio;
 		while (corre)
 		{

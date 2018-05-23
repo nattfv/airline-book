@@ -47,7 +47,7 @@ void Asiento::setDisponible(bool _disponible) {
 	disponible = _disponible;
 }
 
-string Asiento::toString() {
+string Asiento::mostrarAsiento() {
 	stringstream s;
 	s << "Asiento: " << letra << numero;
 	return s.str();

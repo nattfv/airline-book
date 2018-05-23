@@ -19,5 +19,5 @@ public:
 	void setNumero(int _numero);
 	void setLetra(char _letra);
 	void setDisponible(bool _disponible);
-	string toString();
+	string mostrarAsiento();
 };

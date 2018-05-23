@@ -70,3 +70,23 @@ void MatrizAsiento::darFormatoTodosAsientos()
 		for (int j = 0; j < columna; j++)
 			control.darFormatoAsiento(*matriz[i][j], j, i);
 }
+
+int MatrizAsiento::totalAsientos()
+{
+	return fila*columna;
+}
+
+int MatrizAsiento::cantidadAsientosVendidos()
+{
+	int contador = 0;
+	for (int i = 0; i < fila; i++)
+		for (int j = 0; j < columna; j++)
+			if (!matriz[i][j]->getDisponible())
+				contador++;
+	return contador;
+}
+
+int MatrizAsiento::cantidadAsientosDisponibles()
+{
+	return totalAsientos() - cantidadAsientosVendidos();
+}

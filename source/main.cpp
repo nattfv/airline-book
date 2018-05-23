@@ -6,6 +6,7 @@
 #include"MatrizAsiento.h"
 #include"Avion.h"
 #include"Vuelo.h"
+#include"Reservacion.h"
 using namespace std;
 
 int main()
@@ -27,7 +28,7 @@ int main()
 	}
 	catch (int x)
 	{
-		cout << "Error tipo: " <<x << endl;
+		cout << "Error tipo: " << x << endl;
 	}
 	//-------------------------------------------------------------------------------------------------
 	//Prueba de Destino
@@ -64,6 +65,7 @@ int main()
 	cout << avion1->obtenerPasajeros()->toString();
 	Avion* avion2 = new Avion("AC-001", "carga", "grande", 90000);
 	cout << avion2->mostrarAvion();
+	//-------------------------------------------------------------------------------------------------
 	//Prueba de vuelo
 	Vuelo* vuelo1 = new Vuelo("V-001", avion1, destino3, piloto1);
 	vuelo1->prepararAvion();
@@ -71,9 +73,43 @@ int main()
 	Vuelo* vuelo2 = new Vuelo("V-002", avion2, destino2, piloto1);
 	vuelo2->prepararAvion();
 	cout << vuelo2->mostrarVuelo();
-
+	//-------------------------------------------------------------------------------------------------
+	//Prueba de Reservacion
+	Reservacion* reserva1 = new Reservacion(vuelo1, vendedor1);
+	if (reserva1->estaDisponibleAsiento(0, 0)) //Primera reserva
+	{
+		if (reserva1->puedoReservar(0, 0))
+			cout << "Reservacion Exitosa\n";
+		else
+			cout << "Ha excedido su limite de reservas\n";
+	}
+	else
+		cout << "Este asiento ya se encuentra ocupado\n";
+	if (reserva1->estaDisponibleAsiento(0, 1)) //Segunda reserva
+	{
+		if (reserva1->puedoReservar(0, 1))
+			cout << "Reservacion Exitosa\n";
+		else
+			cout << "Ha excedido su limite de reservas\n";
+	}
+	else
+		cout << "Este asiento ya se encuentra ocupado\n";
+	Reservacion* reserva2 = new Reservacion(vuelo1, vendedor1);
+	if (reserva2->estaDisponibleAsiento(0, 0)) //Tercera reserva, pero repetida
+	{
+		if (reserva2->puedoReservar(0, 0))
+			cout << "Reservacion Exitosa\n";
+		else
+			cout << "Ha excedido su limite de reservas\n";
+	}
+	else
+		cout << "Este asiento ya se encuentra ocupado\n";
+	cout << reserva1->mostrarReservacion();
+	cout << reserva2->mostrarReservacion();
 	//-------------------------------------------------------------------------------------------------
 	//Eliminacion
+	delete reserva2;
+	delete reserva1;
 	delete vuelo2;
 	delete vuelo1;
 	delete avion2;

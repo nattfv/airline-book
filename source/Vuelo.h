@@ -16,4 +16,7 @@ public:
 	~Vuelo();
 	void prepararAvion();
 	string mostrarVuelo();
+	Avion* obtenerAvion();
+	Destino* obtenerDestino();
+	Piloto* obtenerPiloto();
 };

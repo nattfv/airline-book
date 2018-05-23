@@ -31,9 +31,24 @@ void Vuelo::prepararAvion()
 string Vuelo::mostrarVuelo()
 {
 	stringstream s;
-	s << "Identificacion: " << identificacion << "\n";
+	s << "Identificacion del vuelo: " << identificacion << "\n";
 	s << destino->mostrarDestino()
 		<< avion->mostrarAvion()
 		<< piloto->mostrarPiloto();
 	return s.str();
+}
+
+Avion * Vuelo::obtenerAvion()
+{
+	return avion;
+}
+
+Destino * Vuelo::obtenerDestino()
+{
+	return destino;
+}
+
+Piloto * Vuelo::obtenerPiloto()
+{
+	return piloto;
 }

@@ -49,7 +49,7 @@ int MatrizAsiento::getColumna()
 	return columna;
 }
 
-Asiento * MatrizAsiento::getAsiento(int _fila, int _columna)
+Asiento * MatrizAsiento::obtenerAsiento(int _fila, int _columna)
 {
 	return matriz[_fila][_columna];
 }
@@ -59,7 +59,7 @@ string MatrizAsiento::toString()
 	stringstream s;
 	for (int i = 0; i < fila; i++)
 		for (int j = 0; j < columna; j++)
-			s << matriz[i][j]->toString() << endl;
+			s << matriz[i][j]->mostrarAsiento() << endl;
 	return s.str();
 }
 

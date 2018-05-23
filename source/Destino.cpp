@@ -57,3 +57,10 @@ string Destino::mostrarDestino()
 		<< "Fecha de regreso: " << regreso->mostrarFormatoFecha() << "\n";
 	return s.str();
 }
+
+ostream & operator<<(ostream & out, Destino & _d)
+{
+	out << _d.origen << "\t" << *_d.partida << "\n";
+	out << _d.destino << "\t" << *_d.regreso << "\n";
+	return out;
+}

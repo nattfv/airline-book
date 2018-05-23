@@ -83,3 +83,9 @@ bool Fecha::esBisiesto(int _anio)
 	else
 		return false;
 }
+
+ostream & operator<<(ostream & out, Fecha & _f)
+{
+	out << _f.mostrarFormatoFecha();
+	return out;
+}

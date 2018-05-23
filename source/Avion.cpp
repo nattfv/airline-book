@@ -14,6 +14,10 @@ Avion::Avion(string _codigo, string _transporte, string _tamanio, double _pesoCa
 {
 }
 
+/*
+	Recordar inicializar los pasajeros con la ayuda
+	del metodo crearAsientos()
+*/
 Avion::Avion(const Avion & _a)
 {
 	codigo = _a.codigo;
@@ -36,11 +40,14 @@ Avion::~Avion()
 */
 void Avion::crearAsientos()
 {
-	if (tamanio == "pequenio")
-		pasajeros = new  MatrizAsiento(12, 4);
-	else
-		pasajeros = new MatrizAsiento(12, 7);
-	pasajeros->darFormatoTodosAsientos();
+	if (transporte == "pasajero")
+	{
+		if (tamanio == "pequenio")
+			pasajeros = new  MatrizAsiento(12, 4);
+		else
+			pasajeros = new MatrizAsiento(12, 7);
+		pasajeros->darFormatoTodosAsientos();
+	}
 }
 
 string Avion::mostrarAvion()

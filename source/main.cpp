@@ -5,6 +5,7 @@
 #include"Vendedor.h"
 #include"MatrizAsiento.h"
 #include"Avion.h"
+#include"Vuelo.h"
 using namespace std;
 
 int main()
@@ -43,6 +44,8 @@ int main()
 	//Prueba de Piloto
 	Piloto* piloto1 = new Piloto("Andres", "Jimenez", "Elizondo", "P-001");
 	cout << piloto1->mostrarPiloto() << endl;
+	//-------------------------------------------------------------------------------------------------
+	//Prueba de Vendedor
 	Vendedor* vendedor1 = new Vendedor("Paulo", "Barrantes", "Aguilar", "V-001");
 	cout << vendedor1->mostrarVendedor() << endl;
 	//-------------------------------------------------------------------------------------------------
@@ -61,8 +64,18 @@ int main()
 	cout << avion1->obtenerPasajeros()->toString();
 	Avion* avion2 = new Avion("AC-001", "carga", "grande", 90000);
 	cout << avion2->mostrarAvion();
+	//Prueba de vuelo
+	Vuelo* vuelo1 = new Vuelo("V-001", avion1, destino3, piloto1);
+	vuelo1->prepararAvion();
+	cout << vuelo1->mostrarVuelo();
+	Vuelo* vuelo2 = new Vuelo("V-002", avion2, destino2, piloto1);
+	vuelo2->prepararAvion();
+	cout << vuelo2->mostrarVuelo();
+
 	//-------------------------------------------------------------------------------------------------
 	//Eliminacion
+	delete vuelo2;
+	delete vuelo1;
 	delete avion2;
 	delete avion1;
 	delete MAP2;

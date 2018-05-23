@@ -19,7 +19,7 @@ public:
 	Avion(string _codigo, string _transporte, string _tamanio, double _pesoCarga); //avion carga
 	Avion(const Avion& _a);
 	~Avion();
-	void crearAsientos();
+	void crearAsientos(); //pendiente: probar para que sea bool
 	string mostrarAvion();
 	MatrizAsiento* obtenerPasajeros();
 };

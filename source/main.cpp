@@ -50,6 +50,10 @@ int main()
 	Vendedor* vendedor1 = new Vendedor("Paulo", "Barrantes", "Aguilar", "V-001");
 	cout << vendedor1->mostrarVendedor() << endl;
 	//-------------------------------------------------------------------------------------------------
+	//Prueba de Cliente
+	Cliente* cliente1 = new Cliente("Andres", "Jimenez", "Elizondo", "116930775");
+	cout << cliente1->mostrarCliente() << endl;
+	//-------------------------------------------------------------------------------------------------
 	//Prueba de MatrizAsiento
 	MatrizAsiento* MAP1 = new MatrizAsiento(12, 4);
 	MAP1->darFormatoTodosAsientos();
@@ -75,8 +79,8 @@ int main()
 	cout << vuelo2->mostrarVuelo();
 	//-------------------------------------------------------------------------------------------------
 	//Prueba de Reservacion
-	Reservacion* reserva1 = new Reservacion(vuelo1, vendedor1);
-	if (reserva1->estaDisponibleAsiento(0, 0)) //Primera reserva
+	Reservacion* reserva1 = new Reservacion(vuelo1, vendedor1, new Cliente(*cliente1));
+	if (vuelo1->estaDisponibleAsiento(0, 0)) //Primera reserva
 	{
 		if (reserva1->puedoReservar(0, 0))
 			cout << "Reservacion Exitosa\n";
@@ -85,7 +89,7 @@ int main()
 	}
 	else
 		cout << "Este asiento ya se encuentra ocupado\n";
-	if (reserva1->estaDisponibleAsiento(0, 1)) //Segunda reserva
+	if (vuelo1->estaDisponibleAsiento(0, 1)) //Segunda reserva
 	{
 		if (reserva1->puedoReservar(0, 1))
 			cout << "Reservacion Exitosa\n";
@@ -94,8 +98,8 @@ int main()
 	}
 	else
 		cout << "Este asiento ya se encuentra ocupado\n";
-	Reservacion* reserva2 = new Reservacion(vuelo1, vendedor1);
-	if (reserva2->estaDisponibleAsiento(0, 0)) //Tercera reserva, pero repetida
+	Reservacion* reserva2 = new Reservacion(vuelo1, vendedor1, new Cliente(*cliente1));
+	if (vuelo1->estaDisponibleAsiento(0, 0)) //Tercera reserva, pero repetida
 	{
 		if (reserva2->puedoReservar(0, 0))
 			cout << "Reservacion Exitosa\n";
@@ -108,6 +112,7 @@ int main()
 	cout << reserva2->mostrarReservacion();
 	//-------------------------------------------------------------------------------------------------
 	//Eliminacion
+	delete cliente1;
 	delete reserva2;
 	delete reserva1;
 	delete vuelo2;

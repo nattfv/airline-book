@@ -52,3 +52,29 @@ Piloto * Vuelo::obtenerPiloto()
 {
 	return piloto;
 }
+
+/*
+	Verifica si el asiento seleccionado esta disponible
+*/
+bool Vuelo::estaDisponibleAsiento(int _fila, int _columna)
+{
+	//Avion* avion = vuelo->obtenerAvion(); //avion asignado al vuelo
+	MatrizAsiento* asientos = avion->obtenerPasajeros(); //los asientos actualizados del avion
+	Asiento* posibleAsiento = asientos->obtenerAsiento(_fila, _columna); //el asiento que quiero reservar
+	return posibleAsiento->getDisponible(); //responsablidad unica
+}
+
+//bool Vuelo::puedoReservar(int _fila, int _columna)
+//{
+//	//Avion* avion = vuelo->obtenerAvion(); //avion asignado al vuelo
+//	MatrizAsiento* asientos = avion->obtenerPasajeros(); //los asientos actualizados del avion
+//	Asiento* posibleAsiento = asientos->obtenerAsiento(_fila, _columna); //el asiento que quiero reservar
+//	if (asientosReservados->agregar(posibleAsiento))
+//	{
+//		cantidadReservados++;
+//		posibleAsiento->setDisponible(false); //importante, para no volver a comprar el mismo
+//		return true;
+//	}
+//	else
+//		return false;
+//}

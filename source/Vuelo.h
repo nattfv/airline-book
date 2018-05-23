@@ -19,4 +19,7 @@ public:
 	Avion* obtenerAvion();
 	Destino* obtenerDestino();
 	Piloto* obtenerPiloto();
+	//la responsabilidad de disponibilidad la tiene el vuelo
+	bool estaDisponibleAsiento(int _fila, int _columna);
+	//bool puedoReservar(int _fila, int _columna);
 };

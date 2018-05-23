@@ -32,6 +32,6 @@ string Piloto::mostrarPiloto()
 	stringstream s;
 	s << "Identificacion del piloto: " << identificacion << "\n"
 		<< "Nombre: " << nombre << "\n"
-		<< "Apellidos: " << primerApellido << " " << segundoApellido;
+		<< "Apellidos: " << primerApellido << " " << segundoApellido << "\n";
 	return s.str();
 }

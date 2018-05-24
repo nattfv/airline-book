@@ -21,7 +21,7 @@ string Reservacion::mostrarReservacion()
 	stringstream s;
 	s << "Reservados: " << cantidadReservados << " asientos\n"
 		<< asientosReservados->mostrarAsientosReservados()
-		<< "Vendedor\n" << vendedor->mostrarVendedor() << "\n"
+		/*<< "Vendedor\n" << vendedor->mostrarVendedor() << "\n"*/
 		<< "Cliente\n" << cliente->mostrarCliente() << "\n"
 		<< "Vuelo\n" << vuelo->mostrarVuelo();
 	return s.str();

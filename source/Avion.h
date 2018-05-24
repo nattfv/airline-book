@@ -22,4 +22,5 @@ public:
 	void crearAsientos(); //pendiente: probar para que sea bool
 	string mostrarAvion();
 	MatrizAsiento* obtenerPasajeros();
+	friend ostream& operator<<(ostream& out, Avion& _a);
 };

@@ -10,4 +10,5 @@ public:
 	~Vendedor();
 	Vendedor& operator=(const Vendedor& _p);
 	string mostrarVendedor();
+	friend ostream& operator<<(ostream& out, Vendedor& _p);
 };

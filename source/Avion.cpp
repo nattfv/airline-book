@@ -65,3 +65,9 @@ MatrizAsiento * Avion::obtenerPasajeros()
 {
 	return pasajeros;
 }
+
+ostream & operator<<(ostream & out, Avion & _a)
+{
+	out << _a.codigo << "\t" << _a.transporte << "\t" << _a.tamanio << "\n";
+	return out;
+}

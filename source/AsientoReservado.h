@@ -14,4 +14,5 @@ public:
 	string mostrarAsientosReservados();
 	int getCantidad();
 	int getTamanio();
+	friend ostream& operator<<(ostream& out, AsientoReservado& _a);
 };

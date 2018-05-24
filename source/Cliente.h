@@ -9,4 +9,5 @@ public:
 	~Cliente();
 	Cliente& operator=(const Cliente& _p);
 	string mostrarCliente();
+	friend ostream& operator<<(ostream& out, Cliente& _p);
 };

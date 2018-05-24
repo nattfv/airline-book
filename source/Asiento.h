@@ -20,4 +20,5 @@ public:
 	void setLetra(char _letra);
 	void setDisponible(bool _disponible);
 	string mostrarAsiento();
+	friend ostream& operator<<(ostream& out, Asiento& _a);
 };

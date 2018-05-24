@@ -35,3 +35,10 @@ string Piloto::mostrarPiloto()
 		<< "Apellidos: " << primerApellido << " " << segundoApellido << "\n";
 	return s.str();
 }
+
+ostream & operator<<(ostream & out, Piloto & _p)
+{
+	out << _p.identificacion << "\t" << _p.nombre << "\t" 
+		<< _p.primerApellido << "\t" << _p.segundoApellido << "\n";
+	return out;
+}

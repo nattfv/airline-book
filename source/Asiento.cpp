@@ -52,3 +52,9 @@ string Asiento::mostrarAsiento() {
 	s << "Asiento: " << letra << numero;
 	return s.str();
 }
+
+ostream & operator<<(ostream & out, Asiento & _a)
+{
+	out << _a.numero << _a.letra;
+	return out;
+}

@@ -10,4 +10,5 @@ public:
 	~Piloto();
 	Piloto& operator=(const Piloto& _p);
 	string mostrarPiloto();
+	friend ostream& operator<<(ostream& out, Piloto& _p);
 };

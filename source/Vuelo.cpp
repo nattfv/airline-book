@@ -32,9 +32,9 @@ string Vuelo::mostrarVuelo()
 {
 	stringstream s;
 	s << "Identificacion del vuelo: " << identificacion << "\n";
-	s << destino->mostrarDestino()
-		<< avion->mostrarAvion()
-		<< piloto->mostrarPiloto();
+	s << destino->mostrarDestino();
+		//<< avion->mostrarAvion()
+		//<< piloto->mostrarPiloto();
 	return s.str();
 }
 
@@ -64,17 +64,9 @@ bool Vuelo::estaDisponibleAsiento(int _fila, int _columna)
 	return posibleAsiento->getDisponible(); //responsablidad unica
 }
 
-//bool Vuelo::puedoReservar(int _fila, int _columna)
-//{
-//	//Avion* avion = vuelo->obtenerAvion(); //avion asignado al vuelo
-//	MatrizAsiento* asientos = avion->obtenerPasajeros(); //los asientos actualizados del avion
-//	Asiento* posibleAsiento = asientos->obtenerAsiento(_fila, _columna); //el asiento que quiero reservar
-//	if (asientosReservados->agregar(posibleAsiento))
-//	{
-//		cantidadReservados++;
-//		posibleAsiento->setDisponible(false); //importante, para no volver a comprar el mismo
-//		return true;
-//	}
-//	else
-//		return false;
-//}
+ostream & operator<<(ostream & out, Vuelo & _v)
+{
+	out << _v.identificacion << "\n"
+		<< *_v.destino;
+	return out;
+}

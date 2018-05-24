@@ -30,8 +30,14 @@ Cliente & Cliente::operator=(const Cliente & _p)
 string Cliente::mostrarCliente()
 {
 	stringstream s;
-	s << "Identificacion del cliente: " << identificacion << "\n"
-		<< "Nombre: " << nombre << "\n"
-		<< "Apellidos: " << primerApellido << " " << segundoApellido << "\n";
+	s << nombre << " " << primerApellido << " " << segundoApellido << "\n";
+	s << "Identificacion: " << identificacion;
 	return s.str();
+}
+
+ostream & operator<<(ostream & out, Cliente & _p)
+{
+	out << _p.identificacion << "\t" << _p.nombre << "\t"
+		<< _p.primerApellido << "\t" << _p.segundoApellido << "\n";
+	return out;
 }

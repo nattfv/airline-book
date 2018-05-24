@@ -13,7 +13,7 @@ AsientoReservado::~AsientoReservado()
 }
 
 /*
-	es creado a partir del constructor copia
+	El asiento es creado a partir del constructor copia
 */
 bool AsientoReservado::agregar(Asiento * _asiento)
 {
@@ -41,4 +41,12 @@ int AsientoReservado::getCantidad()
 int AsientoReservado::getTamanio()
 {
 	return tamanio;
+}
+
+ostream & operator<<(ostream & out, AsientoReservado & _a)
+{
+	for (int i = 0; i < _a.cantidad; i++)
+		out << *_a.asientos[i] << " ";
+	out << "\n";
+	return out;
 }

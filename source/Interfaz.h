@@ -1,20 +1,16 @@
 #pragma once
 #include<iomanip>
 #include<iostream>
+#include<string>
 using namespace std;
 class Interfaz
 {
 public:
 	//OPCIONES: 3
 	static int menuPrincipal();
-	//OPCIONES:4
+	//OPCIONES:6
 	static int menuAdministracion();
-	//OPCIONES: 4
-	static int menuReporte();
-	//OPCIONES: 4
-	static int menuReporteArchivo();
-
-	static void escrituraExitosa();
-
+	//OPCIONES: 5
+	static int menuAdministracionDe(string _clase);
 	static void opcionIncorrecta();
 };

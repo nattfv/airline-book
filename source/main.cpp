@@ -46,6 +46,8 @@ int main()
 	//Prueba de Piloto
 	Piloto* piloto1 = new Piloto("Andres", "Jimenez", "Elizondo", "P-001");
 	cout << piloto1->mostrarPiloto() << endl;
+	Piloto* piloto2 = new Piloto("Juan", "Mora", "Elizondo", "P-002");
+	cout << piloto2->mostrarPiloto() << endl;
 	//-------------------------------------------------------------------------------------------------
 	//Prueba de Vendedor
 	Vendedor* vendedor1 = new Vendedor("Paulo", "Barrantes", "Aguilar", "V-001");
@@ -118,26 +120,39 @@ int main()
 	listaDestinos->agregarElemento(destino2);
 	listaDestinos->agregarElemento(destino3);
 	cout << listaDestinos->toString();
+	Lista<Piloto>* listaPilotos = new Lista<Piloto>();
+	listaPilotos->agregarElemento(piloto1);
+	listaPilotos->agregarElemento(piloto2);
+	cout << listaPilotos->toString();
+	Lista<Avion>* listaAviones = new Lista<Avion>();
+	listaAviones->agregarElemento(avion1);
+	listaAviones->agregarElemento(avion2);
+	cout << listaAviones->toString();
+	Lista<Vuelo>* listaVuelos = new Lista<Vuelo>();
+	listaVuelos->agregarElemento(vuelo1);
+	listaVuelos->agregarElemento(vuelo2);
+	cout << listaVuelos->toString();
+	Lista<Cliente>* listaCliente = new Lista<Cliente>();
+	listaCliente->agregarElemento(cliente1);
+	cout << listaCliente->toString();
+	Lista<Vendedor>* listaVendedor = new Lista<Vendedor>();
+	listaVendedor->agregarElemento(vendedor1);
+	cout << listaVendedor->toString();
+	Lista<Reservacion>* listaReservacion = new Lista<Reservacion>();
+	listaReservacion->agregarElemento(reserva1);
+	listaReservacion->agregarElemento(reserva2);
+	cout << listaReservacion->toString();
 	//-------------------------------------------------------------------------------------------------
 	//Eliminacion
+	delete listaPilotos;
 	delete listaDestinos;
-	delete cliente1;
-	delete reserva2;
-	delete reserva1;
-	delete vuelo2;
-	delete vuelo1;
-	delete avion2;
-	delete avion1;
+	delete listaAviones;
+	delete listaVuelos;
+	delete listaCliente;
+	delete listaVendedor;
+	delete listaReservacion;
 	delete MAP2;
 	delete MAP1;
-	delete vendedor1;
-	delete piloto1;
-	//delete destino3;
-	//delete destino2;
-	//delete destino1;
-	//delete fecha1;
-	//delete fecha2;
-	//delete fecha3;
 	system("pause");
 	return 0;
 }

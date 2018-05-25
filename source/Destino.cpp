@@ -64,3 +64,12 @@ ostream & operator<<(ostream & out, Destino & _d)
 	out << _d.destino << "\t" << *_d.regreso << "\n";
 	return out;
 }
+
+fstream & operator<<(fstream & archivo, Destino & _d)
+{
+	archivo << _d.origen << "\t";
+	archivo << _d.origen << "\n";
+	archivo << *_d.partida;
+	archivo << *_d.regreso;
+	return archivo;
+}

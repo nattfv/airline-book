@@ -18,4 +18,5 @@ public:
 	Destino& operator=(const Destino& _d);
 	string mostrarDestino();
 	friend ostream& operator<<(ostream& out, Destino& _d);
+	friend fstream& operator<<(fstream& archivo, Destino &_d);
 };

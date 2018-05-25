@@ -2,6 +2,7 @@
 #include<time.h>
 #include<string>
 #include<sstream>
+#include<fstream>
 using namespace std;
 
 class Fecha
@@ -22,4 +23,5 @@ public:
 	void verificarFecha(int _dia, int _mes, int _anio);
 	bool esBisiesto(int _anio);
 	friend ostream& operator<<(ostream& out, Fecha& _f);
+	friend fstream& operator<<(fstream& archivo, Fecha &_d);
 };

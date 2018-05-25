@@ -89,3 +89,11 @@ ostream & operator<<(ostream & out, Fecha & _f)
 	out << _f.mostrarFormatoFecha();
 	return out;
 }
+
+fstream & operator<<(fstream & archivo, Fecha & _d)
+{
+	archivo << _d.dia << "\t";
+	archivo << _d.mes << "\t";
+	archivo << _d.anio << "\n";
+	return archivo;
+}

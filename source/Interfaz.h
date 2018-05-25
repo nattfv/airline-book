@@ -11,6 +11,7 @@ public:
 	//OPCIONES:6
 	static int menuAdministracion();
 	//OPCIONES: 5
-	static int menuAdministracionDe(string _clase);
+	static int menuAdministracionDe(string clase);
 	static void opcionIncorrecta();
+	static void seleccionarElemento(string clase , string accion);
 };

@@ -33,18 +33,17 @@ int Interfaz::menuAdministracion()
 	return op;
 }
 
-int Interfaz::menuAdministracionDe(string _clase)
+int Interfaz::menuAdministracionDe(string clase)
 {
 	system("cls");
 	int op;
 	cout << "+-------------------------------------+\n";
-	cout << "|" << setw(15) << ">>Menu " << _clase << setw(12 + (12 - _clase.length())) << "|\n";
+	cout << "|" << setw(15) << ">>Menu " << clase << setw(12 + (12 - clase.length())) << "|\n";
 	cout << "+-------------------------------------+\n";
-	cout << setw(50) << "+\n";
-	cout << "[1]->Agregar " << _clase << "\n";
-	cout << "[2]->Mostrar " << _clase << "\n";
-	cout << "[3]->Actualizar " << _clase << "\n";
-	cout << "[4]->Eliminar " << _clase << "\n";
+	cout << "[1]->Agregar " << clase << "\n";
+	cout << "[2]->Mostrar " << clase << "\n";
+	cout << "[3]->Actualizar " << clase << "\n";
+	cout << "[4]->Eliminar " << clase << "\n";
 	cout << "[5]->Salir\n";
 	cin >> op;
 	return op;
@@ -57,4 +56,9 @@ void Interfaz::opcionIncorrecta()
 	cout << "|" << setw(34) << ">>OPCION INCORRECTA<<" << setw(15) << "|\n";
 	cout << "+-----------------------------------------------+\n";
 	system("pause");
+}
+
+void Interfaz::seleccionarElemento(string clase, string accion)
+{
+	cout  << "Seleccione el " << clase  << " que desea " << accion << ": "; //...pendiente
 }

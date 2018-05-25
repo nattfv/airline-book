@@ -1,14 +1,5 @@
-#include<iostream>
-#include"Fecha.h"
-#include"Destino.h"
-#include"Piloto.h"
-#include"Vendedor.h"
-#include"MatrizAsiento.h"
-#include"Avion.h"
-#include"Vuelo.h"
-#include"Reservacion.h"
-#include"Lista.h"
-#include"Interfaz.h"
+#include"InterfazDestino.h"
+#include"Aerolinea.h"
 using namespace std;
 
 int main()
@@ -23,13 +14,12 @@ int main()
 	int opcionMenuAdministracion = 0;
 	int opcionMenuEspecifica = 0;
 
-	//Control para las listas
-	Lista<Destino>* listaDestinos = new Lista<Destino>();
-	Lista<Piloto>* listaPilotos = new Lista<Piloto>();
-	Lista<Avion>* listaAviones = new Lista<Avion>();
-	Lista<Vuelo>* listaVuelos = new Lista<Vuelo>();
-	Lista<Vendedor>* listaVendedor = new Lista<Vendedor>();
-	Lista<Reservacion>* listaReservacion = new Lista<Reservacion>();
+	//Aerolinea
+	Aerolinea* aerolinea = new Aerolinea();
+	Lista<Destino>* listaDestinos = aerolinea->obtenerDestinos();
+
+	//Archivos
+	ofstream archivoDestinos("../destinos.txt", ios::out);
 
 	while (!menuPrincipal)
 	{
@@ -47,14 +37,33 @@ int main()
 					while (!menuEspecifica)
 					{
 						opcionMenuEspecifica = Interfaz::menuAdministracionDe("destinos");
-						if (opcionMenuEspecifica == 1)
-							cout << "Agregar\n";
-						else if (opcionMenuEspecifica == 2)
-							cout << "Mostrar\n";
-						else if (opcionMenuEspecifica == 3)
+						if (opcionMenuEspecifica == 1) //Agregar Destinos
+						{
+							InterfazDestino::encabezadoFechaPartida();
+							int dia = InterfazDestino::ingresarDia();
+							int mes = InterfazDestino::ingresarMes();
+							int anio = InterfazDestino::ingresarAnio();
+							InterfazDestino::encabezadoFechaRegreso();
+							int dia1 = InterfazDestino::ingresarDia();
+							int mes1 = InterfazDestino::ingresarMes();
+							int anio1 = InterfazDestino::ingresarAnio();
+							InterfazDestino::encabezadoDestino();
+							string origen = InterfazDestino::ingresarLugarOrigen();
+							string destino = InterfazDestino::ingresarLugarDestino();
+							listaDestinos->agregarElemento(new Destino(origen, destino, new Fecha(dia, mes, anio), new Fecha(dia1, mes1, anio1)));
+						}
+						else if (opcionMenuEspecifica == 2) //Mostrar Destinos
+							InterfazDestino::mostrarTodosDestinos(aerolinea);
+						else if (opcionMenuEspecifica == 3) //Actualizar Destinos
 							cout << "Actualizar\n";
 						else if (opcionMenuEspecifica == 4)
-							cout << "Eliminar\n";
+						{
+							int seleccionDestino = InterfazDestino::seleccionarDestino(aerolinea, "destino", "eliminar");
+							if (listaDestinos->eliminarElemento(seleccionDestino))
+								cout << "Eliminacion exitosa\n";
+							else
+								cout << "Eliminacion fracasada\n";
+						}
 						else if (opcionMenuEspecifica == 5)
 							menuEspecifica = true;
 					}//FIN WHILE
@@ -142,6 +151,12 @@ int main()
 			break;
 		} //FIN SWITCH
 	}//FIN WHILE
+
+	listaDestinos->guardarTodos(archivoDestinos);
+	archivoDestinos.close();
+
+	delete aerolinea;
+
 	system("pause");
 	return 0;
 }

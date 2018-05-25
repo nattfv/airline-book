@@ -63,31 +63,77 @@ int InterfazDestino::ingresarAnio()
 string InterfazDestino::ingresarLugarOrigen()
 {
 	string origen;
+	cin.clear();
+	cin.ignore(255, '\n');
 	cout << "Digite la provincia y pais de origen: ";
-	cin >> origen;
+	getline(cin, origen);
 	return origen;
 }
 
 string InterfazDestino::ingresarLugarDestino()
 {
 	string destino;
+	cin.clear();
+	cin.ignore(255, '\n');
 	cout << "Digite la provincia y pais de destino: ";
-	cin >> destino;
+	getline(cin, destino);
 	return destino;
 }
 
 void InterfazDestino::encabezadoDestino()
 {
 	system("cls");
-	cout << "+----------------------------------------------+\n";
-	cout << "|" << setw(40) << ">>DESTINO<<" << setw(33) << "|\n";
-	cout << "+----------------------------------------------+\n";
+	cout << "+------------------------------------------+\n";
+	cout << "|" << setw(25) << ">>DESTINOS<<" << setw(19) << "|\n";
+	cout << "+------------------------------------------+\n";
 }
 
-void InterfazDestino::encabezadoFecha()
+void InterfazDestino::encabezadoFechaPartida()
 {
 	system("cls");
-	cout << "+----------------------------------------------+\n";
-	cout << "|" << setw(40) << ">>FECHA<<" << setw(33) << "|\n";
-	cout << "+----------------------------------------------+\n";
+	cout << "+------------------------------------------+\n";
+	cout << "|" << setw(30) << ">>FECHA DE PARTIDA<<" << setw(14) << "|\n";
+	cout << "+------------------------------------------+\n";
+}
+
+void InterfazDestino::encabezadoFechaRegreso()
+{
+	system("cls");
+	cout << "+------------------------------------------+\n";
+	cout << "|" << setw(30) << ">>FECHA DE REGRESO<<" << setw(14) << "|\n";
+	cout << "+------------------------------------------+\n";
+}
+
+void InterfazDestino::mostrarTodosDestinos(Aerolinea * aerolinea)
+{
+	Lista<Destino>* listaDestinos = aerolinea->obtenerDestinos();
+	encabezadoDestino();
+	cout << listaDestinos->toString();
+	system("pause");
+}
+
+int InterfazDestino::seleccionarDestino(Aerolinea * aerolinea, string clase, string accion)
+{
+	bool correcto = false;
+	int valor = 0;
+	Lista<Destino>* listaDestinos = aerolinea->obtenerDestinos();
+	int cantidadElementos = listaDestinos->cantidadElementos();
+	while (!correcto)
+	{
+		try
+		{
+			mostrarTodosDestinos(aerolinea);
+			if (cantidadElementos > 0)
+			{
+				Interfaz::seleccionarElemento(clase, accion);
+				valor = obtenerValorEntero(1, cantidadElementos);
+			}
+			correcto = true;
+		}
+		catch (ExcepcionEntrada& e)
+		{
+			cout << e.notificarError();
+		}
+	}
+	return valor;
 }

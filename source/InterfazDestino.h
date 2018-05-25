@@ -3,6 +3,8 @@
 #include<iostream>
 #include<string>
 #include"utiles.h"
+#include"Aerolinea.h"
+#include"Interfaz.h"
 using namespace std;
 
 class InterfazDestino
@@ -14,5 +16,8 @@ public:
 	static string ingresarLugarOrigen();
 	static string ingresarLugarDestino();
 	static void encabezadoDestino();
-	static void encabezadoFecha();
+	static void encabezadoFechaPartida();
+	static void encabezadoFechaRegreso();
+	static void mostrarTodosDestinos(Aerolinea* aerolinea);
+	static int seleccionarDestino(Aerolinea* aerolinea, string clase, string accion);
 };

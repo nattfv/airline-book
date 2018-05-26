@@ -24,6 +24,7 @@ public:
 	int cantidadElementos();
 	T& devolverElemento(int _posicion);
 	void guardarTodos(ofstream& archivo);
+	void recuperarTodos(ifstream& archivo);
 };
 
 template<class T>
@@ -198,5 +199,19 @@ void Lista<T>::guardarTodos(ofstream & archivo)
 	{
 		archivo << *corre->getInfo();
 		corre = corre->getSiguiente();
+	}
+}
+
+template<class T>
+void Lista<T>::recuperarTodos(ifstream & archivo)
+{
+	T elementoEstatico;
+	archivo >> elementoEstatico;
+	while (!archivo.eof())
+	{
+		T* elementoDinamico = new T();
+		*elementoDinamico = elementoEstatico;
+		agregarElemento(elementoDinamico);
+		archivo >> elementoEstatico;
 	}
 }

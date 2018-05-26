@@ -1,4 +1,5 @@
 #include "InterfazDestino.h"
+#include"utiles.h"
 
 int InterfazDestino::ingresarDia()
 {
@@ -63,8 +64,8 @@ int InterfazDestino::ingresarAnio()
 string InterfazDestino::ingresarLugarOrigen()
 {
 	string origen;
-	cin.clear();
-	cin.ignore(255, '\n');
+	//cin.clear();
+	//cin.ignore(255, '\n');
 	cout << "Digite la provincia y pais de origen: ";
 	getline(cin, origen);
 	return origen;
@@ -73,8 +74,8 @@ string InterfazDestino::ingresarLugarOrigen()
 string InterfazDestino::ingresarLugarDestino()
 {
 	string destino;
-	cin.clear();
-	cin.ignore(255, '\n');
+	//cin.clear();
+	//cin.ignore(255, '\n');
 	cout << "Digite la provincia y pais de destino: ";
 	getline(cin, destino);
 	return destino;

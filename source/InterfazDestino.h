@@ -1,8 +1,6 @@
 #pragma once
 #include<iomanip>
 #include<iostream>
-#include<string>
-#include"utiles.h"
 #include"Aerolinea.h"
 #include"Interfaz.h"
 using namespace std;

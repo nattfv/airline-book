@@ -1,5 +1,8 @@
 #include"InterfazDestino.h"
+#include"InterfazPiloto.h"
+#include"InterfazAvion.h"
 #include"Aerolinea.h"
+#include<exception>
 using namespace std;
 
 int main()
@@ -17,9 +20,23 @@ int main()
 	//Aerolinea
 	Aerolinea* aerolinea = new Aerolinea();
 	Lista<Destino>* listaDestinos = aerolinea->obtenerDestinos();
+	Lista<Piloto>* listaPilotos = aerolinea->obtenerPilotos();
+	Lista<Avion>* listaAviones = aerolinea->obtenerAviones();
 
-	//Archivos
-	ofstream archivoDestinos("../destinos.txt", ios::out);
+	//Recuperar Archivos
+
+	ifstream flujoEntradaDestinos;
+	flujoEntradaDestinos.open("../destinos.txt", ios::in);
+	listaDestinos->recuperarTodos(flujoEntradaDestinos);
+	flujoEntradaDestinos.close();
+	ifstream flujoEntradaPilotos;
+	flujoEntradaPilotos.open("../pilotos.txt", ios::in);
+	listaPilotos->recuperarTodos(flujoEntradaPilotos);
+	flujoEntradaPilotos.close();
+	ifstream flujoEntradaAviones;
+	flujoEntradaAviones.open("../aviones.txt", ios::in);
+	listaAviones->recuperarTodos(flujoEntradaAviones);
+	flujoEntradaAviones.close();
 
 	while (!menuPrincipal)
 	{
@@ -39,6 +56,10 @@ int main()
 						opcionMenuEspecifica = Interfaz::menuAdministracionDe("destinos");
 						if (opcionMenuEspecifica == 1) //Agregar Destinos
 						{
+							/*
+								Esta parte necesita una excepcion, porque la fecha
+								de partida tiene que ser menos a la fecha de regreso
+							*/
 							InterfazDestino::encabezadoFechaPartida();
 							int dia = InterfazDestino::ingresarDia();
 							int mes = InterfazDestino::ingresarMes();
@@ -56,13 +77,13 @@ int main()
 							InterfazDestino::mostrarTodosDestinos(aerolinea);
 						else if (opcionMenuEspecifica == 3) //Actualizar Destinos
 							cout << "Actualizar\n";
-						else if (opcionMenuEspecifica == 4)
+						else if (opcionMenuEspecifica == 4) //Eliminar Destinos
 						{
 							int seleccionDestino = InterfazDestino::seleccionarDestino(aerolinea, "destino", "eliminar");
 							if (listaDestinos->eliminarElemento(seleccionDestino))
-								cout << "Eliminacion exitosa\n";
+								Interfaz::eliminacionExitosa();
 							else
-								cout << "Eliminacion fracasada\n";
+								Interfaz::eliminacionFracasada();
 						}
 						else if (opcionMenuEspecifica == 5)
 							menuEspecifica = true;
@@ -73,14 +94,27 @@ int main()
 					while (!menuEspecifica)
 					{
 						opcionMenuEspecifica = Interfaz::menuAdministracionDe("pilotos");
-						if (opcionMenuEspecifica == 1)
-							cout << "Agregar\n";
-						else if (opcionMenuEspecifica == 2)
-							cout << "Mostrar\n";
-						else if (opcionMenuEspecifica == 3)
+						if (opcionMenuEspecifica == 1) //Agregar Pilotos
+						{
+							InterfazPiloto::encabezadoPiloto();
+							string nombre = Interfaz::ingresarDatoCadena("el nombre", "piloto");
+							string primerApellido = Interfaz::ingresarDatoCadena("el primer apellido", "piloto");
+							string segundoApellido = Interfaz::ingresarDatoCadena("el segundo apellido", "piloto");
+							string identificacion = Interfaz::ingresarDatoCadena("la identificacion", "piloto");
+							listaPilotos->agregarElemento(new Piloto(nombre, primerApellido, segundoApellido, identificacion));
+						}
+						else if (opcionMenuEspecifica == 2) //Mostrar Pilotos
+							InterfazPiloto::mostrarTodosPilotos(aerolinea);
+						else if (opcionMenuEspecifica == 3) //Actualizar Pilotos
 							cout << "Actualizar\n";
-						else if (opcionMenuEspecifica == 4)
-							cout << "Eliminar\n";
+						else if (opcionMenuEspecifica == 4) //Eliminar Pilotos
+						{
+							int seleccionPiloto = InterfazPiloto::seleccionarPiloto(aerolinea, "piloto", "eliminar");
+							if (listaPilotos->eliminarElemento(seleccionPiloto))
+								Interfaz::eliminacionExitosa();
+							else
+								Interfaz::eliminacionFracasada();
+						}
 						else if (opcionMenuEspecifica == 5)
 							menuEspecifica = true;
 					}//FIN WHILE
@@ -90,14 +124,42 @@ int main()
 					while (!menuEspecifica)
 					{
 						opcionMenuEspecifica = Interfaz::menuAdministracionDe("aviones");
-						if (opcionMenuEspecifica == 1)
-							cout << "Agregar\n";
-						else if (opcionMenuEspecifica == 2)
-							cout << "Mostrar\n";
-						else if (opcionMenuEspecifica == 3)
+						if (opcionMenuEspecifica == 1) //Agreagar pilotos
+						{
+							string codigo, transporte, tamanio;
+							double pesoCarga = 0.0;
+							InterfazAvion::encabezadoAvion();
+							codigo = Interfaz::ingresarDatoCadena("el codigo", "avion");
+							if (InterfazAvion::menuTransporteAvion() == 1) //pasajeros
+							{
+								transporte = "pasajeros";
+								if (InterfazAvion::menuAsientosAvion() == 1)
+									tamanio = "pequenio";
+								else
+									tamanio = "grande";
+							}
+							else //carga
+							{
+								transporte = "carga";
+								if ((pesoCarga = InterfazAvion::ingresarPesoAvion()) < 95000)
+									tamanio = "pequenio";
+								else
+									tamanio = "grande";
+							}
+							listaAviones->agregarElemento(new Avion(codigo, transporte, tamanio, pesoCarga));
+						}
+						else if (opcionMenuEspecifica == 2) //Mostrar aviones
+							InterfazAvion::mostrarTodosAviones(aerolinea);
+						else if (opcionMenuEspecifica == 3) //Actualizar aviones
 							cout << "Actualizar\n";
-						else if (opcionMenuEspecifica == 4)
-							cout << "Eliminar\n";
+						else if (opcionMenuEspecifica == 4) //Eliminar aviones
+						{
+							int seleccionAvion = InterfazAvion::seleccionarAvion(aerolinea, "avion", "eliminar");
+							if (listaAviones->eliminarElemento(seleccionAvion))
+								Interfaz::eliminacionExitosa();
+							else
+								Interfaz::eliminacionFracasada();
+						}
 						else if (opcionMenuEspecifica == 5)
 							menuEspecifica = true;
 					}//FIN WHILE
@@ -152,8 +214,16 @@ int main()
 		} //FIN SWITCH
 	}//FIN WHILE
 
-	listaDestinos->guardarTodos(archivoDestinos);
-	archivoDestinos.close();
+	//Guardar Archivos
+	ofstream flujoSalidaDestinos("../destinos.txt", ios::out);
+	ofstream flujoSalidaPilotos("../pilotos.txt", ios::out);
+	ofstream flujoSalidaAviones("../aviones.txt", ios::out);
+	listaDestinos->guardarTodos(flujoSalidaDestinos);
+	listaPilotos->guardarTodos(flujoSalidaPilotos);
+	listaAviones->guardarTodos(flujoSalidaAviones);
+	flujoSalidaDestinos.close();
+	flujoSalidaPilotos.close();
+	flujoSalidaAviones.close();
 
 	delete aerolinea;
 

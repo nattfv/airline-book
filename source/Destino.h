@@ -1,6 +1,7 @@
 #pragma once
 #include<string>
 #include<sstream>
+#include<fstream>
 #include"Fecha.h"
 
 class Destino
@@ -18,5 +19,6 @@ public:
 	Destino& operator=(const Destino& _d);
 	string mostrarDestino();
 	friend ostream& operator<<(ostream& out, Destino& _d);
-	friend fstream& operator<<(fstream& archivo, Destino &_d);
+	friend ofstream& operator<<(ofstream& archivo, Destino &_d);
+	friend ifstream& operator>>(ifstream& archivo, Destino& d);
 };

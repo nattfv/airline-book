@@ -23,5 +23,6 @@ public:
 	void verificarFecha(int _dia, int _mes, int _anio);
 	bool esBisiesto(int _anio);
 	friend ostream& operator<<(ostream& out, Fecha& _f);
-	friend fstream& operator<<(fstream& archivo, Fecha &_d);
+	friend ofstream& operator<<(ofstream& archivo, Fecha &_d);
+	friend ifstream& operator>>(ifstream& archivo, Fecha &_d);
 };

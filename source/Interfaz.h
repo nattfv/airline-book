@@ -12,6 +12,17 @@ public:
 	static int menuAdministracion();
 	//OPCIONES: 5
 	static int menuAdministracionDe(string clase);
+	//MENSAJES DE RESULTADOS
 	static void opcionIncorrecta();
-	static void seleccionarElemento(string clase , string accion);
+	static void ingresoExitoso();
+	static void eliminacionExitosa();
+	static void eliminacionFracasada();
+	//se repite mucho
+	static void seleccionarElemento(string clase, string accion);
+	static string ingresarDatoCadena(string dato, string clase);
+	//mucho codigo
+	//static string ingresarNombre(string clase);
+	//static string ingresarPrimerApellido(string clase);
+	//static string ingresarSegundoApellido(string clase);
+	//static string ingresarIdentificacion(string clase);
 };

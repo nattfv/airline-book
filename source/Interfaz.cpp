@@ -45,7 +45,10 @@ int Interfaz::menuAdministracionDe(string clase)
 	cout << "[3]->Actualizar " << clase << "\n";
 	cout << "[4]->Eliminar " << clase << "\n";
 	cout << "[5]->Salir\n";
+	cout << "[+]->Digite una opcion: ";
 	cin >> op;
+	cin.clear();
+	cin.ignore(255, '\n');
 	return op;
 }
 
@@ -58,7 +61,70 @@ void Interfaz::opcionIncorrecta()
 	system("pause");
 }
 
+void Interfaz::ingresoExitoso()
+{
+	system("cls");
+	cout << "+-----------------------------------------------+\n";
+	cout << "|" << setw(34) << ">>INGRESO EXITOSO<<" << setw(15) << "|\n";
+	cout << "+-----------------------------------------------+\n";
+	system("pause");
+}
+
+void Interfaz::eliminacionExitosa()
+{
+	system("cls");
+	cout << "+-----------------------------------------------+\n";
+	cout << "|" << setw(34) << ">>ELIMINACION EXITOSA<<" << setw(15) << "|\n";
+	cout << "+-----------------------------------------------+\n";
+	system("pause");
+}
+
+void Interfaz::eliminacionFracasada()
+{
+	system("cls");
+	cout << "+-----------------------------------------------+\n";
+	cout << "|" << setw(34) << ">>ELIMINACION FRACASADA<<" << setw(15) << "|\n";
+	cout << "+-----------------------------------------------+\n";
+	system("pause");
+}
+
 void Interfaz::seleccionarElemento(string clase, string accion)
 {
-	cout  << "Seleccione el " << clase  << " que desea " << accion << ": "; //...pendiente
+	cout  << "Seleccione el " << clase  << " que desea " << accion << ": "; 
+}
+
+//string Interfaz::ingresarNombre(string clase)
+//{
+//	string dato;
+//	cout << "Ingrese el nombre del " << clase << " :";
+//	return dato;
+//}
+//
+//string Interfaz::ingresarPrimerApellido(string clase)
+//{
+//	string dato;
+//	cout << "Ingrese el primer apellido del " << clase << " :";
+//	return dato;
+//}
+//
+//string Interfaz::ingresarSegundoApellido(string clase)
+//{
+//	string dato;
+//	cout << "Ingrese el segundo apellido del " << clase << " :";
+//	return dato;
+//}
+//
+//string Interfaz::ingresarIdentificacion(string clase)
+//{
+//	string dato;
+//	cout << "Ingrese la identificacion del " << clase << " :";
+//	return dato;
+//}
+
+string Interfaz::ingresarDatoCadena(string dato, string clase)
+{
+	string info;
+	cout << "Ingrese "<< dato <<" del " << clase << ": ";
+	getline(cin, info);
+	return info;
 }

@@ -1,4 +1,5 @@
 #include "InterfazAvion.h"
+#include"ExcepcionExistencia.h"
 #include"utiles.h"
 
 void InterfazAvion::encabezadoAvion()
@@ -102,6 +103,8 @@ int InterfazAvion::seleccionarAvion(Aerolinea * aerolinea, string clase, string 
 				Interfaz::seleccionarElemento(clase, accion);
 				valor = obtenerValorEntero(1, cantidadElementos);
 			}
+			else
+				throw ExcepcionExistencia("aviones", accion);
 			correcto = true;
 		}
 		catch (ExcepcionEntrada& e)

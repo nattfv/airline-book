@@ -1,4 +1,5 @@
 #include "InterfazDestino.h"
+#include"ExcepcionExistencia.h"
 #include"utiles.h"
 
 int InterfazDestino::ingresarDia()
@@ -129,6 +130,8 @@ int InterfazDestino::seleccionarDestino(Aerolinea * aerolinea, string clase, str
 				Interfaz::seleccionarElemento(clase, accion);
 				valor = obtenerValorEntero(1, cantidadElementos);
 			}
+			else
+				throw ExcepcionExistencia("destinos", accion);
 			correcto = true;
 		}
 		catch (ExcepcionEntrada& e)

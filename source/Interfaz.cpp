@@ -88,6 +88,14 @@ void Interfaz::eliminacionFracasada()
 	system("pause");
 }
 
+void Interfaz::mostrarError(string notificacion)
+{
+	system("cls");
+	cout << "|" << setw(34) << ">>ERROR<<" << setw(15) << "|\n";
+	cout << notificacion << endl;
+	system("pause");
+}
+
 void Interfaz::seleccionarElemento(string clase, string accion)
 {
 	cout  << "Seleccione el " << clase  << " que desea " << accion << ": "; 

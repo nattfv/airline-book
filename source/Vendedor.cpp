@@ -1,4 +1,10 @@
 #include "Vendedor.h"
+#include"utiles.h"
+
+Vendedor::Vendedor() : 
+	Persona("","","","")
+{
+}
 
 Vendedor::Vendedor(string _nombre, string _primer, string _segundo, string _identificacion) :
 	Persona(_nombre, _primer, _segundo, _identificacion)
@@ -40,4 +46,29 @@ ostream & operator<<(ostream & out, Vendedor & _p)
 	out << _p.identificacion << "\t" << _p.nombre << "\t"
 		<< _p.primerApellido << "\t" << _p.segundoApellido << "\n";
 	return out;
+}
+
+ofstream & operator<<(ofstream & archivo, Vendedor & p)
+{
+	archivo << p.identificacion << "\t"
+		<< p.nombre << "\t"
+		<< p.primerApellido << "\t"
+		<< p.segundoApellido << "\n";
+	return archivo;
+}
+
+ifstream & operator>>(ifstream & archivo, Vendedor & p)
+{
+	string hilera = procesarHilera(archivo);
+	stringstream particion(hilera);
+	string nombre, primerApellido, segundoApellido, identificacion;
+	getline(particion, identificacion, '\t');
+	getline(particion, nombre, '\t');
+	getline(particion, primerApellido, '\t');
+	getline(particion, segundoApellido, '\n');
+	p.identificacion = identificacion;
+	p.nombre = nombre;
+	p.primerApellido = primerApellido;
+	p.segundoApellido = segundoApellido;
+	return archivo;
 }

@@ -1,4 +1,5 @@
 #include"Asiento.h"
+#include"utiles.h"
 
 Asiento::Asiento() {
 	numero = 0;
@@ -53,8 +54,34 @@ string Asiento::mostrarAsiento() {
 	return s.str();
 }
 
+bool Asiento::asientoDisponible()
+{
+	return disponible == true;
+}
+
 ostream & operator<<(ostream & out, Asiento & _a)
 {
 	out << _a.numero << _a.letra;
 	return out;
+}
+
+ofstream & operator<<(ofstream archivo, Asiento & a)
+{
+	archivo << a.numero << "\t"
+		<< a.letra << "\n";
+	return archivo;
+}
+
+ifstream & operator>>(ifstream archivo, Asiento & a)
+{
+	int numero;
+	char letra;
+	string hilera = procesarHilera(archivo);
+	stringstream particion(hilera);
+	numero = procesarInt(particion, '\t');
+	letra = procesarChar(particion, '\n');
+	a.numero = numero;
+	a.letra = letra;
+	a.disponible = false; //se utiliza solamente para leer asientos de la reservacion, por lo que no estan disponibles
+	return archivo;
 }

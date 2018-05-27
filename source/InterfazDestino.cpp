@@ -124,9 +124,9 @@ int InterfazDestino::seleccionarDestino(Aerolinea * aerolinea, string clase, str
 	{
 		try
 		{
-			mostrarTodosDestinos(aerolinea);
 			if (cantidadElementos > 0)
 			{
+				mostrarTodosDestinos(aerolinea);
 				Interfaz::seleccionarElemento(clase, accion);
 				valor = obtenerValorEntero(1, cantidadElementos);
 			}

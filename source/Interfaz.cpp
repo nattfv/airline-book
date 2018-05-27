@@ -91,7 +91,7 @@ void Interfaz::eliminacionFracasada()
 void Interfaz::mostrarError(string notificacion)
 {
 	system("cls");
-	cout << "|" << setw(34) << ">>ERROR<<" << setw(15) << "|\n";
+	cout << "|" << setw(20) << ">>ERROR<<" << setw(15) << "|\n";
 	cout << notificacion << endl;
 	system("pause");
 }

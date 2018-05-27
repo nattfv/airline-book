@@ -28,9 +28,9 @@ int InterfazVendedor::seleccionarVendedor(Aerolinea * aerolinea, string clase, s
 	{
 		try
 		{
-			mostrarTodosVendedores(aerolinea);
 			if (cantidadElementos > 0)
 			{
+				mostrarTodosVendedores(aerolinea);
 				Interfaz::seleccionarElemento(clase, accion);
 				valor = obtenerValorEntero(1, cantidadElementos);
 			}

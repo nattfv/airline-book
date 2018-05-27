@@ -28,9 +28,10 @@ int InterfazPiloto::seleccionarPiloto(Aerolinea * aerolinea, string clase, strin
 	{
 		try
 		{
-			mostrarTodosPilotos(aerolinea);
+			
 			if (cantidadElementos > 0)
 			{
+				mostrarTodosPilotos(aerolinea);
 				Interfaz::seleccionarElemento(clase, accion);
 				valor = obtenerValorEntero(1, cantidadElementos);
 			}

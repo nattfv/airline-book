@@ -97,9 +97,9 @@ int InterfazAvion::seleccionarAvion(Aerolinea * aerolinea, string clase, string 
 	{
 		try
 		{
-			mostrarTodosAviones(aerolinea);
 			if (cantidadElementos > 0)
 			{
+				mostrarTodosAviones(aerolinea);
 				Interfaz::seleccionarElemento(clase, accion);
 				valor = obtenerValorEntero(1, cantidadElementos);
 			}

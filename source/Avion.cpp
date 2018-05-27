@@ -31,7 +31,10 @@ Avion::Avion(const Avion & _a)
 	tamanio = _a.tamanio;
 	pesoCarga = _a.pesoCarga;
 	disponible = _a.disponible;
-	pasajeros = NULL;
+	if (_a.pasajeros)
+		pasajeros = new MatrizAsiento(*_a.pasajeros);
+	else
+		pasajeros = NULL;
 }
 
 Avion::~Avion()
@@ -51,7 +54,10 @@ Avion & Avion::operator=(const Avion & a)
 		tamanio = a.tamanio;
 		pesoCarga = a.pesoCarga;
 		disponible = a.disponible;
-		pasajeros = NULL;
+		if (a.pasajeros)
+			pasajeros = new MatrizAsiento(*a.pasajeros);
+		else
+			pasajeros = NULL;
 	}
 	return *this;
 }
@@ -62,7 +68,7 @@ Avion & Avion::operator=(const Avion & a)
 */
 void Avion::crearAsientos()
 {
-	if (transporte == "pasajero")
+	if (transporte == "pasajeros")
 	{
 		if (tamanio == "pequenio")
 			pasajeros = new  MatrizAsiento(4, 6);
@@ -101,6 +107,8 @@ ofstream & operator<<(ofstream & archivo, Avion & d)
 	archivo << d.tamanio << "\t";
 	archivo << d.pesoCarga << "\t";
 	archivo << d.disponible << "\n";
+	if (d.pasajeros)
+		archivo << *d.pasajeros;
 	return archivo;
 }
 

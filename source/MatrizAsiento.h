@@ -20,4 +20,5 @@ public:
 	int totalAsientos();
 	int cantidadAsientosVendidos();
 	int cantidadAsientosDisponibles();
+	friend ofstream& operator<<(ofstream& archivo, MatrizAsiento& ma);
 };

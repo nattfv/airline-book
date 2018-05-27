@@ -1,5 +1,10 @@
 #include "Vuelo.h"
 
+Vuelo::Vuelo() :
+	identificacion(""), avion(NULL), destino(NULL), piloto(NULL)
+{
+}
+
 Vuelo::Vuelo(string _identificacion, Avion * _avion, Destino* _destino, Piloto * _piloto)
 {
 	identificacion = _identificacion;
@@ -21,6 +26,24 @@ Vuelo::~Vuelo()
 	delete avion;
 	delete destino;
 	delete piloto;
+}
+
+Vuelo & Vuelo::operator=(const Vuelo & v)
+{
+	if (this != &v)
+	{
+		if (avion && destino && piloto)
+		{
+			delete avion;
+			delete destino;
+			delete piloto;
+		}
+		identificacion = v.identificacion;
+		avion = new Avion(*v.avion);
+		destino = new Destino(*v.destino);
+		piloto = new Piloto(*v.piloto);
+	}
+	return *this;
 }
 
 void Vuelo::prepararAvion()
@@ -68,5 +91,14 @@ ostream & operator<<(ostream & out, Vuelo & _v)
 {
 	out << _v.identificacion << "\n"
 		<< *_v.destino;
+	return out;
+}
+
+ofstream & operator<<(ofstream & out, Vuelo & v)
+{
+	out << v.identificacion << "\n";
+	out << *v.destino;
+	out << *v.piloto;
+	out << *v.avion;
 	return out;
 }

@@ -34,8 +34,30 @@ MatrizAsiento::MatrizAsiento(const MatrizAsiento & _ma)
 			matriz[i][j] = new Asiento(*_ma.matriz[i][j]);
 }
 
-MatrizAsiento & MatrizAsiento::operator=(const MatrizAsiento & _ma)
+MatrizAsiento & MatrizAsiento::operator=(const MatrizAsiento & ma)
 {
+	if (this != &ma)
+	{
+		//Elimino todo el contenido
+		if (matriz)
+		{
+			for (int i = 0; i < fila; i++)
+				for (int j = 0; j < columna; j++)
+					delete matriz[i][j]; //Cada elemento de la matriz
+			for (int i = 0; i < fila; i++)
+				delete[] matriz[i]; //Elimina cada columna
+			delete[] matriz;
+		}
+		//Creo uno nuevo
+		fila = ma.fila;
+		columna = ma.columna;
+		matriz = new Asiento**[fila];
+		for (int i = 0; i < fila; i++)
+			matriz[i] = new Asiento*[columna];
+		for (int i = 0; i < fila; i++)
+			for (int j = 0; j < columna; j++)
+				matriz[i][j] = new Asiento(*ma.matriz[i][j]);
+	}
 	return *this;
 }
 
@@ -68,7 +90,7 @@ void MatrizAsiento::darFormatoTodosAsientos()
 	ControlAsiento control(columna);
 	for (int i = 0; i < fila; i++)
 		for (int j = 0; j < columna; j++)
-			control.darFormatoAsiento(*matriz[i][j], j, i);
+			control.darFormatoAsiento(*matriz[i][j], i, i);
 }
 
 int MatrizAsiento::totalAsientos()
@@ -81,7 +103,7 @@ int MatrizAsiento::cantidadAsientosVendidos()
 	int contador = 0;
 	for (int i = 0; i < fila; i++)
 		for (int j = 0; j < columna; j++)
-			if (!matriz[i][j]->getDisponible())
+			if (!matriz[i][j]->asientoDisponible())
 				contador++;
 	return contador;
 }
@@ -89,4 +111,18 @@ int MatrizAsiento::cantidadAsientosVendidos()
 int MatrizAsiento::cantidadAsientosDisponibles()
 {
 	return totalAsientos() - cantidadAsientosVendidos();
+}
+
+//guarda solamente los que no estan disponibles
+ofstream & operator<<(ofstream & archivo, MatrizAsiento & ma) 
+{
+	archivo << ma.cantidadAsientosVendidos() << "\n";
+	for(int i = 0; i < ma.fila; i++)
+		for(int j = 0; j < ma.columna; j++)
+			if (!ma.matriz[i][j]->asientoDisponible())
+			{
+				archivo << i << "\t"
+					<< j << "\n";
+			}
+	return archivo;
 }

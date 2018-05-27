@@ -12,6 +12,8 @@ public:
 	static int menuAdministracion();
 	//OPCIONES: 5
 	static int menuAdministracionDe(string clase);
+	//OPCIONES: 4
+	static int menuReservacion();
 	//MENSAJES DE RESULTADOS
 	static void opcionIncorrecta();
 	static void ingresoExitoso();

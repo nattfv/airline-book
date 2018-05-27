@@ -53,3 +53,13 @@ double procesarDouble(stringstream & particion, char delimitador)
 	cadenaDouble = atof(cadenaStr.c_str());
 	return cadenaDouble;
 }
+
+char procesarChar(stringstream & particion, char delimitador)
+{
+	char cadenaChar;
+	string cadenaStr;
+	getline(particion, cadenaStr, delimitador);
+	stringstream convertidor(cadenaStr);
+	convertidor >> cadenaChar;
+	return cadenaChar;
+}

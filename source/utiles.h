@@ -12,3 +12,4 @@ string procesarHilera(ifstream& archivo);
 int procesarInt(stringstream& particion, char delimitador);
 bool procesarBoolean(stringstream& particion, char delimitador);
 double procesarDouble(stringstream & particion, char delimitador);
+char procesarChar(stringstream& particion, char delimitador);

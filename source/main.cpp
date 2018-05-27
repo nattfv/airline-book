@@ -87,11 +87,16 @@ int main()
 							cout << "Actualizar\n";
 						else if (opcionMenuEspecifica == 4) //Eliminar Destinos
 						{
-							int seleccionDestino = InterfazDestino::seleccionarDestino(aerolinea, "destino", "eliminar");
-							if (listaDestinos->eliminarElemento(seleccionDestino))
-								Interfaz::eliminacionExitosa();
-							else
-								Interfaz::eliminacionFracasada();
+							try
+							{
+								int seleccionDestino = InterfazDestino::seleccionarDestino(aerolinea, "destino", "eliminar");
+								if (listaDestinos->eliminarElemento(seleccionDestino))
+									Interfaz::eliminacionExitosa();
+							}
+							catch (ExcepcionExistencia& e)
+							{
+								Interfaz::mostrarError(e.notificarError());
+							}
 						}
 						else if (opcionMenuEspecifica == 5)
 							menuEspecifica = true;
@@ -117,11 +122,16 @@ int main()
 							cout << "Actualizar\n";
 						else if (opcionMenuEspecifica == 4) //Eliminar Pilotos
 						{
-							int seleccionPiloto = InterfazPiloto::seleccionarPiloto(aerolinea, "piloto", "eliminar");
-							if (listaPilotos->eliminarElemento(seleccionPiloto))
-								Interfaz::eliminacionExitosa();
-							else
-								Interfaz::eliminacionFracasada();
+							try
+							{
+								int seleccionPiloto = InterfazPiloto::seleccionarPiloto(aerolinea, "piloto", "eliminar");
+								if (listaPilotos->eliminarElemento(seleccionPiloto))
+									Interfaz::eliminacionExitosa();
+							}
+							catch (ExcepcionExistencia & e)
+							{
+								Interfaz::mostrarError(e.notificarError());
+							}
 						}
 						else if (opcionMenuEspecifica == 5)
 							menuEspecifica = true;
@@ -166,11 +176,16 @@ int main()
 							cout << "Actualizar\n";
 						else if (opcionMenuEspecifica == 4) //Eliminar aviones
 						{
-							int seleccionAvion = InterfazAvion::seleccionarAvion(aerolinea, "avion", "eliminar");
-							if (listaAviones->eliminarElemento(seleccionAvion))
-								Interfaz::eliminacionExitosa();
-							else
-								Interfaz::eliminacionFracasada();
+							try
+							{
+								int seleccionAvion = InterfazAvion::seleccionarAvion(aerolinea, "avion", "eliminar");
+								if (listaAviones->eliminarElemento(seleccionAvion))
+									Interfaz::eliminacionExitosa();
+							}
+							catch (ExcepcionExistencia & e)
+							{
+								Interfaz::mostrarError(e.notificarError());
+							}
 						}
 						else if (opcionMenuEspecifica == 5)
 							menuEspecifica = true;
@@ -231,11 +246,16 @@ int main()
 							cout << "Actualizar\n";
 						else if (opcionMenuEspecifica == 4) //Eliminar Vendedores
 						{
-							int seleccionCliente = InterfazVendedor::seleccionarVendedor(aerolinea, "vendedor", "eliminar");
-							if (listaVendedores->eliminarElemento(seleccionCliente))
-								Interfaz::eliminacionExitosa();
-							else
-								Interfaz::eliminacionFracasada();
+							try
+							{
+								int seleccionCliente = InterfazVendedor::seleccionarVendedor(aerolinea, "vendedor", "eliminar");
+								if (listaVendedores->eliminarElemento(seleccionCliente))
+									Interfaz::eliminacionExitosa();
+							}
+							catch (ExcepcionExistencia & e)
+							{
+								Interfaz::mostrarError(e.notificarError());
+							}
 						}
 						else if (opcionMenuEspecifica == 5)
 							menuEspecifica = true;

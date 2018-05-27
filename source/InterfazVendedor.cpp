@@ -1,4 +1,5 @@
 #include "InterfazVendedor.h"
+#include"ExcepcionExistencia.h"
 #include"utiles.h"
 
 void InterfazVendedor::encabezadoVendedor()
@@ -33,6 +34,8 @@ int InterfazVendedor::seleccionarVendedor(Aerolinea * aerolinea, string clase, s
 				Interfaz::seleccionarElemento(clase, accion);
 				valor = obtenerValorEntero(1, cantidadElementos);
 			}
+			else
+				throw ExcepcionExistencia("destinos", accion);
 			correcto = true;
 		}
 		catch (ExcepcionEntrada& e)

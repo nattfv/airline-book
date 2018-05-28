@@ -1,4 +1,5 @@
 #pragma once
+#include"Iterador.h"
 #include"Nodo.h"
 #include<string>
 #include<iostream>
@@ -25,6 +26,7 @@ public:
 	T& devolverElemento(int _posicion);
 	void guardarTodos(ofstream& archivo);
 	void recuperarTodos(ifstream& archivo);
+	IteradorLista<T>* crearIterador();
 };
 
 template<class T>
@@ -214,4 +216,10 @@ void Lista<T>::recuperarTodos(ifstream & archivo)
 		agregarElemento(elementoDinamico);
 		archivo >> elementoEstatico;
 	}
+}
+
+template<class T>
+IteradorLista<T> * Lista<T>::crearIterador()
+{
+	return new IteradorLista<T>(ppio);
 }

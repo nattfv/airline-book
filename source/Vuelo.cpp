@@ -1,4 +1,5 @@
 #include "Vuelo.h"
+#include"utiles.h"
 
 Vuelo::Vuelo() :
 	identificacion(""), avion(NULL), destino(NULL), piloto(NULL)
@@ -87,18 +88,49 @@ bool Vuelo::estaDisponibleAsiento(int _fila, int _columna)
 	return posibleAsiento->getDisponible(); //responsablidad unica
 }
 
+bool Vuelo::esVueloPasajeros()
+{
+	return avion->llevaPasajeros();
+}
+
+//int Vuelo::capacidadVuelo()
+//{
+//	return avion->cantidadPasajeros();
+//}
+
 ostream & operator<<(ostream & out, Vuelo & _v)
 {
 	out << _v.identificacion << "\n"
 		<< *_v.destino;
+	//out << *_v.piloto;
+	out << *_v.avion;
 	return out;
 }
 
-ofstream & operator<<(ofstream & out, Vuelo & v)
+ofstream & operator<<(ofstream & archivo, Vuelo & v)
 {
-	out << v.identificacion << "\n";
-	out << *v.destino;
-	out << *v.piloto;
-	out << *v.avion;
-	return out;
+	archivo << v.identificacion << "\n";
+	archivo << *v.destino;
+	archivo << *v.piloto;
+	archivo << *v.avion;
+	return archivo;
+}
+
+ifstream & operator>>(ifstream & archivo, Vuelo & v)
+{
+	string hilera = procesarHilera(archivo);
+	stringstream particion(hilera);
+	string identificacion;
+	Destino destino;
+	Piloto piloto;
+	Avion avion;
+	getline(particion, identificacion, '\n');
+	archivo >> destino;
+	archivo >> piloto;
+	archivo >> avion;
+	v.identificacion = identificacion;
+	v.destino = new Destino(destino);
+	v.piloto = new Piloto(piloto);
+	v.avion = new Avion(avion);
+	return archivo;
 }

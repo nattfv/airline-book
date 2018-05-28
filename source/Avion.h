@@ -18,7 +18,7 @@ public:
 	Avion();
 	//Avion(string _codigo, string _transporte, string _tamanio); //avion pasajero
 	//Avion(string _codigo, string _transporte, string _tamanio, double _pesoCarga); //avion carga
-	Avion(string _codigo, string _transporte, string _tamanio, double _pesoCarga, bool _disponible = true);
+	Avion(string _codigo, string _transporte, string _tamanio, double _pesoCarga, bool _disponible = true, MatrizAsiento* = NULL);
 	Avion(const Avion& _a);
 	~Avion();
 	Avion& operator=(const Avion& a);
@@ -28,4 +28,7 @@ public:
 	friend ostream& operator<<(ostream& out, Avion& _a);
 	friend ofstream& operator<<(ofstream& archivo, Avion& d);
 	friend ifstream& operator>>(ifstream& archivo, Avion& d);
+	bool llevaPasajeros();
+	/*int cantidadPasajeros();*/
+	/*int anchoAvion();*/
 };

@@ -1,6 +1,4 @@
 #pragma once
-#include<iomanip>
-#include<iostream>
 #include"Aerolinea.h"
 #include"Interfaz.h"
 

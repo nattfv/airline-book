@@ -25,4 +25,5 @@ public:
 	friend ofstream& operator<<(ofstream archivo, Asiento& a);
 	friend ifstream& operator>>(ifstream archivo, Asiento& a);
 	bool asientoDisponible();
+	void cambiarDisponiblidad(bool _disponible);
 };

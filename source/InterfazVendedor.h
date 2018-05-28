@@ -1,8 +1,6 @@
 #pragma once
 #include"Aerolinea.h"
 #include"Interfaz.h"
-#include<iostream>
-#include<iomanip>
 
 class InterfazVendedor
 {

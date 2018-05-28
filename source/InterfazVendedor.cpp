@@ -44,5 +44,4 @@ int InterfazVendedor::seleccionarVendedor(Aerolinea * aerolinea, string clase, s
 		}
 	}
 	return valor;
-
 }

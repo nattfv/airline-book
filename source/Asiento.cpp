@@ -59,6 +59,11 @@ bool Asiento::asientoDisponible()
 	return disponible == true;
 }
 
+void Asiento::cambiarDisponiblidad(bool _disponible)
+{
+	disponible = _disponible;
+}
+
 ostream & operator<<(ostream & out, Asiento & _a)
 {
 	out << _a.numero << _a.letra;

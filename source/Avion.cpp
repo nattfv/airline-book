@@ -15,8 +15,8 @@ Avion::Avion() : codigo(""), transporte(""), tamanio(""), pesoCarga(0.0), dispon
 //{
 //}
 
-Avion::Avion(string _codigo, string _transporte, string _tamanio, double _pesoCarga, bool _disponible) : 
-	codigo(_codigo), transporte(_transporte), tamanio(_tamanio), pesoCarga(_pesoCarga), disponible(_disponible), pasajeros(NULL)
+Avion::Avion(string _codigo, string _transporte, string _tamanio, double _pesoCarga, bool _disponible, MatrizAsiento* _pasajeros) : 
+	codigo(_codigo), transporte(_transporte), tamanio(_tamanio), pesoCarga(_pesoCarga), disponible(_disponible), pasajeros(_pasajeros)
 {
 }
 
@@ -94,6 +94,21 @@ MatrizAsiento * Avion::obtenerPasajeros()
 	return pasajeros;
 }
 
+bool Avion::llevaPasajeros()
+{
+	return transporte == "pasajeros";
+}
+
+//int Avion::cantidadPasajeros()
+//{
+//	return pasajeros->totalAsientos();
+//}
+
+//int Avion::anchoAvion()
+//{
+//	return pasajeros->getFila();
+//}
+
 ostream & operator<<(ostream & out, Avion & _a)
 {
 	out << _a.codigo << "\t" << _a.transporte << "\t" << _a.tamanio << "\n";
@@ -106,28 +121,55 @@ ofstream & operator<<(ofstream & archivo, Avion & d)
 	archivo << d.transporte << "\t";
 	archivo << d.tamanio << "\t";
 	archivo << d.pesoCarga << "\t";
-	archivo << d.disponible << "\n";
-	if (d.pasajeros)
+	archivo << d.disponible << "\t";
+	if (d.pasajeros) //si el avion es para pasajeros y esta preparado para viajar
+	{
+		archivo << true << "\n"; //si tiene que leer asientos
 		archivo << *d.pasajeros;
+	}
+	else
+		archivo << false << "\n"; //no tiene que leer asientos
 	return archivo;
 }
 
 ifstream & operator>>(ifstream & archivo, Avion & d)
 {
 	string hilera = procesarHilera(archivo);
+	MatrizAsiento* pasajeros = NULL;
 	stringstream particion(hilera);
 	string codigo, transporte, tamanio;
 	double pesoCarga;
 	bool disponible;
+	bool leerAsientos;
 	getline(particion, codigo, '\t');
 	getline(particion, transporte, '\t');
 	getline(particion, tamanio, '\t');
 	pesoCarga = procesarDouble(particion, '\t');
-	disponible = procesarBoolean(particion, '\n');
+	disponible = procesarBoolean(particion, '\t');
+	leerAsientos = procesarBoolean(particion, '\n');
 	d.codigo = codigo;
 	d.transporte = transporte;
 	d.tamanio = tamanio;
 	d.pesoCarga = pesoCarga;
 	d.disponible = disponible;
+	if (leerAsientos) //leer la hilera de la matriz
+	{
+		string hileraMatriz = procesarHilera(archivo);
+		stringstream particionMatriz(hileraMatriz);
+		int filas = procesarInt(particionMatriz, '\t');
+		int columnas = procesarInt(particionMatriz, '\t');
+		int cantidadAsientosOcupados = procesarInt(particionMatriz, '\n');
+		pasajeros = new MatrizAsiento(filas, columnas);
+		pasajeros->darFormatoTodosAsientos(); //porque ahora el avion no se va a prepara, ya debe venir preparado
+		for (int i = 0; i < cantidadAsientosOcupados; i++)
+		{
+			string hileraAsiento = procesarHilera(archivo);
+			stringstream particionAsiento(hileraAsiento);
+			int fila = procesarInt(particionAsiento, '\t');
+			int columna = procesarInt(particionAsiento, '\n');
+			pasajeros->cambiarDisponiblidadAsiento(fila, columna, false);
+		}
+	}
+	d.pasajeros = pasajeros;
 	return archivo;
 }

@@ -113,9 +113,21 @@ int MatrizAsiento::cantidadAsientosDisponibles()
 	return totalAsientos() - cantidadAsientosVendidos();
 }
 
+void MatrizAsiento::cambiarDisponiblidadAsiento(int _fila, int _columna, bool _disponible)
+{
+	matriz[_fila][_columna]->cambiarDisponiblidad(_disponible);
+}
+
+bool MatrizAsiento::disponibilidadAsiento(int fila, int columna)
+{
+	return matriz[fila][columna]->asientoDisponible();
+}
+
 //guarda solamente los que no estan disponibles
 ofstream & operator<<(ofstream & archivo, MatrizAsiento & ma) 
 {
+	archivo << ma.fila << "\t";
+	archivo << ma.columna << "\t";
 	archivo << ma.cantidadAsientosVendidos() << "\n";
 	for(int i = 0; i < ma.fila; i++)
 		for(int j = 0; j < ma.columna; j++)

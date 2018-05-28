@@ -2,6 +2,8 @@
 #include"InterfazPiloto.h"
 #include"InterfazAvion.h"
 #include"InterfazVendedor.h"
+#include"InterfazVuelo.h"
+#include"InterfazReservacion.h"
 #include"Aerolinea.h"
 #include"ExcepcionExistencia.h"
 #include<exception>
@@ -13,11 +15,13 @@ int main()
 	bool menuPrincipal = false;
 	bool menuAdministracion = false;
 	bool menuEspecifica = false;
+	bool menuReservacion = false;
 
 	//Control para la opcion a elegir
 	int opcionMenuPrincipal = 0;
 	int opcionMenuAdministracion = 0;
 	int opcionMenuEspecifica = 0;
+	int opcionMenuReservacion = 0;
 
 	//Aerolinea
 	Aerolinea* aerolinea = new Aerolinea();
@@ -45,6 +49,10 @@ int main()
 	flujoEntradaVendedores.open("../vendedores.txt", ios::in);
 	listaVendedores->recuperarTodos(flujoEntradaVendedores);
 	flujoEntradaVendedores.close();
+	ifstream flujoEntradaVuelos;
+	flujoEntradaVuelos.open("../vuelos.txt", ios::in);
+	listaVuelos->recuperarTodos(flujoEntradaVuelos);
+	flujoEntradaVuelos.close();
 
 	while (!menuPrincipal)
 	{
@@ -217,11 +225,22 @@ int main()
 							}
 						}
 						else if (opcionMenuEspecifica == 2)
-							cout << "Mostrar\n";
+							InterfazVuelo::mostrarTodosVuelos(aerolinea);
 						else if (opcionMenuEspecifica == 3)
 							cout << "Actualizar\n";
 						else if (opcionMenuEspecifica == 4)
-							cout << "Eliminar\n";
+						{
+							try
+							{
+								int seleccionVuelo = InterfazVuelo::seleccionarVuelo(aerolinea, "vuelo", "eliminar");
+								if (listaVuelos->eliminarElemento(seleccionVuelo))
+									Interfaz::eliminacionExitosa();
+							}
+							catch (ExcepcionExistencia & e)
+							{
+								Interfaz::mostrarError(e.notificarError());
+							}
+						}
 						else if (opcionMenuEspecifica == 5)
 							menuEspecifica = true;
 					}//FIN WHILE
@@ -270,6 +289,30 @@ int main()
 			menuAdministracion = false;
 			break;
 		case 2: //Reservacion
+			while (!menuReservacion)
+			{
+				opcionMenuReservacion = Interfaz::menuReservacion();
+				if (opcionMenuReservacion == 1)
+				{
+					try
+					{
+						int seleccionVuelo = InterfazReservacion::seleccionarVueloPasajeros(aerolinea, "vuelo", "reservar");
+						Vuelo* vuelo = &listaVuelos->devolverElemento(seleccionVuelo);
+						InterfazReservacion::desplegarAsientos(vuelo);
+					}
+					catch (ExcepcionExistencia& e)
+					{
+						Interfaz::mostrarError(e.notificarError());
+					}
+				}
+				else if (opcionMenuReservacion == 2) //Reservaciones por vuelo
+					cout << "Reservaciones por vuelo\n";
+				else if (opcionMenuReservacion == 3) //Reservaciones por vendedor
+					cout << "Reservaciones por vendedor\n";
+				else if (opcionMenuReservacion == 4)
+					menuReservacion = true;
+			}//FIN WHILE
+			menuReservacion = false;
 			break;
 		case 3: //Salir
 			menuPrincipal = true;

@@ -16,7 +16,7 @@ public:
 	Reservacion(Vuelo* _vuelo, Vendedor* _vendedor, Cliente* _cliente);
 	~Reservacion();
 	string mostrarReservacion();
-	bool puedoReservar(int _fila, int _columna);
+	bool puedoReservar(int _fila, int _columna); //ignorar
 	friend ostream& operator<<(ostream& out, Reservacion& _d);
 
 };

@@ -132,6 +132,10 @@ void Interfaz::eliminacionFracasada()
 	system("pause");
 }
 
+/*
+	Usado para mostrar un error que es controlado
+	en la parte de la controladora y no en interfaz
+*/
 void Interfaz::mostrarError(string notificacion)
 {
 	system("cls");

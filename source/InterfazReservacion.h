@@ -9,4 +9,5 @@ public:
 	static void mostrarTodosVuelosPasajeros(Aerolinea* aerolinea);
 	static int seleccionarVueloPasajeros(Aerolinea* aerolinea, string clase, string accion);
 	static void desplegarAsientos(Vuelo* vuelo);
+	static int seleccionarFilaPasajeros(Vuelo* vuelo);
 };

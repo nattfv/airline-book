@@ -299,6 +299,7 @@ int main()
 						int seleccionVuelo = InterfazReservacion::seleccionarVueloPasajeros(aerolinea, "vuelo", "reservar");
 						Vuelo* vuelo = &listaVuelos->devolverElemento(seleccionVuelo);
 						InterfazReservacion::desplegarAsientos(vuelo);
+						int seleccionFila = InterfazReservacion::seleccionarFilaPasajeros(vuelo);
 					}
 					catch (ExcepcionExistencia& e)
 					{

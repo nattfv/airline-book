@@ -9,7 +9,7 @@ int obtenerValorEntero(int minimo, int maximo)
 		if (evaluar < minimo)
 			throw ExcepcionMinimo(minimo, maximo, evaluar);
 		if (evaluar > maximo && maximo != 0) // max != 0; cuando no se sabe el maximo aun
-			throw ExcepcionMinimo(minimo, maximo, evaluar);
+			throw ExcepcionMaximo(minimo, maximo, evaluar);
 		cin.clear();
 		cin.ignore(255, '\n');
 	}
@@ -19,6 +19,25 @@ int obtenerValorEntero(int minimo, int maximo)
 		cin.ignore(255, '\n');
 		throw ExcepcionCadena("un numero entero");
 	}
+	return evaluar;
+}
+
+char obternerValorChar(char minimo, char maximo)
+{
+	char evaluar;
+	string evaluarInicial;
+	cin >> evaluarInicial;
+	if (evaluarInicial.length() > 1)
+		throw - 1;
+	evaluar = evaluarInicial[0];
+	if (isdigit(evaluar))
+		throw 0;
+	if (evaluar < minimo)
+		throw 1;
+	if (evaluar > maximo)
+		throw 2;
+	cin.clear();
+	cin.ignore(255, '\n');
 	return evaluar;
 }
 

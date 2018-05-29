@@ -71,8 +71,6 @@ void InterfazReservacion::desplegarAsientos(Vuelo * vuelo)
 {
 	Avion* avion = vuelo->obtenerAvion();
 	MatrizAsiento* asientos = avion->obtenerPasajeros();
-	int fila = asientos->getFila();
-	int columna = asientos->getColumna();
 	system("cls");
 	cout << "+------------------------------------------+\n";
 	cout << "|" << setw(25) << ">>ASIENTOS<<" << setw(19) << "|\n";
@@ -90,4 +88,26 @@ void InterfazReservacion::desplegarAsientos(Vuelo * vuelo)
 	//}
 	cout << asientos->formarAsientos();
 	system("pause");
+}
+
+int InterfazReservacion::seleccionarFilaPasajeros(Vuelo* vuelo)
+{
+	Avion* avion = vuelo->obtenerAvion();
+	MatrizAsiento* asientos = avion->obtenerPasajeros();
+	int maximoFila = asientos->getFila();
+	bool correcto = false;
+	int valor = 0;
+	while (!correcto)
+	{
+		try
+		{
+			valor = obtenerValorEntero(1, maximoFila);
+			correcto = true;
+		}
+		catch (ExcepcionEntrada& e)
+		{
+			cout << e.notificarError();
+		}
+	}
+	return valor;
 }

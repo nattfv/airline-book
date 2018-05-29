@@ -19,7 +19,7 @@ public:
 	static void ingresoExitoso();
 	static void eliminacionExitosa();
 	static void eliminacionFracasada();
-	static void mostrarError(string notificacion);
+	static void mostrarError(string notificacion); 
 	//se repite mucho
 	static void seleccionarElemento(string clase, string accion);
 	static string ingresarDatoCadena(string dato, string clase);

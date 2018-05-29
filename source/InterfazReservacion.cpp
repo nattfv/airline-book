@@ -77,16 +77,17 @@ void InterfazReservacion::desplegarAsientos(Vuelo * vuelo)
 	cout << "+------------------------------------------+\n";
 	cout << "|" << setw(25) << ">>ASIENTOS<<" << setw(19) << "|\n";
 	cout << "+------------------------------------------+\n";
-	for (int i = 0; i < fila; i++)
-	{
-		for (int j = 0; j < columna; j++)
-		{
-			cout << "[ "
-				<< ((asientos->disponibilidadAsiento(i, j) ? "D" : "X"))
-				<< " ]"
-				<< (((j+1) % 3 == 0 && j != 0) ? "  " : "");
-		}
-		cout << "\n";
-	}
+	//for (int i = 0; i < fila; i++)
+	//{
+	//	for (int j = 0; j < columna; j++)
+	//	{
+	//		cout << "[ "
+	//			<< ((asientos->disponibilidadAsiento(i, j) ? "D" : "X"))
+	//			<< " ]"
+	//			<< (((j+1) % 3 == 0 && j != 0) ? "  " : "");
+	//	}
+	//	cout << "\n";
+	//}
+	cout << asientos->formarAsientos();
 	system("pause");
 }

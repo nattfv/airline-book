@@ -123,6 +123,26 @@ bool MatrizAsiento::disponibilidadAsiento(int fila, int columna)
 	return matriz[fila][columna]->asientoDisponible();
 }
 
+string MatrizAsiento::formarAsientos()
+{
+	ControlAsiento control(columna);
+	stringstream s;
+	s << "     " <<control.formarHileraLetras() << "\n";
+	for (int i = 0; i < fila; i++)
+	{
+		s <<i + 1 << "  ";
+		for (int j = 0; j < columna; j++)
+		{
+			s << "[ "
+				<< ((disponibilidadAsiento(i, j) ? "D" : "X"))
+				<< " ]"
+				<< (((j + 1) % 3 == 0 && j != 0) ? "  " : ""); //mitad de las columnas
+		}
+		s << i + 1 << "\n";
+	}
+	return s.str();
+}
+
 //guarda solamente los que no estan disponibles
 ofstream & operator<<(ofstream & archivo, MatrizAsiento & ma) 
 {

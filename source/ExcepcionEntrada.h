@@ -1,6 +1,6 @@
 #pragma once
 #include<string>
-#include<sstream>
+#include<sstream>	
 using namespace std;
 
 class ExcepcionEntrada

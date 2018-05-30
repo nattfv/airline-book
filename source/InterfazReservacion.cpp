@@ -181,13 +181,14 @@ void InterfazReservacion::mostrarReservasVendedor(Aerolinea * aerolinea, Vendedo
 		if (reserva->compararVendedor(vendedor))
 		{
 			cout << reserva->mostrarReservacion();
+			cout << "<------------------------------------------->";
 			existe = true;
 		}
 	}
 	if (!existe)
 	{
 		cout << vendedor->mostrarVendedor() <<
-			"\nNo a realizado reservaciones\n";
+			"\nNo ha realizado reservaciones\n";
  	}
 	system("pause");
 }
@@ -229,8 +230,9 @@ string InterfazReservacion::continuarReservando()
 		{
 			cout << "Desea continuar[Y/n] ";
 			getline(cin, opcion);
-			if (opcion == "Y" && opcion == "n")
-				throw ExcepcionCadena("Y o n");
+			if (opcion != "Y")
+				if(opcion != "n")
+					throw ExcepcionCadena("Y o n");
 			correcto = true;
 		}
 		catch (ExcepcionEntrada& e)
@@ -239,4 +241,13 @@ string InterfazReservacion::continuarReservando()
 		}
 	}
 	return opcion;
+}
+
+void InterfazReservacion::encabezadoCliente()
+{
+	system("cls");
+	cout << "+-----------------------------------------------+\n";
+	cout << "|" << setw(34) << ">>CLIENTE<<" << setw(15) << "|\n";
+	cout << "+-----------------------------------------------+\n";
+	system("pause");
 }

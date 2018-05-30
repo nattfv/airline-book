@@ -53,6 +53,11 @@ int main()
 	flujoEntradaVuelos.open("../vuelos.txt", ios::in);
 	listaVuelos->recuperarTodos(flujoEntradaVuelos);
 	flujoEntradaVuelos.close();
+	ifstream flujoEntradaReservaciones;
+	flujoEntradaReservaciones.open("../reservaciones.txt", ios::in);
+	listaReservaciones->recuperarTodos(flujoEntradaReservaciones);
+	flujoEntradaReservaciones.close();
+
 
 	while (!menuPrincipal)
 	{
@@ -297,6 +302,8 @@ int main()
 					try
 					{
 						Reservacion* reserva = NULL;
+						int seleccionVuelo = InterfazReservacion::seleccionarVueloPasajeros(aerolinea, "vuelo", "reservar");
+						Vuelo* vuelo = &listaVuelos->devolverElemento(seleccionVuelo);
 						int seleccionVendedor = InterfazVendedor::seleccionarVendedorReservacion(aerolinea);
 						Vendedor* vendedor = &listaVendedores->devolverElemento(seleccionVendedor);
 						string nombre = Interfaz::ingresarDatoCadena("el nombre", "cliente");
@@ -305,8 +312,6 @@ int main()
 						string apellido2 = Interfaz::ingresarDatoCadena("el segundo apellido", "cliente");
 						string identificacion = Interfaz::ingresarDatoCadena("la identificacion", "cliente");
 						Cliente* cliente = new Cliente(nombre, apellido1, apellido2, identificacion);
-						int seleccionVuelo = InterfazReservacion::seleccionarVueloPasajeros(aerolinea, "vuelo", "reservar");
-						Vuelo* vuelo = &listaVuelos->devolverElemento(seleccionVuelo);
 						bool proseguir = true;
 						while (proseguir)
 						{

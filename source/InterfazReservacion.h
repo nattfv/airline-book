@@ -10,4 +10,11 @@ public:
 	static int seleccionarVueloPasajeros(Aerolinea* aerolinea, string clase, string accion);
 	static void desplegarAsientos(Vuelo* vuelo);
 	static int seleccionarFilaPasajeros(Vuelo* vuelo);
+	static int seleccionarColumnaPasajeros(Vuelo* vuelo);
+	static void mostrarDetallesPasajeros(Vuelo* vuelo);
+	static void mostrarReservasVendedor(Aerolinea* aerolinea, Vendedor* vendedor);
+	static string reservaExitosa();
+	static string asientoReservado();
+	static void limiteReservaciones();
+	static string continuarReservando();
 };

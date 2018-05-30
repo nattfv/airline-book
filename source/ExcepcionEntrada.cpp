@@ -16,7 +16,5 @@ string ExcepcionEntrada::errorRango()
 		s << "Datos validos mayores a " << minimo << "\n";
 	else
 		s << "Datos validos entre " << minimo << " y " << maximo << "\n";
-
-
 	return s.str();
 }

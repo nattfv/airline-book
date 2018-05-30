@@ -15,4 +15,5 @@ public:
 	friend ostream& operator<<(ostream& out, Vendedor& _p);
 	friend ofstream& operator<<(ofstream& archivo, Vendedor& p);
 	friend ifstream& operator>>(ifstream& archivo, Vendedor& p);
+	bool operator==(const Vendedor& v);
 };

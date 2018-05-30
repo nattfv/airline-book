@@ -41,6 +41,14 @@ string Vendedor::mostrarVendedor()
 	return s.str();
 }
 
+bool Vendedor::operator==(const Vendedor & v)
+{
+	return (identificacion == v.identificacion) &&
+		(primerApellido == v.primerApellido) &&
+		(segundoApellido == v.segundoApellido) &&
+		(nombre == v.nombre);
+}
+
 ostream & operator<<(ostream & out, Vendedor & _p)
 {
 	out << _p.identificacion << "\t" << _p.nombre << "\t"

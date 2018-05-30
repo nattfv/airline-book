@@ -1,4 +1,5 @@
 #pragma once
+#include"Iterador.h"
 #include"Nodo.h"
 #include<string>
 #include<iostream>
@@ -23,6 +24,9 @@ public:
 	Nodo<T>* getPrimerNodo();
 	int cantidadElementos();
 	T& devolverElemento(int _posicion);
+	void guardarTodos(ofstream& archivo);
+	void recuperarTodos(ifstream& archivo);
+	IteradorLista<T>* crearIterador();
 };
 
 template<class T>
@@ -74,7 +78,7 @@ string Lista<T>::toString()
 	stringstream ss;
 	Nodo<T>* corre = ppio;
 	if (ppio == NULL)
-		ss << "No hay elementos/n";
+		ss << "No hay elementos\n";
 	while (corre)
 	{
 		ss << "No. " << ++num << "\n" << *(corre->getInfo()) << endl;
@@ -187,4 +191,35 @@ T & Lista<T>::devolverElemento(int _posicion)
 		corre = corre->getSiguiente();
 	}
 	return *corre->getInfo();
+}
+
+template<class T>
+void Lista<T>::guardarTodos(ofstream & archivo)
+{
+	Nodo<T>* corre = ppio;
+	while (corre)
+	{
+		archivo << *corre->getInfo();
+		corre = corre->getSiguiente();
+	}
+}
+
+template<class T>
+void Lista<T>::recuperarTodos(ifstream & archivo)
+{
+	T elementoEstatico;
+	archivo >> elementoEstatico;
+	while (!archivo.eof())
+	{
+		T* elementoDinamico = new T();
+		*elementoDinamico = elementoEstatico;
+		agregarElemento(elementoDinamico);
+		archivo >> elementoEstatico;
+	}
+}
+
+template<class T>
+IteradorLista<T> * Lista<T>::crearIterador()
+{
+	return new IteradorLista<T>(ppio);
 }

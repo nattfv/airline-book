@@ -1,158 +1,410 @@
-#include<iostream>
-#include"Fecha.h"
-#include"Destino.h"
-#include"Piloto.h"
-#include"Vendedor.h"
-#include"MatrizAsiento.h"
-#include"Avion.h"
-#include"Vuelo.h"
-#include"Reservacion.h"
-#include"Lista.h"
+#include"InterfazDestino.h"
+#include"InterfazPiloto.h"
+#include"InterfazAvion.h"
+#include"InterfazVendedor.h"
+#include"InterfazVuelo.h"
+#include"InterfazReservacion.h"
+#include"Aerolinea.h"
+#include"ExcepcionExistencia.h"
+#include<exception>
 using namespace std;
 
 int main()
 {
-	//-------------------------------------------------------------------------------------------------
-	//Prueba de Fecha
-	Fecha* fecha1 = new Fecha();
-	cout << fecha1->mostrarFormatoFecha() << endl;
-	Fecha* fecha2 = new Fecha(20, 6, 2018);
-	cout << fecha2->mostrarFormatoFecha() << endl;
-	Fecha* fecha3 = new Fecha(*fecha2);
-	cout << fecha3->mostrarFormatoFecha() << endl;
-	*fecha3 = *fecha1;
-	cout << fecha3->mostrarFormatoFecha() << endl;
-	try
+	//Control para el menu
+	bool menuPrincipal = false;
+	bool menuAdministracion = false;
+	bool menuEspecifica = false;
+	bool menuReservacion = false;
+
+	//Control para la opcion a elegir
+	int opcionMenuPrincipal = 0;
+	int opcionMenuAdministracion = 0;
+	int opcionMenuEspecifica = 0;
+	int opcionMenuReservacion = 0;
+
+	//Aerolinea
+	Aerolinea* aerolinea = new Aerolinea();
+	Lista<Destino>* listaDestinos = aerolinea->obtenerDestinos();
+	Lista<Piloto>* listaPilotos = aerolinea->obtenerPilotos();
+	Lista<Avion>* listaAviones = aerolinea->obtenerAviones();
+	Lista<Vendedor>* listaVendedores = aerolinea->obtenerVendedores();
+	Lista<Vuelo>* listaVuelos = aerolinea->obtenerVuelos();
+	Lista<Reservacion>* listaReservaciones = aerolinea->obtenerReservaciones();
+
+	//Recuperar Archivos
+	ifstream flujoEntradaDestinos;
+	flujoEntradaDestinos.open("../destinos.txt", ios::in);
+	listaDestinos->recuperarTodos(flujoEntradaDestinos);
+	flujoEntradaDestinos.close();
+	ifstream flujoEntradaPilotos;
+	flujoEntradaPilotos.open("../pilotos.txt", ios::in);
+	listaPilotos->recuperarTodos(flujoEntradaPilotos);
+	flujoEntradaPilotos.close();
+	ifstream flujoEntradaAviones;
+	flujoEntradaAviones.open("../aviones.txt", ios::in);
+	listaAviones->recuperarTodos(flujoEntradaAviones);
+	flujoEntradaAviones.close();
+	ifstream flujoEntradaVendedores;
+	flujoEntradaVendedores.open("../vendedores.txt", ios::in);
+	listaVendedores->recuperarTodos(flujoEntradaVendedores);
+	flujoEntradaVendedores.close();
+	ifstream flujoEntradaVuelos;
+	flujoEntradaVuelos.open("../vuelos.txt", ios::in);
+	listaVuelos->recuperarTodos(flujoEntradaVuelos);
+	flujoEntradaVuelos.close();
+	ifstream flujoEntradaReservaciones;
+	flujoEntradaReservaciones.open("../reservaciones.txt", ios::in);
+	listaReservaciones->recuperarTodos(flujoEntradaReservaciones);
+	flujoEntradaReservaciones.close();
+
+
+	while (!menuPrincipal)
 	{
-		Fecha fecha(12, 45, 2006);
-		cout << fecha.mostrarFormatoFecha() << endl;
-	}
-	catch (int x)
-	{
-		cout << "Error tipo: " << x << endl;
-	}
-	//-------------------------------------------------------------------------------------------------
-	//Prueba de Destino
-	Destino* destino1 = new Destino("Alajuela, Costa Rica", "New Jersey, Estados Unidos", fecha1, fecha2);
-	cout << destino1->mostrarDestino();
-	Destino* destino2 = new Destino(*destino1);
-	cout << destino2->mostrarDestino();
-	Destino* destino3 = new Destino("Alajuela, Costa Rica", "Berlin, Alemania", new Fecha(*fecha1), new Fecha(*fecha2));
-	cout << destino3->mostrarDestino();
-	*destino1 = *destino3;
-	cout << destino1->mostrarDestino();
-	cout << destino3->mostrarDestino();
-	//-------------------------------------------------------------------------------------------------
-	//Prueba de Piloto
-	Piloto* piloto1 = new Piloto("Andres", "Jimenez", "Elizondo", "P-001");
-	cout << piloto1->mostrarPiloto() << endl;
-	Piloto* piloto2 = new Piloto("Juan", "Mora", "Elizondo", "P-002");
-	cout << piloto2->mostrarPiloto() << endl;
-	//-------------------------------------------------------------------------------------------------
-	//Prueba de Vendedor
-	Vendedor* vendedor1 = new Vendedor("Paulo", "Barrantes", "Aguilar", "V-001");
-	cout << vendedor1->mostrarVendedor() << endl;
-	//-------------------------------------------------------------------------------------------------
-	//Prueba de Cliente
-	Cliente* cliente1 = new Cliente("Andres", "Jimenez", "Elizondo", "116930775");
-	cout << cliente1->mostrarCliente() << endl;
-	//-------------------------------------------------------------------------------------------------
-	//Prueba de MatrizAsiento
-	MatrizAsiento* MAP1 = new MatrizAsiento(12, 4);
-	MAP1->darFormatoTodosAsientos();
-	cout << MAP1->toString();
-	MatrizAsiento* MAP2 = new MatrizAsiento(12, 7);
-	MAP2->darFormatoTodosAsientos();
-	cout << MAP2->toString();
-	//-------------------------------------------------------------------------------------------------
-	//Prueba de Avion
-	Avion* avion1 = new Avion("AP-001", "pasajero", "pequenio");
-	cout << avion1->mostrarAvion();
-	avion1->crearAsientos();
-	cout << avion1->obtenerPasajeros()->toString();
-	Avion* avion2 = new Avion("AC-001", "carga", "grande", 90000);
-	cout << avion2->mostrarAvion();
-	//-------------------------------------------------------------------------------------------------
-	//Prueba de vuelo
-	Vuelo* vuelo1 = new Vuelo("V-001", avion1, destino3, piloto1);
-	vuelo1->prepararAvion();
-	cout << vuelo1->mostrarVuelo();
-	Vuelo* vuelo2 = new Vuelo("V-002", avion2, destino2, piloto1);
-	vuelo2->prepararAvion();
-	cout << vuelo2->mostrarVuelo();
-	//-------------------------------------------------------------------------------------------------
-	//Prueba de Reservacion
-	Reservacion* reserva1 = new Reservacion(vuelo1, vendedor1, new Cliente(*cliente1));
-	if (vuelo1->estaDisponibleAsiento(0, 0)) //Primera reserva
-	{
-		if (reserva1->puedoReservar(0, 0))
-			cout << "Reservacion Exitosa\n";
-		else
-			cout << "Ha excedido su limite de reservas\n";
-	}
-	else
-		cout << "Este asiento ya se encuentra ocupado\n";
-	if (vuelo1->estaDisponibleAsiento(0, 1)) //Segunda reserva
-	{
-		if (reserva1->puedoReservar(0, 1))
-			cout << "Reservacion Exitosa\n";
-		else
-			cout << "Ha excedido su limite de reservas\n";
-	}
-	else
-		cout << "Este asiento ya se encuentra ocupado\n";
-	Reservacion* reserva2 = new Reservacion(vuelo1, vendedor1, new Cliente(*cliente1));
-	if (vuelo1->estaDisponibleAsiento(0, 0)) //Tercera reserva, pero repetida
-	{
-		if (reserva2->puedoReservar(0, 0))
-			cout << "Reservacion Exitosa\n";
-		else
-			cout << "Ha excedido su limite de reservas\n";
-	}
-	else
-		cout << "Este asiento ya se encuentra ocupado\n";
-	cout << reserva1->mostrarReservacion();
-	cout << reserva2->mostrarReservacion();
-	//-------------------------------------------------------------------------------------------------
-	//Prueba de Plantillas
-	Lista<Destino>* listaDestinos = new Lista<Destino>();
-	listaDestinos->agregarElemento(destino1);
-	listaDestinos->agregarElemento(destino2);
-	listaDestinos->agregarElemento(destino3);
-	cout << listaDestinos->toString();
-	Lista<Piloto>* listaPilotos = new Lista<Piloto>();
-	listaPilotos->agregarElemento(piloto1);
-	listaPilotos->agregarElemento(piloto2);
-	cout << listaPilotos->toString();
-	Lista<Avion>* listaAviones = new Lista<Avion>();
-	listaAviones->agregarElemento(avion1);
-	listaAviones->agregarElemento(avion2);
-	cout << listaAviones->toString();
-	Lista<Vuelo>* listaVuelos = new Lista<Vuelo>();
-	listaVuelos->agregarElemento(vuelo1);
-	listaVuelos->agregarElemento(vuelo2);
-	cout << listaVuelos->toString();
-	Lista<Cliente>* listaCliente = new Lista<Cliente>();
-	listaCliente->agregarElemento(cliente1);
-	cout << listaCliente->toString();
-	Lista<Vendedor>* listaVendedor = new Lista<Vendedor>();
-	listaVendedor->agregarElemento(vendedor1);
-	cout << listaVendedor->toString();
-	Lista<Reservacion>* listaReservacion = new Lista<Reservacion>();
-	listaReservacion->agregarElemento(reserva1);
-	listaReservacion->agregarElemento(reserva2);
-	cout << listaReservacion->toString();
-	//-------------------------------------------------------------------------------------------------
-	//Eliminacion
-	delete listaPilotos;
-	delete listaDestinos;
-	delete listaAviones;
-	delete listaVuelos;
-	delete listaCliente;
-	delete listaVendedor;
-	delete listaReservacion;
-	delete MAP2;
-	delete MAP1;
+		opcionMenuPrincipal = Interfaz::menuPrincipal();
+		switch (opcionMenuPrincipal)
+		{
+		case 1: //Administracion
+
+			while (!menuAdministracion)
+			{
+				opcionMenuAdministracion = Interfaz::menuAdministracion();
+				switch (opcionMenuAdministracion)
+				{
+				case 1: //Destinos
+					while (!menuEspecifica)
+					{
+						opcionMenuEspecifica = Interfaz::menuAdministracionDe("destinos");
+						if (opcionMenuEspecifica == 1) //Agregar Destinos
+						{
+							/*
+								Esta parte necesita una excepcion, porque la fecha
+								de partida tiene que ser menos a la fecha de regreso
+							*/
+							InterfazDestino::encabezadoFechaPartida();
+							int dia = InterfazDestino::ingresarDia();
+							int mes = InterfazDestino::ingresarMes();
+							int anio = InterfazDestino::ingresarAnio();
+							InterfazDestino::encabezadoFechaRegreso();
+							int dia1 = InterfazDestino::ingresarDia();
+							int mes1 = InterfazDestino::ingresarMes();
+							int anio1 = InterfazDestino::ingresarAnio();
+							InterfazDestino::encabezadoDestino();
+							string origen = InterfazDestino::ingresarLugarOrigen();
+							string destino = InterfazDestino::ingresarLugarDestino();
+							listaDestinos->agregarElemento(new Destino(origen, destino, new Fecha(dia, mes, anio), new Fecha(dia1, mes1, anio1)));
+						}
+						else if (opcionMenuEspecifica == 2) //Mostrar Destinos
+							InterfazDestino::mostrarTodosDestinos(aerolinea);
+						else if (opcionMenuEspecifica == 3) //Actualizar Destinos
+							cout << "Actualizar\n";
+						else if (opcionMenuEspecifica == 4) //Eliminar Destinos
+						{
+							try
+							{
+								int seleccionDestino = InterfazDestino::seleccionarDestino(aerolinea, "destino", "eliminar");
+								if (listaDestinos->eliminarElemento(seleccionDestino))
+									Interfaz::eliminacionExitosa();
+							}
+							catch (ExcepcionExistencia& e)
+							{
+								Interfaz::mostrarError(e.notificarError());
+							}
+						}
+						else if (opcionMenuEspecifica == 5)
+							menuEspecifica = true;
+					}//FIN WHILE
+					menuEspecifica = false;
+					break;
+				case 2: //Pilotos
+					while (!menuEspecifica)
+					{
+						opcionMenuEspecifica = Interfaz::menuAdministracionDe("pilotos");
+						if (opcionMenuEspecifica == 1) //Agregar Pilotos
+						{
+							InterfazPiloto::encabezadoPiloto();
+							string nombre = Interfaz::ingresarDatoCadena("el nombre", "piloto");
+							string primerApellido = Interfaz::ingresarDatoCadena("el primer apellido", "piloto");
+							string segundoApellido = Interfaz::ingresarDatoCadena("el segundo apellido", "piloto");
+							string identificacion = Interfaz::ingresarDatoCadena("la identificacion", "piloto");
+							listaPilotos->agregarElemento(new Piloto(nombre, primerApellido, segundoApellido, identificacion));
+						}
+						else if (opcionMenuEspecifica == 2) //Mostrar Pilotos
+							InterfazPiloto::mostrarTodosPilotos(aerolinea);
+						else if (opcionMenuEspecifica == 3) //Actualizar Pilotos
+							cout << "Actualizar\n";
+						else if (opcionMenuEspecifica == 4) //Eliminar Pilotos
+						{
+							try
+							{
+								int seleccionPiloto = InterfazPiloto::seleccionarPiloto(aerolinea, "piloto", "eliminar");
+								if (listaPilotos->eliminarElemento(seleccionPiloto))
+									Interfaz::eliminacionExitosa();
+							}
+							catch (ExcepcionExistencia & e)
+							{
+								Interfaz::mostrarError(e.notificarError());
+							}
+						}
+						else if (opcionMenuEspecifica == 5)
+							menuEspecifica = true;
+					}//FIN WHILE
+					menuEspecifica = false;
+					break;
+				case 3: //Aviones
+					while (!menuEspecifica)
+					{
+						opcionMenuEspecifica = Interfaz::menuAdministracionDe("aviones");
+						if (opcionMenuEspecifica == 1) //Agreagar pilotos
+						{
+							/*
+								Se podria implementar un patron para evitar
+								tanto control de flujo
+							*/
+							string codigo, transporte, tamanio;
+							double pesoCarga = 0.0;
+							InterfazAvion::encabezadoAvion();
+							codigo = Interfaz::ingresarDatoCadena("el codigo", "avion");
+							if (InterfazAvion::menuTransporteAvion() == 1) //pasajeros
+							{
+								transporte = "pasajeros";
+								if (InterfazAvion::menuAsientosAvion() == 1)
+									tamanio = "pequenio";
+								else
+									tamanio = "grande";
+							}
+							else //carga
+							{
+								transporte = "carga";
+								if ((pesoCarga = InterfazAvion::ingresarPesoAvion()) < 95000)
+									tamanio = "pequenio";
+								else
+									tamanio = "grande";
+							}
+							listaAviones->agregarElemento(new Avion(codigo, transporte, tamanio, pesoCarga));
+						}
+						else if (opcionMenuEspecifica == 2) //Mostrar aviones
+							InterfazAvion::mostrarTodosAviones(aerolinea);
+						else if (opcionMenuEspecifica == 3) //Actualizar aviones
+							cout << "Actualizar\n";
+						else if (opcionMenuEspecifica == 4) //Eliminar aviones
+						{
+							try
+							{
+								int seleccionAvion = InterfazAvion::seleccionarAvion(aerolinea, "avion", "eliminar");
+								if (listaAviones->eliminarElemento(seleccionAvion))
+									Interfaz::eliminacionExitosa();
+							}
+							catch (ExcepcionExistencia & e)
+							{
+								Interfaz::mostrarError(e.notificarError());
+							}
+						}
+						else if (opcionMenuEspecifica == 5)
+							menuEspecifica = true;
+					}//FIN WHILE
+					menuEspecifica = false;
+					break;
+				case 4: //Vuelos
+					while (!menuEspecifica)
+					{
+						opcionMenuEspecifica = Interfaz::menuAdministracionDe("vuelos");
+						if (opcionMenuEspecifica == 1) //Agregar vuelos
+						{
+							try
+							{
+								int seleccionAvion = InterfazAvion::seleccionarAvion(aerolinea, "avion", "asignar");
+								int seleccionPiloto = InterfazPiloto::seleccionarPiloto(aerolinea, "piloto", "asignar");
+								int seleccionDestino = InterfazDestino::seleccionarDestino(aerolinea, "destino", "asignar");
+								string identificacion = Interfaz::ingresarDatoCadena("la identificacion", "vuelo");
+								Avion* avion = &listaAviones->devolverElemento(seleccionAvion);
+								Piloto* piloto = &listaPilotos->devolverElemento(seleccionPiloto);
+								Destino* destino = &listaDestinos->devolverElemento(seleccionDestino);
+								Vuelo* vuelo = new Vuelo(identificacion, avion, destino, piloto);
+								vuelo->prepararAvion();
+								listaVuelos->agregarElemento(vuelo);
+							}
+							catch (ExcepcionExistencia& e)
+							{
+								Interfaz::mostrarError(e.notificarError());
+							}
+						}
+						else if (opcionMenuEspecifica == 2)
+							InterfazVuelo::mostrarTodosVuelos(aerolinea);
+						else if (opcionMenuEspecifica == 3)
+							cout << "Actualizar\n";
+						else if (opcionMenuEspecifica == 4)
+						{
+							try
+							{
+								int seleccionVuelo = InterfazVuelo::seleccionarVuelo(aerolinea, "vuelo", "eliminar");
+								if (listaVuelos->eliminarElemento(seleccionVuelo))
+									Interfaz::eliminacionExitosa();
+							}
+							catch (ExcepcionExistencia & e)
+							{
+								Interfaz::mostrarError(e.notificarError());
+							}
+						}
+						else if (opcionMenuEspecifica == 5)
+							menuEspecifica = true;
+					}//FIN WHILE
+					menuEspecifica = false;
+					break;
+				case 5: //Vendedores
+					while (!menuEspecifica)
+					{
+						opcionMenuEspecifica = Interfaz::menuAdministracionDe("vendedores");
+						if (opcionMenuEspecifica == 1) //Agregar Vendedores
+						{
+							InterfazVendedor::encabezadoVendedor();
+							string nombre = Interfaz::ingresarDatoCadena("el nombre", "vendedor");
+							string primerApellido = Interfaz::ingresarDatoCadena("el primer apellido", "vendedor");
+							string segundoApellido = Interfaz::ingresarDatoCadena("el segundo apellido", "vendedor");
+							string identificacion = Interfaz::ingresarDatoCadena("la identificacion", "vendedor");
+							listaVendedores->agregarElemento(new Vendedor(nombre, primerApellido, segundoApellido, identificacion));
+						}
+						else if (opcionMenuEspecifica == 2) //Mostrar Vendedores
+							InterfazVendedor::mostrarTodosVendedores(aerolinea);
+						else if (opcionMenuEspecifica == 3) //Actualizar Vendedores
+							cout << "Actualizar\n";
+						else if (opcionMenuEspecifica == 4) //Eliminar Vendedores
+						{
+							try
+							{
+								int seleccionVendedor = InterfazVendedor::seleccionarVendedor(aerolinea, "vendedor", "eliminar");
+								if (listaVendedores->eliminarElemento(seleccionVendedor))
+									Interfaz::eliminacionExitosa();
+							}
+							catch (ExcepcionExistencia & e)
+							{
+								Interfaz::mostrarError(e.notificarError());
+							}
+						}
+						else if (opcionMenuEspecifica == 5)
+							menuEspecifica = true;
+					}//FIN WHILE
+					menuEspecifica = false;
+					break;
+				case 6:
+					menuAdministracion = true;
+					break;
+				}//FIN SWITCH
+			}//FIN WHILE
+			menuAdministracion = false;
+			break;
+		case 2: //Reservacion
+			while (!menuReservacion)
+			{
+				opcionMenuReservacion = Interfaz::menuReservacion();
+				if (opcionMenuReservacion == 1)
+				{
+					try
+					{
+						Reservacion* reserva = NULL;
+						int seleccionVuelo = InterfazReservacion::seleccionarVueloPasajeros(aerolinea, "vuelo", "reservar");
+						Vuelo* vuelo = &listaVuelos->devolverElemento(seleccionVuelo);
+						int seleccionVendedor = InterfazVendedor::seleccionarVendedorReservacion(aerolinea);
+						Vendedor* vendedor = &listaVendedores->devolverElemento(seleccionVendedor);
+						string nombre = Interfaz::ingresarDatoCadena("el nombre", "cliente");
+						//aqui seria bonito un encabezado
+						string apellido1 = Interfaz::ingresarDatoCadena("el primer apellido", "cliente");
+						string apellido2 = Interfaz::ingresarDatoCadena("el segundo apellido", "cliente");
+						string identificacion = Interfaz::ingresarDatoCadena("la identificacion", "cliente");
+						Cliente* cliente = new Cliente(nombre, apellido1, apellido2, identificacion);
+						bool proseguir = true;
+						while (proseguir)
+						{
+							InterfazReservacion::desplegarAsientos(vuelo);
+							int seleccionFila = InterfazReservacion::seleccionarFilaPasajeros(vuelo);
+							int seleccionColumna = InterfazReservacion::seleccionarColumnaPasajeros(vuelo);
+							if (vuelo->estaDisponibleAsiento(seleccionFila - 1, seleccionColumna))
+							{
+								if (!reserva)
+								{
+									reserva = new Reservacion(vuelo, vendedor, cliente);
+									listaReservaciones->agregarElemento(reserva); //guardando en la lista la reservacion
+								}
+
+								if (reserva->puedoReservar(seleccionFila - 1, seleccionColumna, vuelo))
+									proseguir = (InterfazReservacion::reservaExitosa() == "n") ? false : true;
+								else
+								{
+									InterfazReservacion::limiteReservaciones();
+									proseguir = false;
+								}
+							}
+							else
+							{
+								proseguir = (InterfazReservacion::asientoReservado() == "n") ? false : true;
+							}
+						}
+					}
+					catch (ExcepcionExistencia& e)
+					{
+						Interfaz::mostrarError(e.notificarError());
+					}
+				}
+				else if (opcionMenuReservacion == 2) //Reservaciones por vuelo
+				{
+					try
+					{
+						int seleccionVuelo = InterfazReservacion::seleccionarVueloPasajeros(aerolinea, "vuelo", "revisar");
+						Vuelo* vuelo = &listaVuelos->devolverElemento(seleccionVuelo);
+						//InterfazReservacion::desplegarAsientos(vuelo);
+						InterfazReservacion::mostrarDetallesPasajeros(vuelo);
+					}
+					catch (ExcepcionExistencia& e)
+					{
+						Interfaz::mostrarError(e.notificarError());
+					}
+				}
+				else if (opcionMenuReservacion == 3) //Reservaciones por vendedor
+				{
+					try
+					{
+						int seleccionVendedor = InterfazVendedor::seleccionarVendedor(aerolinea, "vendedor", "revisar");
+						Vendedor* vendedor = &listaVendedores->devolverElemento(seleccionVendedor);
+						InterfazReservacion::mostrarReservasVendedor(aerolinea, vendedor);
+					}
+					catch (ExcepcionExistencia& e)
+					{
+						Interfaz::mostrarError(e.notificarError());
+					}
+				}
+				else if (opcionMenuReservacion == 4)
+					menuReservacion = true;
+			}//FIN WHILE
+			menuReservacion = false;
+			break;
+		case 3: //Salir
+			menuPrincipal = true;
+			break;
+		} //FIN SWITCH
+	}//FIN WHILE
+
+	//Guardar Archivos
+	ofstream flujoSalidaDestinos("../destinos.txt", ios::out);
+	ofstream flujoSalidaPilotos("../pilotos.txt", ios::out);
+	ofstream flujoSalidaAviones("../aviones.txt", ios::out);
+	ofstream flujoSalidaVendedores("../vendedores.txt", ios::out);
+	ofstream flujoSalidaVuelos("../vuelos.txt", ios::out);
+	ofstream flujoSalidaReservaciones("../reservaciones.txt", ios::out);
+	listaDestinos->guardarTodos(flujoSalidaDestinos);
+	listaPilotos->guardarTodos(flujoSalidaPilotos);
+	listaAviones->guardarTodos(flujoSalidaAviones);
+	listaVendedores->guardarTodos(flujoSalidaVendedores);
+	listaVuelos->guardarTodos(flujoSalidaVuelos);
+	listaReservaciones->guardarTodos(flujoSalidaReservaciones);
+	flujoSalidaDestinos.close();
+	flujoSalidaPilotos.close();
+	flujoSalidaAviones.close();
+	flujoSalidaVendedores.close();
+	flujoSalidaVuelos.close();
+	flujoSalidaReservaciones.close();
+
+	delete aerolinea;
+
 	system("pause");
 	return 0;
 }

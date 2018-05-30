@@ -1,4 +1,5 @@
 #include "Destino.h"
+#include"utiles.h"
 
 Destino::Destino()
 {
@@ -38,8 +39,11 @@ Destino & Destino::operator=(const Destino & _d)
 {
 	if (this != &_d)
 	{
-		delete partida;
-		delete regreso;
+		
+		if(partida) //porque si uso un predeterminado viene en null
+			delete partida;
+		if(regreso) //porque si uso un predeterminado viene en null
+			delete regreso;
 		origen = _d.origen;
 		destino = _d.destino;
 		partida = new Fecha(*_d.partida);
@@ -63,4 +67,30 @@ ostream & operator<<(ostream & out, Destino & _d)
 	out << _d.origen << "\t" << *_d.partida << "\n";
 	out << _d.destino << "\t" << *_d.regreso << "\n";
 	return out;
+}
+
+ofstream & operator<<(ofstream & archivo, Destino & _d)
+{
+	archivo << _d.origen << "\t";
+	archivo << _d.destino << "\n";
+	archivo << *_d.partida;
+	archivo << *_d.regreso;
+	return archivo;
+}
+
+ifstream & operator>>(ifstream & archivo, Destino & d)
+{
+	string hilera = procesarHilera(archivo);
+	stringstream particion(hilera);
+	string origen, destino;
+	Fecha partida, regreso;
+	getline(particion, origen, '\t');
+	getline(particion, destino, '\n');
+	archivo >> partida;
+	archivo >> regreso;
+	d.origen = origen;
+	d.destino = destino;
+	d.partida = new Fecha(partida);
+	d.regreso = new Fecha(regreso);
+	return archivo;
 }

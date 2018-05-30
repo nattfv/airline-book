@@ -1,4 +1,5 @@
 #include "Fecha.h"
+#include"utiles.h"
 
 int Fecha::finalMes[12] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
@@ -88,4 +89,22 @@ ostream & operator<<(ostream & out, Fecha & _f)
 {
 	out << _f.mostrarFormatoFecha();
 	return out;
+}
+
+ofstream & operator<<(ofstream & archivo, Fecha & _d)
+{
+	archivo << _d.dia << "\t";
+	archivo << _d.mes << "\t";
+	archivo << _d.anio << "\n";
+	return archivo;
+}
+
+ifstream & operator>>(ifstream & archivo, Fecha & d)
+{
+	string hilera = procesarHilera(archivo);
+	stringstream particion(hilera);
+	d.dia = procesarInt(particion, '\t');
+	d.mes = procesarInt(particion, '\t');
+	d.anio = procesarInt(particion, '\n');
+	return archivo;
 }

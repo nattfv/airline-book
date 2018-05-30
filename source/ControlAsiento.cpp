@@ -35,3 +35,11 @@ void ControlAsiento::darFormatoAsiento(Asiento & _a, int _columna, int _fila)
 	*/
 	_a.setNumero(_fila + 1);
 }
+
+string ControlAsiento::formarHileraLetras()
+{
+	stringstream s;
+	for (int i = 0; i < tamanio; i++)
+		s << letrasAsiento[i] << "    " << (((i + 1) % 3 == 0 && i != 0) ? "  " : "");;
+	return s.str();
+}

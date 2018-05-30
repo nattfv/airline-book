@@ -1,5 +1,6 @@
 #pragma once
 #include<sstream>
+#include<fstream>
 using namespace std;
 
 class Asiento {
@@ -21,4 +22,8 @@ public:
 	void setDisponible(bool _disponible);
 	string mostrarAsiento();
 	friend ostream& operator<<(ostream& out, Asiento& _a);
+	friend ofstream& operator<<(ofstream& archivo, Asiento& a);
+	friend ifstream& operator>>(ifstream& archivo, Asiento& a);
+	bool asientoDisponible();
+	void cambiarDisponiblidad(bool _disponible);
 };

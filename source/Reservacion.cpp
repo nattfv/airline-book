@@ -1,4 +1,5 @@
 #include "Reservacion.h"
+#include"utiles.h"
 
 Reservacion::Reservacion() : 
 	cantidadReservados(0), vuelo(NULL), vendedor(NULL), cliente(NULL)
@@ -86,4 +87,36 @@ bool Reservacion::compararVendedor(Vendedor * v)
 ostream & operator<<(ostream & out, Reservacion & _d)
 {
 	return out <<_d.mostrarReservacion();
+}
+
+ofstream & operator<<(ofstream & archivo, Reservacion & d)
+{
+	archivo << d.cantidadReservados << "\n";
+	archivo << *d.vuelo;
+	archivo << *d.vendedor;
+	archivo << *d.cliente;
+	archivo << *d.asientosReservados;
+	return archivo;
+}
+
+ifstream & operator>>(ifstream & archivo, Reservacion & d)
+{
+	// TODO: insertar una instrucción return aquí
+	string hilera = procesarHilera(archivo);
+	stringstream particion(hilera);
+	Vuelo vuelo;
+	Vendedor vendedor;
+	Cliente cliente;
+	AsientoReservado asientosReservados;
+	int cantidadReservados = procesarInt(particion, '\n');
+	archivo >> vuelo;
+	archivo >> vendedor;
+	archivo >> cliente;
+	archivo >> asientosReservados;
+	d.cantidadReservados = cantidadReservados;
+	d.vuelo = new Vuelo(vuelo);
+	d.vendedor = new Vendedor(vendedor);
+	d.cliente = new Cliente(cliente);
+	d.asientosReservados = new AsientoReservado(asientosReservados);
+	return archivo;
 }

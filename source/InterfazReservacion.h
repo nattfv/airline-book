@@ -17,4 +17,5 @@ public:
 	static string asientoReservado();
 	static void limiteReservaciones();
 	static string continuarReservando();
+	static void encabezadoCliente();
 };

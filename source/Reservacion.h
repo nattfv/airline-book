@@ -22,4 +22,6 @@ public:
 	bool puedoReservar(int _fila, int _columna, Vuelo* a); //ignorar
 	friend ostream& operator<<(ostream& out, Reservacion& _d);
 	bool compararVendedor(Vendedor* v);
+	friend ofstream& operator<<(ofstream& archivo, Reservacion& d);
+	friend ifstream& operator>>(ifstream& archivo, Reservacion& d);
 };

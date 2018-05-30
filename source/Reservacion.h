@@ -13,10 +13,13 @@ private:
 	AsientoReservado* asientosReservados; //array que guarda los asientos por reservacion
 	Cliente* cliente; //creado por el constructor copia, por parametro
 public:
+	Reservacion();
 	Reservacion(Vuelo* _vuelo, Vendedor* _vendedor, Cliente* _cliente);
+	Reservacion(const Reservacion& r);
 	~Reservacion();
+	Reservacion& operator=(const Reservacion& r);
 	string mostrarReservacion();
-	bool puedoReservar(int _fila, int _columna); //ignorar
+	bool puedoReservar(int _fila, int _columna, Vuelo* a); //ignorar
 	friend ostream& operator<<(ostream& out, Reservacion& _d);
-
+	bool compararVendedor(Vendedor* v);
 };

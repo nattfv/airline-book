@@ -1,12 +1,26 @@
 #include "Reservacion.h"
 
+Reservacion::Reservacion() : 
+	cantidadReservados(0), vuelo(NULL), vendedor(NULL), cliente(NULL)
+{
+}
+
 Reservacion::Reservacion(Vuelo * _vuelo, Vendedor * _vendedor, Cliente* _cliente)
 {
 	cantidadReservados = 0;
-	vuelo = _vuelo;
+	vuelo = new Vuelo(*_vuelo);
 	vendedor = new Vendedor(*_vendedor);
 	cliente = _cliente;
 	asientosReservados = new AsientoReservado();
+}
+
+Reservacion::Reservacion(const Reservacion & r)
+{
+	cantidadReservados = r.cantidadReservados;
+	vuelo = new Vuelo(*r.vuelo);
+	vendedor = new Vendedor(*r.vendedor);
+	cliente = new Cliente(*r.cliente);
+	asientosReservados = new AsientoReservado(*r.asientosReservados);
 }
 
 Reservacion::~Reservacion()
@@ -14,6 +28,25 @@ Reservacion::~Reservacion()
 	delete vendedor;
 	delete asientosReservados;
 	delete cliente;
+}
+
+Reservacion & Reservacion::operator=(const Reservacion & r)
+{
+	if (this != &r)
+	{
+		if (vuelo)
+			delete vuelo;
+		if (vendedor)
+			delete vendedor;
+		if (cliente)
+			delete cliente;
+		cantidadReservados = r.cantidadReservados;
+		vuelo = new Vuelo(*r.vuelo);
+		vendedor = new Vendedor(*r.vendedor);
+		cliente = new Cliente(*r.cliente);
+		asientosReservados = new AsientoReservado(*r.asientosReservados);
+	}
+	return *this;
 }
 
 string Reservacion::mostrarReservacion()
@@ -30,7 +63,7 @@ string Reservacion::mostrarReservacion()
 /*
 	Verifica si no ha excedido la cantida de asiento para reservar
 */
-bool Reservacion::puedoReservar(int _fila, int _columna)
+bool Reservacion::puedoReservar(int _fila, int _columna, Vuelo* a) //mejor que le caiga el avion por parametro
 {
 	Avion* avion = vuelo->obtenerAvion(); //avion asignado al vuelo
 	MatrizAsiento* asientos = avion->obtenerPasajeros(); //los asientos actualizados del avion
@@ -38,11 +71,16 @@ bool Reservacion::puedoReservar(int _fila, int _columna)
 	if (asientosReservados->agregar(posibleAsiento))
 	{
 		cantidadReservados++;
-		posibleAsiento->setDisponible(false); //importante, para no volver a comprar el mismo
+		a->actualizarPasajero(_fila, _columna);
 		return true;
 	}
 	else
 		return false;
+}
+
+bool Reservacion::compararVendedor(Vendedor * v)
+{
+	return *vendedor == *v;
 }
 
 ostream & operator<<(ostream & out, Reservacion & _d)

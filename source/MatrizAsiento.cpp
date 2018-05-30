@@ -90,7 +90,7 @@ void MatrizAsiento::darFormatoTodosAsientos()
 	ControlAsiento control(columna);
 	for (int i = 0; i < fila; i++)
 		for (int j = 0; j < columna; j++)
-			control.darFormatoAsiento(*matriz[i][j], i, i);
+			control.darFormatoAsiento(*matriz[i][j], j, i);
 }
 
 int MatrizAsiento::totalAsientos()

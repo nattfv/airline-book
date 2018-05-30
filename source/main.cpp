@@ -30,9 +30,9 @@ int main()
 	Lista<Avion>* listaAviones = aerolinea->obtenerAviones();
 	Lista<Vendedor>* listaVendedores = aerolinea->obtenerVendedores();
 	Lista<Vuelo>* listaVuelos = aerolinea->obtenerVuelos();
+	Lista<Reservacion>* listaReservaciones = aerolinea->obtenerReservaciones();
 
 	//Recuperar Archivos
-
 	ifstream flujoEntradaDestinos;
 	flujoEntradaDestinos.open("../destinos.txt", ios::in);
 	listaDestinos->recuperarTodos(flujoEntradaDestinos);
@@ -267,8 +267,8 @@ int main()
 						{
 							try
 							{
-								int seleccionCliente = InterfazVendedor::seleccionarVendedor(aerolinea, "vendedor", "eliminar");
-								if (listaVendedores->eliminarElemento(seleccionCliente))
+								int seleccionVendedor = InterfazVendedor::seleccionarVendedor(aerolinea, "vendedor", "eliminar");
+								if (listaVendedores->eliminarElemento(seleccionVendedor))
 									Interfaz::eliminacionExitosa();
 							}
 							catch (ExcepcionExistencia & e)
@@ -296,10 +296,44 @@ int main()
 				{
 					try
 					{
+						Reservacion* reserva = NULL;
+						int seleccionVendedor = InterfazVendedor::seleccionarVendedorReservacion(aerolinea);
+						Vendedor* vendedor = &listaVendedores->devolverElemento(seleccionVendedor);
+						string nombre = Interfaz::ingresarDatoCadena("el nombre", "cliente");
+						//aqui seria bonito un encabezado
+						string apellido1 = Interfaz::ingresarDatoCadena("el primer apellido", "cliente");
+						string apellido2 = Interfaz::ingresarDatoCadena("el segundo apellido", "cliente");
+						string identificacion = Interfaz::ingresarDatoCadena("la identificacion", "cliente");
+						Cliente* cliente = new Cliente(nombre, apellido1, apellido2, identificacion);
 						int seleccionVuelo = InterfazReservacion::seleccionarVueloPasajeros(aerolinea, "vuelo", "reservar");
 						Vuelo* vuelo = &listaVuelos->devolverElemento(seleccionVuelo);
-						InterfazReservacion::desplegarAsientos(vuelo);
-						int seleccionFila = InterfazReservacion::seleccionarFilaPasajeros(vuelo);
+						bool proseguir = true;
+						while (proseguir)
+						{
+							InterfazReservacion::desplegarAsientos(vuelo);
+							int seleccionFila = InterfazReservacion::seleccionarFilaPasajeros(vuelo);
+							int seleccionColumna = InterfazReservacion::seleccionarColumnaPasajeros(vuelo);
+							if (vuelo->estaDisponibleAsiento(seleccionFila - 1, seleccionColumna))
+							{
+								if (!reserva)
+								{
+									reserva = new Reservacion(vuelo, vendedor, cliente);
+									listaReservaciones->agregarElemento(reserva); //guardando en la lista la reservacion
+								}
+
+								if (reserva->puedoReservar(seleccionFila - 1, seleccionColumna, vuelo))
+									proseguir = (InterfazReservacion::reservaExitosa() == "n") ? false : true;
+								else
+								{
+									InterfazReservacion::limiteReservaciones();
+									proseguir = false;
+								}
+							}
+							else
+							{
+								proseguir = (InterfazReservacion::asientoReservado() == "n") ? false : true;
+							}
+						}
 					}
 					catch (ExcepcionExistencia& e)
 					{
@@ -307,9 +341,32 @@ int main()
 					}
 				}
 				else if (opcionMenuReservacion == 2) //Reservaciones por vuelo
-					cout << "Reservaciones por vuelo\n";
+				{
+					try
+					{
+						int seleccionVuelo = InterfazReservacion::seleccionarVueloPasajeros(aerolinea, "vuelo", "revisar");
+						Vuelo* vuelo = &listaVuelos->devolverElemento(seleccionVuelo);
+						//InterfazReservacion::desplegarAsientos(vuelo);
+						InterfazReservacion::mostrarDetallesPasajeros(vuelo);
+					}
+					catch (ExcepcionExistencia& e)
+					{
+						Interfaz::mostrarError(e.notificarError());
+					}
+				}
 				else if (opcionMenuReservacion == 3) //Reservaciones por vendedor
-					cout << "Reservaciones por vendedor\n";
+				{
+					try
+					{
+						int seleccionVendedor = InterfazVendedor::seleccionarVendedor(aerolinea, "vendedor", "revisar");
+						Vendedor* vendedor = &listaVendedores->devolverElemento(seleccionVendedor);
+						InterfazReservacion::mostrarReservasVendedor(aerolinea, vendedor);
+					}
+					catch (ExcepcionExistencia& e)
+					{
+						Interfaz::mostrarError(e.notificarError());
+					}
+				}
 				else if (opcionMenuReservacion == 4)
 					menuReservacion = true;
 			}//FIN WHILE
@@ -327,16 +384,19 @@ int main()
 	ofstream flujoSalidaAviones("../aviones.txt", ios::out);
 	ofstream flujoSalidaVendedores("../vendedores.txt", ios::out);
 	ofstream flujoSalidaVuelos("../vuelos.txt", ios::out);
+	ofstream flujoSalidaReservaciones("../reservaciones.txt", ios::out);
 	listaDestinos->guardarTodos(flujoSalidaDestinos);
 	listaPilotos->guardarTodos(flujoSalidaPilotos);
 	listaAviones->guardarTodos(flujoSalidaAviones);
 	listaVendedores->guardarTodos(flujoSalidaVendedores);
 	listaVuelos->guardarTodos(flujoSalidaVuelos);
+	listaReservaciones->guardarTodos(flujoSalidaReservaciones);
 	flujoSalidaDestinos.close();
 	flujoSalidaPilotos.close();
 	flujoSalidaAviones.close();
 	flujoSalidaVendedores.close();
 	flujoSalidaVuelos.close();
+	flujoSalidaReservaciones.close();
 
 	delete aerolinea;
 

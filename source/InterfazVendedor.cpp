@@ -45,3 +45,32 @@ int InterfazVendedor::seleccionarVendedor(Aerolinea * aerolinea, string clase, s
 	}
 	return valor;
 }
+
+int InterfazVendedor::seleccionarVendedorReservacion(Aerolinea * aerolinea)
+{
+	bool correcto = false;
+	int valor = 0;
+	Lista<Vendedor>* listaVendedores = aerolinea->obtenerVendedores();
+	int cantidadElementos = listaVendedores->cantidadElementos();
+	while (!correcto)
+	{
+		try
+		{
+			if (cantidadElementos > 0)
+			{
+				mostrarTodosVendedores(aerolinea);
+				//Interfaz::seleccionarElemento(clase, accion);
+				cout << "Quien se encuentra realizando la reservacion: ";
+				valor = obtenerValorEntero(1, cantidadElementos);
+			}
+			else
+				throw ExcepcionExistencia("destinos", "seleccionar");
+			correcto = true;
+		}
+		catch (ExcepcionEntrada& e)
+		{
+			cout << e.notificarError();
+		}
+	}
+	return valor;
+}

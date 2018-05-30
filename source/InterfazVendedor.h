@@ -8,4 +8,5 @@ public:
 	static void encabezadoVendedor();
 	static void mostrarTodosVendedores(Aerolinea* aerolinea);
 	static int seleccionarVendedor(Aerolinea* aerolinea, string clase, string accion);
+	static int seleccionarVendedorReservacion(Aerolinea* aerolinea);
 };

@@ -70,14 +70,14 @@ ostream & operator<<(ostream & out, Asiento & _a)
 	return out;
 }
 
-ofstream & operator<<(ofstream archivo, Asiento & a)
+ofstream & operator<<(ofstream& archivo, Asiento & a)
 {
 	archivo << a.numero << "\t"
 		<< a.letra << "\n";
 	return archivo;
 }
 
-ifstream & operator>>(ifstream archivo, Asiento & a)
+ifstream & operator>>(ifstream& archivo, Asiento & a)
 {
 	int numero;
 	char letra;

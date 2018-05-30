@@ -29,6 +29,5 @@ public:
 	friend ofstream& operator<<(ofstream& archivo, Avion& d);
 	friend ifstream& operator>>(ifstream& archivo, Avion& d);
 	bool llevaPasajeros();
-	/*int cantidadPasajeros();*/
-	/*int anchoAvion();*/
+	bool estaDisponibleAsiento(int fila, int columna);
 };

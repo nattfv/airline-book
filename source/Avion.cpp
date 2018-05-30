@@ -99,6 +99,11 @@ bool Avion::llevaPasajeros()
 	return transporte == "pasajeros";
 }
 
+bool Avion::estaDisponibleAsiento(int fila, int columna)
+{
+	return pasajeros->disponibilidadAsiento(fila, columna);
+}
+
 //int Avion::cantidadPasajeros()
 //{
 //	return pasajeros->totalAsientos();

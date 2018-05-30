@@ -27,5 +27,6 @@ public:
 	friend ofstream& operator<<(ofstream& archivo, Vuelo& v);
 	friend ifstream& operator>>(ifstream& archivo, Vuelo& v);
 	bool esVueloPasajeros();
+	void actualizarPasajero(int fila, int columna);
 	/*int capacidadVuelo();*/
 };

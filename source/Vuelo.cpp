@@ -33,12 +33,12 @@ Vuelo & Vuelo::operator=(const Vuelo & v)
 {
 	if (this != &v)
 	{
-		if (avion && destino && piloto)
-		{
+		if (avion)
 			delete avion;
+		if(destino)
 			delete destino;
+		if (piloto)
 			delete piloto;
-		}
 		identificacion = v.identificacion;
 		avion = new Avion(*v.avion);
 		destino = new Destino(*v.destino);
@@ -83,14 +83,23 @@ Piloto * Vuelo::obtenerPiloto()
 bool Vuelo::estaDisponibleAsiento(int _fila, int _columna)
 {
 	//Avion* avion = vuelo->obtenerAvion(); //avion asignado al vuelo
-	MatrizAsiento* asientos = avion->obtenerPasajeros(); //los asientos actualizados del avion
-	Asiento* posibleAsiento = asientos->obtenerAsiento(_fila, _columna); //el asiento que quiero reservar
-	return posibleAsiento->getDisponible(); //responsablidad unica
+	//MatrizAsiento* asientos = avion->obtenerPasajeros(); //los asientos actualizados del avion
+	//Asiento* posibleAsiento = asientos->obtenerAsiento(_fila, _columna); //el asiento que quiero reservar
+	//return posibleAsiento->getDisponible(); //responsablidad unica
+	return avion->estaDisponibleAsiento(_fila, _columna);
 }
 
 bool Vuelo::esVueloPasajeros()
 {
 	return avion->llevaPasajeros();
+}
+
+void Vuelo::actualizarPasajero(int fila, int columna)
+{
+	 Avion* avion = obtenerAvion(); //avion asignado al vuelo
+	 MatrizAsiento* asientos = avion->obtenerPasajeros(); //los asientos actualizados del avion
+	 Asiento* posibleAsiento = asientos->obtenerAsiento(fila, columna); //el asiento que quiero reservar
+	 posibleAsiento->setDisponible(false); //importante, para no volver a comprar el mismo
 }
 
 //int Vuelo::capacidadVuelo()

@@ -140,9 +140,9 @@ int InterfazReservacion::seleccionarColumnaPasajeros(Vuelo * vuelo)
 			valor = dato - 65;
 			correcto = true;
 		}
-		catch (int n)
+		catch (ExcepcionEntrada& e)
 		{
-			cout << "Error tipo: " << n << endl;
+			cout << e.notificarError();
 		}
 	}
 	return valor;

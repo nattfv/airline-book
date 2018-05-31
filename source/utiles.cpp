@@ -28,14 +28,14 @@ char obternerValorChar(char minimo, char maximo)
 	string evaluarInicial;
 	cin >> evaluarInicial;
 	if (evaluarInicial.length() > 1)
-		throw - 1;
+		throw ExcepcionCaracter(minimo, maximo);
 	evaluar = evaluarInicial[0];
 	if (isdigit(evaluar))
-		throw 0;
+		throw ExcepcionCaracter(minimo, maximo);
 	if (evaluar < minimo)
-		throw 1;
+		throw ExcepcionCaracter(minimo, maximo);
 	if (evaluar > maximo)
-		throw 2;
+		throw ExcepcionCaracter(minimo, maximo);
 	cin.clear();
 	cin.ignore(255, '\n');
 	return evaluar;

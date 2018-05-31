@@ -2,6 +2,7 @@
 #include"ExcepcionCadena.h"
 #include"ExcepcionMaximo.h"
 #include"ExcepcionMinimo.h"
+#include"ExcepcionCaracter.h"
 #include<iostream>
 #include<fstream>
 

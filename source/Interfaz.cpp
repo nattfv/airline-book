@@ -36,8 +36,9 @@ int Interfaz::menuAdministracion()
 		cout << "[1]->Control Destinos\n";
 		cout << "[2]->Control Pilotos\n";
 		cout << "[3]->Control Aviones\n";
-		cout << "[4]->Control Vuelos\n";
-		cout << "[5]->Control Vendedores\n";
+		//cout << "[4]->Control Vuelos\n";
+		cout << "[4]->Control Vendedores\n";
+		cout << "[5]->Control Vuelos\n";
 		cout << "[6]->Salir\n";
 		cout << "[+]->Digite una opcion: ";
 		op = obtenerValorEntero(1, 6);

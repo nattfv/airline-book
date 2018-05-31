@@ -66,11 +66,11 @@ bool Controlador::controlAdministracion()
 		while (!menuAviones)
 			menuAviones = controlAviones();
 		break;
-	case 4: //Vuelos
+	case 5: //Vuelos
 		while (!menuVuelos)
 			menuVuelos = controlVuelos();
 		break;
-	case 5: //Vendedores
+	case 4: //Vendedores
 		while (!menuVendedores)
 			menuVendedores = controlVendedores();
 		break;

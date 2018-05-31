@@ -1,4 +1,5 @@
 #include "Fecha.h"
+#include"ExcepcionFecha.h"
 #include"utiles.h"
 
 int Fecha::finalMes[12] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
@@ -59,13 +60,13 @@ void Fecha::verificarFecha(int _dia, int _mes, int _anio)
 	if (_anio >= 2000 && _anio <= 2030) //supongamos que tiene 12 anios para pagar
 		anio = _anio;
 	else
-		throw (-1)/*AnioError(_dia, _mes, _anio)*/;
+		throw ExcepcionFecha("anio");
 
 	// segunda excepcion para el mes
 	if (_mes >= 1 && _mes <= 12)
 		mes = _mes;
 	else
-		throw (-1)/*MesError(_dia, _mes, _anio)*/;
+		throw ExcepcionFecha("mes");
 
 	// tercera excepcion para el dia
 	// un || resuelve el problema de otro if para cualquier otro mes si el 
@@ -74,7 +75,7 @@ void Fecha::verificarFecha(int _dia, int _mes, int _anio)
 		(_dia >= 1 && _dia <= finalMes[_mes - 1]))
 		dia = _dia;
 	else
-		throw (-1)/*DiaError(_dia, nombreMes[_mes - 1], _anio)*/;
+		throw ExcepcionFecha("dia");
 }
 
 bool Fecha::esBisiesto(int _anio)

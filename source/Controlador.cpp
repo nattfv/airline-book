@@ -92,18 +92,27 @@ bool Controlador::controlDestinos()
 		Esta parte necesita una excepcion, porque la fecha
 		de partida tiene que ser menos a la fecha de regreso
 		*/
-		InterfazDestino::encabezadoFechaPartida();
-		int dia = InterfazDestino::ingresarDia();
-		int mes = InterfazDestino::ingresarMes();
-		int anio = InterfazDestino::ingresarAnio();
-		InterfazDestino::encabezadoFechaRegreso();
-		int dia1 = InterfazDestino::ingresarDia();
-		int mes1 = InterfazDestino::ingresarMes();
-		int anio1 = InterfazDestino::ingresarAnio();
-		InterfazDestino::encabezadoDestino();
-		string origen = InterfazDestino::ingresarLugarOrigen();
-		string destino = InterfazDestino::ingresarLugarDestino();
-		listaDestinos->agregarElemento(new Destino(origen, destino, new Fecha(dia, mes, anio), new Fecha(dia1, mes1, anio1)));
+		try
+		{
+			InterfazDestino::encabezadoFechaPartida();
+			int dia = InterfazDestino::ingresarDia();
+			int mes = InterfazDestino::ingresarMes();
+			int anio = InterfazDestino::ingresarAnio();
+			Fecha fechaPartida(dia, mes, anio);
+			InterfazDestino::encabezadoFechaRegreso();
+			int dia1 = InterfazDestino::ingresarDia();
+			int mes1 = InterfazDestino::ingresarMes();
+			int anio1 = InterfazDestino::ingresarAnio();
+			Fecha fechaRegreso(dia1, mes1, anio1);
+			InterfazDestino::encabezadoDestino();
+			string origen = InterfazDestino::ingresarLugarOrigen();
+			string destino = InterfazDestino::ingresarLugarDestino();
+			listaDestinos->agregarElemento(new Destino(origen, destino, new Fecha(fechaPartida), new Fecha(fechaRegreso)));
+		}
+		catch (ExcepcionFecha & e)
+		{
+			Interfaz::mostrarError(e.notificarError());
+		}
 	}
 	else if (opcionMenuEspecifica == 2) //Mostrar Destinos
 		InterfazDestino::mostrarTodosDestinos(aerolinea);

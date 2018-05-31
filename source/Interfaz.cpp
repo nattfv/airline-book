@@ -61,11 +61,11 @@ int Interfaz::menuAdministracionDe(string clase)
 		cout << "+-------------------------------------+\n";
 		cout << "[1]->Agregar " << clase << "\n";
 		cout << "[2]->Mostrar " << clase << "\n";
-		cout << "[3]->Actualizar " << clase << "\n";
-		cout << "[4]->Eliminar " << clase << "\n";
-		cout << "[5]->Salir\n";
+		//cout << "[3]->Actualizar " << clase << "\n";
+		cout << "[3]->Eliminar " << clase << "\n";
+		cout << "[4]->Salir\n";
 		cout << "[+]->Digite una opcion: ";
-		op = obtenerValorEntero(1, 5);
+		op = obtenerValorEntero(1, 4);
 		return op;
 	}
 	catch (ExcepcionEntrada& e)

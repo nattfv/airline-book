@@ -116,9 +116,9 @@ bool Controlador::controlDestinos()
 	}
 	else if (opcionMenuEspecifica == 2) //Mostrar Destinos
 		InterfazDestino::mostrarTodosDestinos(aerolinea);
-	else if (opcionMenuEspecifica == 3) //Actualizar Destinos
-		cout << "Actualizar\n";
-	else if (opcionMenuEspecifica == 4) //Eliminar Destinos
+	//else if (opcionMenuEspecifica == 3) //Actualizar Destinos
+	//	cout << "Actualizar\n";
+	else if (opcionMenuEspecifica == 3) //Eliminar Destinos
 	{
 		try
 		{
@@ -131,7 +131,7 @@ bool Controlador::controlDestinos()
 			Interfaz::mostrarError(e.notificarError());
 		}
 	}
-	else if (opcionMenuEspecifica == 5)
+	else if (opcionMenuEspecifica == 4)
 		menuEspecifica = true;
 	return menuEspecifica;
 }
@@ -152,9 +152,9 @@ bool Controlador::controlPilotos()
 	}
 	else if (opcionMenuEspecifica == 2) //Mostrar Pilotos
 		InterfazPiloto::mostrarTodosPilotos(aerolinea);
-	else if (opcionMenuEspecifica == 3) //Actualizar Pilotos
-		cout << "Actualizar\n";
-	else if (opcionMenuEspecifica == 4) //Eliminar Pilotos
+	//else if (opcionMenuEspecifica == 3) //Actualizar Pilotos
+	//	cout << "Actualizar\n";
+	else if (opcionMenuEspecifica == 3) //Eliminar Pilotos
 	{
 		try
 		{
@@ -167,7 +167,7 @@ bool Controlador::controlPilotos()
 			Interfaz::mostrarError(e.notificarError());
 		}
 	}
-	else if (opcionMenuEspecifica == 5)
+	else if (opcionMenuEspecifica == 4)
 		menuEspecifica = true;
 	return menuEspecifica;
 }
@@ -201,9 +201,9 @@ bool Controlador::controlAviones()
 	}
 	else if (opcionMenuEspecifica == 2) //Mostrar aviones
 		InterfazAvion::mostrarTodosAviones(aerolinea);
-	else if (opcionMenuEspecifica == 3) //Actualizar aviones
-		cout << "Actualizar\n";
-	else if (opcionMenuEspecifica == 4) //Eliminar aviones
+	//else if (opcionMenuEspecifica == 3) //Actualizar aviones
+	//	cout << "Actualizar\n";
+	else if (opcionMenuEspecifica == 3) //Eliminar aviones
 	{
 		try
 		{
@@ -216,7 +216,7 @@ bool Controlador::controlAviones()
 			Interfaz::mostrarError(e.notificarError());
 		}
 	}
-	else if (opcionMenuEspecifica == 5)
+	else if (opcionMenuEspecifica == 4)
 		menuEspecifica = true;
 	return menuEspecifica;
 }
@@ -257,9 +257,9 @@ bool Controlador::controlVuelos()
 	}
 	else if (opcionMenuEspecifica == 2)
 		InterfazVuelo::mostrarTodosVuelos(aerolinea);
+	//else if (opcionMenuEspecifica == 3)
+	//	cout << "Actualizar\n";
 	else if (opcionMenuEspecifica == 3)
-		cout << "Actualizar\n";
-	else if (opcionMenuEspecifica == 4)
 	{
 		try
 		{
@@ -272,7 +272,7 @@ bool Controlador::controlVuelos()
 			Interfaz::mostrarError(e.notificarError());
 		}
 	}
-	else if (opcionMenuEspecifica == 5)
+	else if (opcionMenuEspecifica == 4)
 		menuEspecifica = true;
 	return menuEspecifica;
 }
@@ -293,9 +293,9 @@ bool Controlador::controlVendedores()
 	}
 	else if (opcionMenuEspecifica == 2) //Mostrar Vendedores
 		InterfazVendedor::mostrarTodosVendedores(aerolinea);
-	else if (opcionMenuEspecifica == 3) //Actualizar Vendedores
-		cout << "Actualizar\n";
-	else if (opcionMenuEspecifica == 4) //Eliminar Vendedores
+	//else if (opcionMenuEspecifica == 3) //Actualizar Vendedores
+	//	cout << "Actualizar\n";
+	else if (opcionMenuEspecifica == 3) //Eliminar Vendedores
 	{
 		try
 		{
@@ -308,7 +308,7 @@ bool Controlador::controlVendedores()
 			Interfaz::mostrarError(e.notificarError());
 		}
 	}
-	else if (opcionMenuEspecifica == 5)
+	else if (opcionMenuEspecifica == 4)
 		menuEspecifica = true;
 	return menuEspecifica;
 }

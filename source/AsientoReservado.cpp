@@ -56,7 +56,10 @@ string AsientoReservado::mostrarAsientosReservados()
 {
 	stringstream s;
 	for (int i = 0; i < cantidad; i++)
-		s << asientos[i]->mostrarAsiento() << "\n";
+	{
+		s << asientos[i]->mostrarAsiento()
+			<< asientos[i]->mostrarVentanaPasillo() << "\n";
+	}
 	return s.str();
 }
 

@@ -26,4 +26,5 @@ public:
 	friend ifstream& operator>>(ifstream& archivo, Asiento& a);
 	bool asientoDisponible();
 	void cambiarDisponiblidad(bool _disponible);
+	string mostrarVentanaPasillo();
 };

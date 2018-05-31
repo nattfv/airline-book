@@ -64,6 +64,16 @@ void Asiento::cambiarDisponiblidad(bool _disponible)
 	disponible = _disponible;
 }
 
+string Asiento::mostrarVentanaPasillo()
+{
+	string valor = "";
+	if (letra == 'A' || letra == 'F')
+		valor = "(Ventana)";
+	if (letra == 'C' || letra == 'D')
+		valor = "(Pasillo)";
+	return valor;
+}
+
 ostream & operator<<(ostream & out, Asiento & _a)
 {
 	out << _a.numero << _a.letra;

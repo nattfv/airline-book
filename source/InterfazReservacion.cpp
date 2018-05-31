@@ -181,7 +181,7 @@ void InterfazReservacion::mostrarReservasVendedor(Aerolinea * aerolinea, Vendedo
 		if (reserva->compararVendedor(vendedor))
 		{
 			cout << reserva->mostrarReservacion();
-			cout << "<------------------------------------------->";
+			cout << "<----------------------------------------->\n";
 			existe = true;
 		}
 	}

@@ -181,18 +181,12 @@ bool Controlador::controlAviones()
 		if (InterfazAvion::menuTransporteAvion() == 1) //pasajeros
 		{
 			transporte = "pasajeros";
-			if (InterfazAvion::menuAsientosAvion() == 1)
-				tamanio = "pequenio";
-			else
-				tamanio = "grande";
+			tamanio = (InterfazAvion::menuAsientosAvion() == 1) ? "pequenio" : "grande";
 		}
 		else //carga
 		{
 			transporte = "carga";
-			if ((pesoCarga = InterfazAvion::ingresarPesoAvion()) < 95000)
-				tamanio = "pequenio";
-			else
-				tamanio = "grande";
+			tamanio = ((pesoCarga = InterfazAvion::ingresarPesoAvion()) < 95000) ? "pequenio" : "grande";
 		}
 		listaAviones->agregarElemento(new Avion(codigo, transporte, tamanio, pesoCarga));
 	}

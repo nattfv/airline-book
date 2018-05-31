@@ -64,8 +64,8 @@ string Destino::mostrarDestino()
 
 ostream & operator<<(ostream & out, Destino & _d)
 {
-	out << _d.origen << "\t" << *_d.partida << "\n";
-	out << _d.destino << "\t" << *_d.regreso << "\n";
+	out << "Partida: " << _d.origen << "\t" << *_d.partida << "\n";
+	out << "Regreso: " << _d.destino << "\t" << *_d.regreso << "\n";
 	return out;
 }
 

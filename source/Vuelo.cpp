@@ -14,12 +14,22 @@ Vuelo::Vuelo(string _identificacion, Avion * _avion, Destino* _destino, Piloto *
 	piloto = new Piloto(*_piloto); // constructor copia
 }
 
+Vuelo::Vuelo(string _identificacion, Avion * _avion, Destino * _destino, Piloto * _piloto, Hora * _salida, Hora * _llegada) :
+	identificacion(_identificacion), salida(_salida), llegada(_llegada)
+{
+	avion = new Avion(*_avion); // constructor copia
+	destino = new Destino(*_destino); // constructor copia
+	piloto = new Piloto(*_piloto); // constructor copia
+}
+
 Vuelo::Vuelo(const Vuelo & _v)
 {
 	identificacion = _v.identificacion;
 	avion = new Avion(*_v.avion);
 	destino = new Destino(*_v.destino);
 	piloto = new Piloto(*_v.piloto);
+	salida = new Hora(*_v.salida);
+	llegada = new Hora(*_v.llegada);
 }
 
 Vuelo::~Vuelo()
@@ -27,6 +37,8 @@ Vuelo::~Vuelo()
 	delete avion;
 	delete destino;
 	delete piloto;
+	delete llegada;
+	delete salida;
 }
 
 Vuelo & Vuelo::operator=(const Vuelo & v)
@@ -39,10 +51,14 @@ Vuelo & Vuelo::operator=(const Vuelo & v)
 			delete destino;
 		if (piloto)
 			delete piloto;
+		delete salida;
+		delete llegada;
 		identificacion = v.identificacion;
 		avion = new Avion(*v.avion);
 		destino = new Destino(*v.destino);
 		piloto = new Piloto(*v.piloto);
+		salida = new Hora(*v.salida);
+		llegada = new Hora(*v.llegada);
 	}
 	return *this;
 }
@@ -56,6 +72,10 @@ string Vuelo::mostrarVuelo()
 {
 	stringstream s;
 	s << "Identificacion del vuelo: " << identificacion << "\n";
+	if(salida)
+		s << "Hora salida: " << salida->mostrarHora() << "\n";
+	if(llegada)
+		s << "Hora llegada: " << llegada->mostrarHora() << "\n";
 	s << destino->mostrarDestino();
 		//<< avion->mostrarAvion()
 		//<< piloto->mostrarPiloto();
@@ -110,9 +130,10 @@ void Vuelo::actualizarPasajero(int fila, int columna)
 ostream & operator<<(ostream & out, Vuelo & _v)
 {
 	out << _v.identificacion << "\n"
-		<< *_v.destino;
-	//out << *_v.piloto;
-	out << *_v.avion;
+		<< *_v.destino
+		<< "Llegada: " << *_v.llegada << "\n"
+		<< "Salida: " << *_v.salida << "\n"
+		<< *_v.avion;
 	return out;
 }
 
@@ -122,6 +143,8 @@ ofstream & operator<<(ofstream & archivo, Vuelo & v)
 	archivo << *v.destino;
 	archivo << *v.piloto;
 	archivo << *v.avion;
+	archivo << *v.salida;
+	archivo << *v.llegada;
 	return archivo;
 }
 
@@ -133,13 +156,18 @@ ifstream & operator>>(ifstream & archivo, Vuelo & v)
 	Destino destino;
 	Piloto piloto;
 	Avion avion;
+	Hora salida, llegada;
 	getline(particion, identificacion, '\n');
 	archivo >> destino;
 	archivo >> piloto;
 	archivo >> avion;
+	archivo >> salida;
+	archivo >> llegada;
 	v.identificacion = identificacion;
 	v.destino = new Destino(destino);
 	v.piloto = new Piloto(piloto);
 	v.avion = new Avion(avion);
+	v.salida = new Hora(salida);
+	v.llegada = new Hora(llegada);
 	return archivo;
 }

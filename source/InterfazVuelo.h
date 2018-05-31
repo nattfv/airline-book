@@ -8,4 +8,8 @@ public:
 	static void encabezadoVuelo();
 	static void mostrarTodosVuelos(Aerolinea* aerolinea);
 	static int seleccionarVuelo(Aerolinea* aerolinea, string clase, string accion);
+	static void encabezadoHoraSalida();
+	static void encabezadoHoraLlegada();
+	static int ingresarHora();
+	static int ingresarMinuto();
 };

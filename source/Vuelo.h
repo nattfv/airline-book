@@ -2,6 +2,7 @@
 #include"Avion.h"
 #include"Destino.h"
 #include"Piloto.h"
+#include"Hora.h"
 
 class Vuelo
 {
@@ -10,9 +11,13 @@ private:
 	Avion* avion; //creado por el constructor copia
 	Destino* destino; //creado por el constructor copia
 	Piloto* piloto; //creado por el constructor copia
+	Hora* salida;
+	Hora* llegada;
+
 public:
 	Vuelo();
 	Vuelo(string _identificacion, Avion* _avion, Destino* _destino, Piloto* _piloto);
+	Vuelo(string _identificacion, Avion* _avion, Destino* _destino, Piloto* _piloto, Hora* _salida, Hora* _llegada);
 	Vuelo(const Vuelo& _v);
 	~Vuelo();
 	Vuelo& operator=(const Vuelo& v);

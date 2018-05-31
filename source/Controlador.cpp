@@ -240,7 +240,13 @@ bool Controlador::controlVuelos()
 			Avion* avion = &listaAviones->devolverElemento(seleccionAvion);
 			Piloto* piloto = &listaPilotos->devolverElemento(seleccionPiloto);
 			Destino* destino = &listaDestinos->devolverElemento(seleccionDestino);
-			Vuelo* vuelo = new Vuelo(identificacion, avion, destino, piloto);
+			InterfazVuelo::encabezadoHoraSalida();
+			int hora1 = InterfazVuelo::ingresarHora();
+			int minuto1 = InterfazVuelo::ingresarMinuto();
+			InterfazVuelo::encabezadoHoraLlegada();
+			int hora2 = InterfazVuelo::ingresarHora();
+			int minuto2 = InterfazVuelo::ingresarMinuto();
+			Vuelo* vuelo = new Vuelo(identificacion, avion, destino, piloto, new Hora(hora1, minuto1), new Hora(hora2, minuto2));
 			vuelo->prepararAvion();
 			listaVuelos->agregarElemento(vuelo);
 		}

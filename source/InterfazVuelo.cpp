@@ -45,3 +45,59 @@ int InterfazVuelo::seleccionarVuelo(Aerolinea * aerolinea, string clase, string 
 	}
 	return valor;
 }
+
+void InterfazVuelo::encabezadoHoraSalida()
+{
+	system("cls");
+	cout << "+------------------------------------------+\n";
+	cout << "|" << setw(30) << ">>HORA DE SALIDA<<" << setw(14) << "|\n";
+	cout << "+------------------------------------------+\n";
+}
+
+void InterfazVuelo::encabezadoHoraLlegada()
+{
+	system("cls");
+	cout << "+------------------------------------------+\n";
+	cout << "|" << setw(30) << ">>HORA DE LLEGADA<<" << setw(14) << "|\n";
+	cout << "+------------------------------------------+\n";
+}
+
+int InterfazVuelo::ingresarHora()
+{
+	bool correcto = false;
+	int valor = 0;
+	while (!correcto)
+	{
+		try
+		{
+			cout << "Ingrese unicamente la hora :";
+			valor = obtenerValorEntero(0, 24);
+			correcto = true;
+		}
+		catch (ExcepcionEntrada& e)
+		{
+			cout << e.notificarError();
+		}
+	}
+	return valor;
+}
+
+int InterfazVuelo::ingresarMinuto()
+{
+	bool correcto = false;
+	int valor = 0;
+	while (!correcto)
+	{
+		try
+		{
+			cout << "Ingrese unicamente los minutos :";
+			valor = obtenerValorEntero(0, 59);
+			correcto = true;
+		}
+		catch (ExcepcionEntrada& e)
+		{
+			cout << e.notificarError();
+		}
+	}
+	return valor;
+}

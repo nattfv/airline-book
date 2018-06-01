@@ -122,6 +122,20 @@ void Vuelo::actualizarPasajero(int fila, int columna)
 	 posibleAsiento->setDisponible(false); //importante, para no volver a comprar el mismo
 }
 
+bool Vuelo::tieneEspacioAvion()
+{
+	return avion->quedaCampoPasajeros();
+}
+
+bool Vuelo::salvadorLocura()
+{
+	//return (!esVueloPasajeros() || !tieneEspacioAvion());
+	bool valor = false;
+	if (!(esVueloPasajeros() && tieneEspacioAvion()))
+		valor = true;
+	return valor;/*!(esVueloPasajeros() && tieneEspacioAvion());*/
+}
+
 //int Vuelo::capacidadVuelo()
 //{
 //	return avion->cantidadPasajeros();

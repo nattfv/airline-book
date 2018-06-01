@@ -25,7 +25,7 @@ void InterfazReservacion::mostrarTodosVuelosPasajeros(Aerolinea * aerolinea)
 	while (iterador->masElementos())
 	{
 		Vuelo* vuelo = iterador->proximoElemento();
-		if (vuelo->esVueloPasajeros()) // y todos los asientos estan libre
+		if (vuelo->esVueloPasajeros())
 		{
 			cout << "No. " << ++contador << "\n"
 				<< vuelo->mostrarVuelo() << endl;
@@ -35,9 +35,8 @@ void InterfazReservacion::mostrarTodosVuelosPasajeros(Aerolinea * aerolinea)
 }
 
 /*
-	Puedo seleccionar entre todos los vuelos con pasajeros,
-	el problema es cuando deseo reservar, no debo mostrar
-	los vuelos que se encuentren llenos
+	Puedo seleccionar entre todos los vuelos con pasajeros
+	al final hay un codigo para ayudar cuando exiten cargas
 */
 int InterfazReservacion::seleccionarVueloPasajeros(Aerolinea * aerolinea, string clase, string accion)
 {
@@ -75,7 +74,15 @@ int InterfazReservacion::seleccionarVueloPasajeros(Aerolinea * aerolinea, string
 			cout << e.notificarError();
 		}
 	}
-	return valor;
+
+	int mover = 0;
+	for (int i = 0; i < valor + mover; i++) {
+		Vuelo* v = &listaVuelos->devolverElemento(i + 1);
+		if (!v->esVueloPasajeros())
+			mover++;
+	}
+
+	return (valor + mover);
 }
 
 /*
@@ -136,7 +143,7 @@ int InterfazReservacion::seleccionarColumnaPasajeros(Vuelo * vuelo)
 		try
 		{
 			cout << "Seleccione la columna por su letra: ";
-			dato = obternerValorChar('A', 'F'); //esto deberia hacerlo en ControlAsiento
+			dato = obternerValorChar('A', 'F'); //esto deberia hacerlo en ControlAsiento y no es muy flexible
 			valor = dato - 65;
 			correcto = true;
 		}
@@ -250,4 +257,77 @@ void InterfazReservacion::encabezadoCliente()
 	cout << "|" << setw(34) << ">>CLIENTE<<" << setw(15) << "|\n";
 	cout << "+-----------------------------------------------+\n";
 	system("pause");
+}
+
+/*
+	Muestra unicamente los vuelos que aun no se han llenado
+	y que sean de pasajeros claramanente
+*/
+void InterfazReservacion::mostrarVuelosPasajerosDisponibles(Aerolinea * aerolinea)
+{
+	Lista<Vuelo>* listaVuelos = aerolinea->obtenerVuelos();
+	IteradorLista<Vuelo>* iterador = listaVuelos->crearIterador();
+	int contador = 0;
+	while (iterador->masElementos())
+	{
+		Vuelo* vuelo = iterador->proximoElemento();
+		if (vuelo->esVueloPasajeros() && vuelo->tieneEspacioAvion()) // y todos los asientos estan libre
+		{
+			cout << "No. " << ++contador << "\n"
+				<< vuelo->mostrarVuelo() << endl;
+		}
+	}
+	delete iterador;
+}
+
+/*
+	Permite seleccionar entre los vuelos que tengan espacion,
+	claro que sean de pasajeros y no se confunda si existen
+	vuelos de carga en el recorrido de la lista
+*/
+int InterfazReservacion::seleccionarVueloPasajerosDisponibles(Aerolinea * aerolinea, string clase, string accion)
+{
+	bool correcto = false;
+	int valor = 0;
+	Lista<Vuelo>* listaVuelos = aerolinea->obtenerVuelos();
+	int cantidadElementos = 0;
+
+	IteradorLista<Vuelo>* iterador = listaVuelos->crearIterador();
+	while (iterador->masElementos())
+	{
+		Vuelo* vuelo = iterador->proximoElemento();
+		if (vuelo->esVueloPasajeros() && vuelo->tieneEspacioAvion())
+			cantidadElementos++;
+	}
+	delete iterador;
+
+	while (!correcto)
+	{
+		try
+		{
+			if (cantidadElementos > 0)
+			{
+				encabezadoReservacion();
+				mostrarVuelosPasajerosDisponibles(aerolinea);
+				Interfaz::seleccionarElemento(clase, accion);
+				valor = obtenerValorEntero(1, cantidadElementos);
+			}
+			else
+				throw ExcepcionExistencia("vuelos", accion);
+			correcto = true;
+		}
+		catch (ExcepcionEntrada& e)
+		{
+			cout << e.notificarError();
+		}
+	}
+
+	int mover = 0;
+	for (int i = 0; i < valor + mover; i++) {
+		Vuelo* v = &listaVuelos->devolverElemento(i + 1);
+		if (v->salvadorLocura())
+			mover++;
+	}
+
+	return (valor + mover);
 }

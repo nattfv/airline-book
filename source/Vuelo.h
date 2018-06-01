@@ -33,5 +33,7 @@ public:
 	friend ifstream& operator>>(ifstream& archivo, Vuelo& v);
 	bool esVueloPasajeros();
 	void actualizarPasajero(int fila, int columna);
+	bool tieneEspacioAvion();
 	/*int capacidadVuelo();*/
+	bool salvadorLocura();
 };

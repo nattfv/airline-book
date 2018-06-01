@@ -30,4 +30,5 @@ public:
 	friend ifstream& operator>>(ifstream& archivo, Avion& d);
 	bool llevaPasajeros();
 	bool estaDisponibleAsiento(int fila, int columna);
+	bool quedaCampoPasajeros();
 };

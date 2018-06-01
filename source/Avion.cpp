@@ -104,6 +104,11 @@ bool Avion::estaDisponibleAsiento(int fila, int columna)
 	return pasajeros->disponibilidadAsiento(fila, columna);
 }
 
+bool Avion::quedaCampoPasajeros()
+{
+	return pasajeros->cantidadAsientosDisponibles() != 0;
+}
+
 //int Avion::cantidadPasajeros()
 //{
 //	return pasajeros->totalAsientos();

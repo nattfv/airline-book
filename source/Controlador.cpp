@@ -325,8 +325,16 @@ bool Controlador::controlReservacion()
 		try
 		{
 			Reservacion* reserva = NULL;
-			int seleccionVuelo = InterfazReservacion::seleccionarVueloPasajeros(aerolinea, "vuelo", "reservar");
+			//Problema
+			/*
+				La bronca es que muestraria los vuelos que tienen espacio, pero
+				la numeracion no me indica realmente el que selecciono, porque
+				unicamente me lo esta ocultan, en el fondo oculto 1 y selecciono
+				1 no me va a seleccionar 2
+			*/
+			int seleccionVuelo = InterfazReservacion::seleccionarVueloPasajerosDisponibles(aerolinea, "vuelo", "reservar");
 			Vuelo* vuelo = &listaVuelos->devolverElemento(seleccionVuelo);
+			//Problema
 			int seleccionVendedor = InterfazVendedor::seleccionarVendedorReservacion(aerolinea);
 			Vendedor* vendedor = &listaVendedores->devolverElemento(seleccionVendedor);
 			string nombre = Interfaz::ingresarDatoCadena("el nombre", "cliente");
@@ -336,7 +344,7 @@ bool Controlador::controlReservacion()
 			string identificacion = Interfaz::ingresarDatoCadena("la identificacion", "cliente");
 			Cliente* cliente = new Cliente(nombre, apellido1, apellido2, identificacion);
 			bool proseguir = true;
-			while (proseguir)
+			while (proseguir) //Tengo que detener esta cosa si ya no quedan campos disponibles(ahi un metodo en avion)
 			{
 				InterfazReservacion::desplegarAsientos(vuelo);
 				int seleccionFila = InterfazReservacion::seleccionarFilaPasajeros(vuelo);
@@ -374,7 +382,6 @@ bool Controlador::controlReservacion()
 		{
 			int seleccionVuelo = InterfazReservacion::seleccionarVueloPasajeros(aerolinea, "vuelo", "revisar");
 			Vuelo* vuelo = &listaVuelos->devolverElemento(seleccionVuelo);
-			//InterfazReservacion::desplegarAsientos(vuelo);
 			InterfazReservacion::mostrarDetallesPasajeros(vuelo);
 		}
 		catch (ExcepcionExistencia& e)

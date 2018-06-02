@@ -29,7 +29,6 @@ Vendedor & Vendedor::operator=(const Vendedor & _p)
 		segundoApellido = _p.segundoApellido;
 		identificacion = _p.identificacion;
 	}
-
 	return *this;
 }
 

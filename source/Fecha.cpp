@@ -57,7 +57,7 @@ void Fecha::obtenerFechaSistema()
 void Fecha::verificarFecha(int _dia, int _mes, int _anio)
 {
 	// primera excepcion para el anio
-	if (_anio >= 2000 && _anio <= 2030) //supongamos que tiene 12 anios para pagar
+	if (_anio >= 2000 && _anio <= 2030)
 		anio = _anio;
 	else
 		throw ExcepcionFecha("anio");

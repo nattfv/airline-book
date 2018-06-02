@@ -7,7 +7,7 @@ private:
 	Nodo<T>* siguiente;
 	T* info;
 public:
-	Nodo(Nodo<T>*, T&); // por costumbre se envia una referencia
+	Nodo(Nodo<T>*, T&); // como practica se envia una referencia
 	~Nodo();
 	void setSiguiente(Nodo<T>*);
 	Nodo<T>* getSiguiente();
@@ -22,9 +22,7 @@ template<class T>
 Nodo<T>::~Nodo() { delete info; }
 
 template<class T>
-void Nodo<T>::setSiguiente(Nodo<T>* s) {
-	siguiente = s;
-}
+void Nodo<T>::setSiguiente(Nodo<T>* s) { siguiente = s; }
 
 template<class T>
 Nodo<T>* Nodo<T>::getSiguiente() { return siguiente; }
@@ -33,6 +31,4 @@ template<class T>
 T* Nodo<T>::getInfo() { return info; }
 
 template<class T>
-void Nodo<T>::setInfo(T* i) {
-	info = i;
-}
+void Nodo<T>::setInfo(T* i) { info = i; }

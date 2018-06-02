@@ -26,14 +26,12 @@ public:
 	Avion* obtenerAvion();
 	Destino* obtenerDestino();
 	Piloto* obtenerPiloto();
-	//la responsabilidad de disponibilidad la tiene el vuelo
-	bool estaDisponibleAsiento(int _fila, int _columna); //ignorar
+	bool estaDisponibleAsiento(int _fila, int _columna);
 	friend ostream& operator<<(ostream& out, Vuelo& _v);
 	friend ofstream& operator<<(ofstream& archivo, Vuelo& v);
 	friend ifstream& operator>>(ifstream& archivo, Vuelo& v);
 	bool esVueloPasajeros();
 	void actualizarPasajero(int fila, int columna);
 	bool tieneEspacioAvion();
-	/*int capacidadVuelo();*/
-	bool salvadorLocura();
+	bool esVueloDiponibleReserva();
 };

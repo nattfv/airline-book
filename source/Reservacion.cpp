@@ -29,6 +29,7 @@ Reservacion::~Reservacion()
 	delete vendedor;
 	delete asientosReservados;
 	delete cliente;
+	delete vuelo;
 }
 
 Reservacion & Reservacion::operator=(const Reservacion & r)

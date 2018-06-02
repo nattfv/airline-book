@@ -36,7 +36,8 @@ void InterfazReservacion::mostrarTodosVuelosPasajeros(Aerolinea * aerolinea)
 
 /*
 	Puedo seleccionar entre todos los vuelos con pasajeros
-	al final hay un codigo para ayudar cuando exiten cargas
+	al final hay un codigo para ayudar cuando exiten
+	vuelos que sean de carga
 */
 int InterfazReservacion::seleccionarVueloPasajeros(Aerolinea * aerolinea, string clase, string accion)
 {
@@ -223,7 +224,7 @@ string InterfazReservacion::asientoReservado()
 void InterfazReservacion::limiteReservaciones()
 {
 	system("cls");
-	cout << "Solamente puede reservar 10 asientos\n";
+	cout << "Solamente puede reservar 5 asientos\n";
 	system("pause");
 }
 
@@ -281,7 +282,7 @@ void InterfazReservacion::mostrarVuelosPasajerosDisponibles(Aerolinea * aeroline
 }
 
 /*
-	Permite seleccionar entre los vuelos que tengan espacion,
+	Permite seleccionar entre los vuelos que tengan espacio,
 	claro que sean de pasajeros y no se confunda si existen
 	vuelos de carga en el recorrido de la lista
 */

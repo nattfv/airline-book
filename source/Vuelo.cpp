@@ -6,9 +6,9 @@ Vuelo::Vuelo() :
 {
 }
 
-Vuelo::Vuelo(string _identificacion, Avion * _avion, Destino* _destino, Piloto * _piloto)
+Vuelo::Vuelo(string _identificacion, Avion * _avion, Destino* _destino, Piloto * _piloto) : 
+	identificacion(_identificacion)
 {
-	identificacion = _identificacion;
 	avion = new Avion(*_avion); // constructor copia
 	destino = new Destino(*_destino); // constructor copia
 	piloto = new Piloto(*_piloto); // constructor copia
@@ -102,10 +102,6 @@ Piloto * Vuelo::obtenerPiloto()
 */
 bool Vuelo::estaDisponibleAsiento(int _fila, int _columna)
 {
-	//Avion* avion = vuelo->obtenerAvion(); //avion asignado al vuelo
-	//MatrizAsiento* asientos = avion->obtenerPasajeros(); //los asientos actualizados del avion
-	//Asiento* posibleAsiento = asientos->obtenerAsiento(_fila, _columna); //el asiento que quiero reservar
-	//return posibleAsiento->getDisponible(); //responsablidad unica
 	return avion->estaDisponibleAsiento(_fila, _columna);
 }
 
@@ -114,6 +110,10 @@ bool Vuelo::esVueloPasajeros()
 	return avion->llevaPasajeros();
 }
 
+/*
+	Esto no deberia ser asi, sino
+	como el metodo de estaDisponibleAsiento()
+*/
 void Vuelo::actualizarPasajero(int fila, int columna)
 {
 	 Avion* avion = obtenerAvion(); //avion asignado al vuelo
@@ -127,7 +127,16 @@ bool Vuelo::tieneEspacioAvion()
 	return avion->quedaCampoPasajeros();
 }
 
-bool Vuelo::salvadorLocura()
+/*
+	Evaluo con if para que el segundo condicional 
+	que lleva el operador logico && no se
+	invoque debido a que contiene un null,
+	Esta es la logica:
+	(!verdadero || !verdadero)
+	==> !(verdadero && verdadero)
+	...vida a mate para info
+*/
+bool Vuelo::esVueloDiponibleReserva()
 {
 	//return (!esVueloPasajeros() || !tieneEspacioAvion());
 	bool valor = false;
@@ -135,11 +144,6 @@ bool Vuelo::salvadorLocura()
 		valor = true;
 	return valor;/*!(esVueloPasajeros() && tieneEspacioAvion());*/
 }
-
-//int Vuelo::capacidadVuelo()
-//{
-//	return avion->cantidadPasajeros();
-//}
 
 ostream & operator<<(ostream & out, Vuelo & _v)
 {

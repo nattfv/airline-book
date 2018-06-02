@@ -18,7 +18,7 @@ MatrizAsiento::~MatrizAsiento()
 			delete matriz[i][j]; //Cada elemento de la matriz
 	for (int i = 0; i < fila; i++)
 		delete[] matriz[i]; //Elimina cada columna
-	delete[] matriz;
+	delete[] matriz; //elimina la columna inicial
 }
 
 MatrizAsiento::MatrizAsiento(const MatrizAsiento & _ma)
@@ -46,7 +46,7 @@ MatrizAsiento & MatrizAsiento::operator=(const MatrizAsiento & ma)
 					delete matriz[i][j]; //Cada elemento de la matriz
 			for (int i = 0; i < fila; i++)
 				delete[] matriz[i]; //Elimina cada columna
-			delete[] matriz;
+			delete[] matriz; //elimina la columna inicial
 		}
 		//Creo uno nuevo
 		fila = ma.fila;
@@ -136,7 +136,7 @@ string MatrizAsiento::formarAsientos()
 			s << "[ "
 				<< ((disponibilidadAsiento(i, j) ? "D" : "X"))
 				<< " ]"
-				<< (((j + 1) % 3 == 0 && j != 0) ? "  " : ""); //mitad de las columnas
+				<< (((j + 1) % 3 == 0 && j != 0) ? "  " : ""); //realizar espacio entre las columnas
 		}
 		s << i + 1 << "\n";
 	}

@@ -40,6 +40,7 @@ string ControlAsiento::formarHileraLetras()
 {
 	stringstream s;
 	for (int i = 0; i < tamanio; i++)
-		s << letrasAsiento[i] << "    " << (((i + 1) % 3 == 0 && i != 0) ? "  " : "");;
+		s << letrasAsiento[i] << "    "
+		<< (((i + 1) % 3 == 0 && i != 0) ? "  " : ""); //realizar espacio entre las columnas
 	return s.str();
 }

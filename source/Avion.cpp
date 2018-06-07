@@ -1,7 +1,7 @@
 #include "Avion.h"
 #include"utiles.h"
 
-Avion::Avion() : codigo(""), transporte(""), tamanio(""), pesoCarga(0.0), disponible(true), pasajeros(NULL)
+Avion::Avion() : codigo(""), transporte(""), tamanio(""), pesoCarga(0.0), disponible(true), pasajeros(NULL), motor(NULL)
 {
 }
 
@@ -15,8 +15,8 @@ Avion::Avion() : codigo(""), transporte(""), tamanio(""), pesoCarga(0.0), dispon
 //{
 //}
 
-Avion::Avion(string _codigo, string _transporte, string _tamanio, double _pesoCarga, bool _disponible, MatrizAsiento* _pasajeros) : 
-	codigo(_codigo), transporte(_transporte), tamanio(_tamanio), pesoCarga(_pesoCarga), disponible(_disponible), pasajeros(_pasajeros)
+Avion::Avion(string _codigo, string _transporte, string _tamanio, double _pesoCarga, Motor* _motor, bool _disponible, MatrizAsiento* _pasajeros) :
+	codigo(_codigo), transporte(_transporte), tamanio(_tamanio), pesoCarga(_pesoCarga), disponible(_disponible), pasajeros(_pasajeros), motor(_motor)
 {
 }
 
@@ -35,12 +35,14 @@ Avion::Avion(const Avion & _a)
 		pasajeros = new MatrizAsiento(*_a.pasajeros);
 	else
 		pasajeros = NULL;
+	motor = new Motor(*_a.motor);
 }
 
 Avion::~Avion()
 {
 	if (pasajeros)
 		delete pasajeros;
+	delete motor;
 }
 
 Avion & Avion::operator=(const Avion & a)
@@ -49,6 +51,7 @@ Avion & Avion::operator=(const Avion & a)
 	{
 		if (pasajeros)
 			delete pasajeros;
+		delete motor;
 		codigo = a.codigo;
 		transporte = a.transporte;
 		tamanio = a.tamanio;
@@ -58,6 +61,7 @@ Avion & Avion::operator=(const Avion & a)
 			pasajeros = new MatrizAsiento(*a.pasajeros);
 		else
 			pasajeros = NULL;
+		motor = new Motor(*a.motor);
 	}
 	return *this;
 }
@@ -83,9 +87,10 @@ string Avion::mostrarAvion()
 	stringstream s;
 	s << "Codigo del avion: " << codigo << "\n"
 		<< "Tipo transporte: " << transporte << "\n"
-		<< "Tamanio: " << tamanio << "\n";
+		<< "Tamanio: " << tamanio;
 	if (transporte == "carga")
-		s << "Capacidad maxima: " << pesoCarga << " kg\n";
+		s << "\nCapacidad maxima: " << pesoCarga << " kg";
+	s << "\n" <<motor->mostrarMotor() << "\n";
 	return s.str();
 }
 
@@ -109,16 +114,6 @@ bool Avion::quedaCampoPasajeros()
 	return pasajeros->cantidadAsientosDisponibles() != 0;
 }
 
-//int Avion::cantidadPasajeros()
-//{
-//	return pasajeros->totalAsientos();
-//}
-
-//int Avion::anchoAvion()
-//{
-//	return pasajeros->getFila();
-//}
-
 ostream & operator<<(ostream & out, Avion & _a)
 {
 	out << _a.codigo << "\t" << _a.transporte << "\t" << _a.tamanio << "\n";
@@ -139,6 +134,7 @@ ofstream & operator<<(ofstream & archivo, Avion & d)
 	}
 	else
 		archivo << false << "\n"; //no tiene que leer asientos
+	archivo << *d.motor;
 	return archivo;
 }
 
@@ -146,6 +142,7 @@ ifstream & operator>>(ifstream & archivo, Avion & d)
 {
 	string hilera = procesarHilera(archivo);
 	MatrizAsiento* pasajeros = NULL;
+	Motor motor;
 	stringstream particion(hilera);
 	string codigo, transporte, tamanio;
 	double pesoCarga;
@@ -162,6 +159,7 @@ ifstream & operator>>(ifstream & archivo, Avion & d)
 	d.tamanio = tamanio;
 	d.pesoCarga = pesoCarga;
 	d.disponible = disponible;
+	//no encuentro la manera de separarlo(hacerlo en la matriz)
 	if (leerAsientos) //leer la hilera de la matriz
 	{
 		string hileraMatriz = procesarHilera(archivo);
@@ -181,5 +179,7 @@ ifstream & operator>>(ifstream & archivo, Avion & d)
 		}
 	}
 	d.pasajeros = pasajeros;
+	archivo >> motor;
+	d.motor = new Motor(motor);
 	return archivo;
 }

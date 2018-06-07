@@ -114,3 +114,22 @@ int InterfazAvion::seleccionarAvion(Aerolinea * aerolinea, string clase, string 
 	}
 	return valor;
 }
+
+void InterfazAvion::mostrarTodosAvionesDetallado(Aerolinea * aerolinea)
+{
+	Lista<Avion> *listaAviones = aerolinea->obtenerAviones();
+	IteradorLista<Avion>* iterador = listaAviones->crearIterador();
+	int contador = 0;
+	encabezadoAvion();
+	while (iterador->masElementos())
+	{
+		Avion* vuelo = iterador->proximoElemento();
+			cout << "No. " << ++contador << "\n"
+				<< vuelo->mostrarAvion() << endl;
+			cout << "<----------------------------------------->\n";
+	}
+	if(contador == 0)
+		cout << "No hay elementos\n";
+	delete iterador;
+	system("pause");
+}

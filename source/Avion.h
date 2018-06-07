@@ -2,7 +2,9 @@
 #include<string>
 #include<sstream>
 #include<fstream>
+#include"Motor.h"
 #include"MatrizAsiento.h"
+#include"Motor.h"
 using namespace std;
 
 class Avion
@@ -14,11 +16,12 @@ private:
 	double pesoCarga; //unicamente para carga
 	bool disponible; //todos empiezan true
 	MatrizAsiento* pasajeros; //se crea en en un metodo
+	Motor* motor;
 public:
 	Avion();
 	//Avion(string _codigo, string _transporte, string _tamanio); //avion pasajero
 	//Avion(string _codigo, string _transporte, string _tamanio, double _pesoCarga); //avion carga
-	Avion(string _codigo, string _transporte, string _tamanio, double _pesoCarga, bool _disponible = true, MatrizAsiento* = NULL);
+	Avion(string _codigo, string _transporte, string _tamanio, double _pesoCarga, Motor* _motor, bool _disponible = true, MatrizAsiento* = NULL);
 	Avion(const Avion& _a);
 	~Avion();
 	Avion& operator=(const Avion& a);

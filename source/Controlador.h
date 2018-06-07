@@ -6,6 +6,7 @@
 #include"InterfazVuelo.h"
 #include"InterfazReservacion.h"
 #include"ExcepcionExistencia.h"
+#include"InterfazMotor.h"
 #include"ExcepcionFecha.h"
 
 class Controlador

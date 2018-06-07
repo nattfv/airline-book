@@ -11,4 +11,5 @@ public:
 	static double ingresarPesoAvion();
 	static void mostrarTodosAviones(Aerolinea* aerolinea);
 	static int seleccionarAvion(Aerolinea* aerolinea, string clase, string accion);
+	static void mostrarTodosAvionesDetallado(Aerolinea* aerolinea);
 };

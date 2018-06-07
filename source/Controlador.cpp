@@ -177,7 +177,7 @@ bool Controlador::controlAviones()
 	Lista<Avion>* listaAviones = aerolinea->obtenerAviones();
 	int opcionMenuEspecifica = Interfaz::menuAdministracionDe("aviones");
 	bool menuEspecifica = false;
-	if (opcionMenuEspecifica == 1) //Agreagar pilotos
+	if (opcionMenuEspecifica == 1) //Agregar aviones
 	{
 		/*
 		Se podria implementar un patron para evitar
@@ -197,10 +197,16 @@ bool Controlador::controlAviones()
 			transporte = "carga";
 			tamanio = ((pesoCarga = InterfazAvion::ingresarPesoAvion()) < 95000) ? "pequenio" : "grande";
 		}
-		listaAviones->agregarElemento(new Avion(codigo, transporte, tamanio, pesoCarga));
+		InterfazMotor::encabezadoMotor();
+		string codigoMotor = Interfaz::ingresarDatoCadena("el codigo", "motor");
+		string tipo = Interfaz::ingresarDatoCadena("el tipo", "motor");
+		int cantidad = InterfazMotor::ingresarCantidadMotores();
+		if (cantidad == 3)
+			cantidad++;
+		listaAviones->agregarElemento(new Avion(codigo, transporte, tamanio, pesoCarga, new Motor(tipo, codigoMotor, cantidad)));
 	}
 	else if (opcionMenuEspecifica == 2) //Mostrar aviones
-		InterfazAvion::mostrarTodosAviones(aerolinea);
+		InterfazAvion::mostrarTodosAvionesDetallado(aerolinea);
 	//else if (opcionMenuEspecifica == 3) //Actualizar aviones
 	//	cout << "Actualizar\n";
 	else if (opcionMenuEspecifica == 3) //Eliminar aviones
@@ -240,6 +246,7 @@ bool Controlador::controlVuelos()
 			Avion* avion = &listaAviones->devolverElemento(seleccionAvion);
 			Piloto* piloto = &listaPilotos->devolverElemento(seleccionPiloto);
 			Destino* destino = &listaDestinos->devolverElemento(seleccionDestino);
+			//Aqui deberia controlar el error
 			InterfazVuelo::encabezadoHoraSalida();
 			int hora1 = InterfazVuelo::ingresarHora();
 			int minuto1 = InterfazVuelo::ingresarMinuto();
@@ -320,29 +327,20 @@ bool Controlador::controlReservacion()
 	Lista<Reservacion>* listaReservaciones = aerolinea->obtenerReservaciones();
 	bool menuReservacion = false;
 	int opcionMenuReservacion = Interfaz::menuReservacion();
-	if (opcionMenuReservacion == 1)
+	if (opcionMenuReservacion == 1) //Realizar reservacion
 	{
 		try
 		{
 			Reservacion* reserva = NULL;
-			//Problema
-			/*
-				La bronca es que muestraria los vuelos que tienen espacio, pero
-				la numeracion no me indica realmente el que selecciono, porque
-				unicamente me lo esta ocultan, en el fondo oculto 1 y selecciono
-				1 no me va a seleccionar 2
-			*/
 			int seleccionVuelo = InterfazReservacion::seleccionarVueloPasajerosDisponibles(aerolinea, "vuelo", "reservar");
 			Vuelo* vuelo = &listaVuelos->devolverElemento(seleccionVuelo);
-			//Problema
 			int seleccionVendedor = InterfazVendedor::seleccionarVendedorReservacion(aerolinea);
 			Vendedor* vendedor = &listaVendedores->devolverElemento(seleccionVendedor);
+			InterfazReservacion::encabezadoCliente();
 			string nombre = Interfaz::ingresarDatoCadena("el nombre", "cliente");
-			//aqui seria bonito un encabezado
 			string apellido1 = Interfaz::ingresarDatoCadena("el primer apellido", "cliente");
 			string apellido2 = Interfaz::ingresarDatoCadena("el segundo apellido", "cliente");
 			string identificacion = Interfaz::ingresarDatoCadena("la identificacion", "cliente");
-			Cliente* cliente = new Cliente(nombre, apellido1, apellido2, identificacion);
 			bool proseguir = true;
 			while (proseguir) //Tengo que detener esta cosa si ya no quedan campos disponibles(ahi un metodo en avion)
 			{
@@ -353,10 +351,10 @@ bool Controlador::controlReservacion()
 				{
 					if (!reserva)
 					{
+						Cliente* cliente = new Cliente(nombre, apellido1, apellido2, identificacion);
 						reserva = new Reservacion(vuelo, vendedor, cliente);
 						listaReservaciones->agregarElemento(reserva); //guardando en la lista la reservacion
 					}
-
 					if (reserva->puedoReservar(seleccionFila - 1, seleccionColumna, vuelo))
 						proseguir = (InterfazReservacion::reservaExitosa() == "n") ? false : true;
 					else
@@ -376,7 +374,30 @@ bool Controlador::controlReservacion()
 			Interfaz::mostrarError(e.notificarError());
 		}
 	}
-	else if (opcionMenuReservacion == 2) //Reservaciones por vuelo
+	else if (opcionMenuReservacion == 2) //Eliminar reservacion
+	{
+		try 
+		{
+			int seleccionVendedor = InterfazVendedor::seleccionarVendedor(aerolinea,"vendedor","revisar");
+			Vendedor* vendedor = &listaVendedores->devolverElemento(seleccionVendedor);
+			int seleccionReserva = InterfazReservacion::seleccionarReservaVendedor(aerolinea, vendedor);
+			Reservacion* reserva = &listaReservaciones->devolverElemento(seleccionReserva);
+			IteradorLista<Vuelo>* iterador = listaVuelos->crearIterador();
+			while (iterador->masElementos())
+			{
+				Vuelo* vuelo = iterador->proximoElemento();
+				if (reserva->restablecerAsientos(vuelo))
+					break;
+			}
+			delete iterador;
+			listaReservaciones->eliminarElemento(seleccionReserva);
+		}
+		catch (ExcepcionExistencia& e)
+		{
+			Interfaz::mostrarError(e.notificarError());
+		}
+	}
+	else if (opcionMenuReservacion == 3) //Reservaciones por vuelo
 	{
 		try
 		{
@@ -389,7 +410,7 @@ bool Controlador::controlReservacion()
 			Interfaz::mostrarError(e.notificarError());
 		}
 	}
-	else if (opcionMenuReservacion == 3) //Reservaciones por vendedor
+	else if (opcionMenuReservacion == 4) //Reservaciones por vendedor
 	{
 		try
 		{
@@ -402,7 +423,7 @@ bool Controlador::controlReservacion()
 			Interfaz::mostrarError(e.notificarError());
 		}
 	}
-	else if (opcionMenuReservacion == 4)
+	else if (opcionMenuReservacion == 5)
 		menuReservacion = true;
 	return menuReservacion;
 }
